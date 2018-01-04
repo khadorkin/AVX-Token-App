@@ -81,6 +81,7 @@
     "chai": "^4.1.2",
     "donejs-cli": "^1.0.0",
     "electron": "^1.7.10",
+    "funcunit": "^3.5.0",
     "standard": "^10.0.3",
     "steal-electron": "^1.1.1",
     "steal-mocha": "^1.0.0",
