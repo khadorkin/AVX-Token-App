@@ -1,0 +1,14 @@
+{
+  "donejs-electron": {
+    "main": "electron-main.js",
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "archs": [
+      "x64"
+    ],
+    "baseURL": ""
+  }
+}
