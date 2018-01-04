@@ -2,7 +2,7 @@ import DefineMap from 'can-define/map/'
 import route from 'can-route'
 import 'can-route-pushstate'
 
-const AppViewModel = DefineMap.extend({
+const AppViewModel = DefineMap.extend({seal: false}, {
   message: {
     value: 'Hello World!',
     serialize: false
