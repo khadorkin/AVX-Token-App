@@ -5,7 +5,7 @@
   "homepage": "https://avxtoken.com/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AVX Token/avx-token-app.git"
+    "url": "git+https://github.com/AVXToken/avx-token-app.git"
   },
   "author": {
     "name": "Marc Godard",
@@ -14,10 +14,12 @@
   },
   "private": true,
   "scripts": {
-    "test": "testee test.html --browsers firefox --reporter Spec",
+    "testee": "testee test.html --browsers firefox --reporter Spec",
     "start": "done-serve --port 8080",
     "develop": "done-serve --develop --port 8080",
-    "build": "node build"
+    "build": "node build",
+    "lint": "standard --fix",
+    "test": "npm run lint && npm run testee"
   },
   "main": "electron-main.js",
   "files": [
@@ -49,6 +51,11 @@
     },
     "serviceBaseURL": ""
   },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  },
   "dependencies": {
     "can-component": "^3.3.5",
     "can-connect": "^1.5.9",
@@ -71,11 +78,12 @@
   },
   "devDependencies": {
     "can-fixture": "^1.1.1",
+    "chai": "^4.1.2",
     "donejs-cli": "^1.0.0",
     "electron": "^1.7.10",
-    "funcunit": "^3.2.0",
+    "standard": "^10.0.3",
     "steal-electron": "^1.1.1",
-    "steal-qunit": "^1.0.1",
+    "steal-mocha": "^1.0.0",
     "steal-tools": "^1.9.1",
     "testee": "^0.3.0"
   },

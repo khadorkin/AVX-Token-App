@@ -1,6 +1,6 @@
-import DefineMap from 'can-define/map/';
-import route from 'can-route';
-import 'can-route-pushstate';
+import DefineMap from 'can-define/map/'
+import route from 'can-route'
+import 'can-route-pushstate'
 
 const AppViewModel = DefineMap.extend({
   message: {
@@ -11,6 +11,8 @@ const AppViewModel = DefineMap.extend({
     value: 'avx-token-app',
     serialize: false
   }
-});
+})
 
-export default AppViewModel;
+route('{page}', { page: 'home' })
+
+export default AppViewModel

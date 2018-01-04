@@ -1,16 +1,11 @@
-import F from 'funcunit';
-import QUnit from 'steal-qunit';
+import 'steal-mocha'
+import AppVM from './app'
+import chai from 'chai/chai'
+const assert = chai.assert
 
-import 'avx-token-app/models/test';
-
-F.attach(QUnit);
-
-QUnit.module('avx-token-app functional smoke test', {
-  beforeEach() {
-    F.open('./development.html');
-  }
-});
-
-QUnit.test('avx-token-app main page shows up', function() {
-  F('title').text('avx-token-app', 'Title is set');
-});
+describe('app vm', function () {
+  it('should set the correct title', function () {
+    const appVM = new AppVM()
+    assert.equal(appVM.title, 'avx-token-app')
+  })
+})
