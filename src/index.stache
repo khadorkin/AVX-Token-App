@@ -1,20 +1,108 @@
 <html>
-  <head>
-    <title>{{title}}</title>
-  </head>
-  <body>
-    <can-import from="avx-token-app/styles.less" />
-    <can-import from="avx-token-app/app" export-as="viewModel" />
+<head>
+  <title>{{title}}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="w3-text-light-blue">
+<can-import from="avx-token-app/styles.less" />
+<can-import from="avx-token-app/app" export-as="viewModel" />
 
-    <h1>{{message}}</h1>
+<!-- Navbar -->
+<div class="w3-top w3-border-bottom w3-border-light-blue">
+  <div class="w3-bar w3-black w3-card">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-hover-text-light-blue w3-hover-black">AVX</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-text-light-blue w3-hover-black"><i class="fa fa-fire" aria-hidden="true"></i> Trending</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-text-light-blue w3-hover-black"><i class="fa fa-list" aria-hidden="true"></i> Subscription</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-text-light-blue w3-hover-black"><i class="fa fa-user-circle" aria-hidden="true"></i> Account</a>
+    <a href="#" class="w3-bar-item w3-button w3-right w3-hide-small w3-hover-text-light-blue w3-hover-black"><i class="fa fa-search"></i></a>
+    <input type="text" class="w3-bar-item w3-input w3-right w3-hide-small" placeholder="Search..">
+  </div>
+</div>
 
-    {{#switch env.NODE_ENV}}
-      {{#case "production"}}
-        <script src="{{joinBase 'steal.production.js'}}"></script>
-      {{/case}}
-      {{#default}}
-        <script src="/node_modules/steal/steal.js"></script>
-      {{/default}}
-    {{/switch}}
-  </body>
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top w3-border-bottom w3-border-light-blue" style="margin-top:46px">
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">AVX</a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">Subscription</a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">Account</a>
+</div>
+
+<br><br>
+
+<div class="w3-container">
+  <div class="w3-row-padding">
+
+    <div class="w3-col s6 m4 l3 w3-third w3-margin-top">
+      <div class="w3-card-4 w3-black">
+        <img src="/assets/images/test-poster.jpg" class="w3-image">
+        <div class="w3-container">
+          <h4>Big Bang Theory</h4>
+          <p>What happens when hyperintelligent roommates Sheldon and Leonard meet Penny, a free-spirited beauty moving in next door, and realize they know next to nothing about life outside of the lab. Rounding out the crew are the smarmy Wolowitz, who thinks he's as sexy as he is brainy, and Koothrappali, who suffers from an inability to speak in the presence of a woman.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-col s6 m4 l3 w3-third w3-margin-top">
+      <div class="w3-card-4 w3-black">
+        <img src="/assets/images/test-poster.jpg" class="w3-image">
+        <div class="w3-container">
+          <h4>Big Bang Theory</h4>
+          <p>What happens when hyperintelligent roommates Sheldon and Leonard meet Penny, a free-spirited beauty moving in next door, and realize they know next to nothing about life outside of the lab. Rounding out the crew are the smarmy Wolowitz, who thinks he's as sexy as he is brainy, and Koothrappali, who suffers from an inability to speak in the presence of a woman.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-col s6 m4 l3 w3-third w3-margin-top">
+      <div class="w3-card-4 w3-black">
+        <img src="/assets/images/test-poster.jpg" class="w3-image">
+        <div class="w3-container">
+          <h4>Big Bang Theory</h4>
+          <p>What happens when hyperintelligent roommates Sheldon and Leonard meet Penny, a free-spirited beauty moving in next door, and realize they know next to nothing about life outside of the lab. Rounding out the crew are the smarmy Wolowitz, who thinks he's as sexy as he is brainy, and Koothrappali, who suffers from an inability to speak in the presence of a woman.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-col s6 m4 l3 w3-third w3-margin-top">
+      <div class="w3-card-4 w3-black">
+        <img src="/assets/images/test-poster.jpg" class="w3-image">
+        <div class="w3-container">
+          <h4>Big Bang Theory</h4>
+          <p>What happens when hyperintelligent roommates Sheldon and Leonard meet Penny, a free-spirited beauty moving in next door, and realize they know next to nothing about life outside of the lab. Rounding out the crew are the smarmy Wolowitz, who thinks he's as sexy as he is brainy, and Koothrappali, who suffers from an inability to speak in the presence of a woman.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-col s6 m4 l3 w3-third w3-margin-top">
+      <div class="w3-card-4 w3-black">
+        <img src="/assets/images/test-poster.jpg" class="w3-image">
+        <div class="w3-container">
+          <h4>Big Bang Theory</h4>
+          <p>What happens when hyperintelligent roommates Sheldon and Leonard meet Penny, a free-spirited beauty moving in next door, and realize they know next to nothing about life outside of the lab. Rounding out the crew are the smarmy Wolowitz, who thinks he's as sexy as he is brainy, and Koothrappali, who suffers from an inability to speak in the presence of a woman.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-col s6 m4 l3 w3-third w3-margin-top">
+      <div class="w3-card-4 w3-black">
+        <img src="/assets/images/test-poster.jpg" class="w3-image">
+        <div class="w3-container">
+          <h4>Big Bang Theory</h4>
+          <p>What happens when hyperintelligent roommates Sheldon and Leonard meet Penny, a free-spirited beauty moving in next door, and realize they know next to nothing about life outside of the lab. Rounding out the crew are the smarmy Wolowitz, who thinks he's as sexy as he is brainy, and Koothrappali, who suffers from an inability to speak in the presence of a woman.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{{#switch env.NODE_ENV}}
+  {{#case "production"}}
+    <script src="{{joinBase 'steal.production.js'}}"></script>
+  {{/case}}
+  {{#default}}
+    <script src="/node_modules/steal/steal.js"></script>
+  {{/default}}
+{{/switch}}
+</body>
 </html>

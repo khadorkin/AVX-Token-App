@@ -71,6 +71,7 @@
     "done-css": "^3.0.1",
     "done-serve": "^1.5.0",
     "donejs-electron": "^1.0.2",
+    "font-awesome": "^4.7.0",
     "generator-donejs": "^1.0.7",
     "steal": "^1.5.15",
     "steal-less": "^1.2.0",

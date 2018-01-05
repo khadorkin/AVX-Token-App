@@ -1,4 +1,3 @@
-import 'funcunit'
 import 'steal-mocha'
 import AppVM from './app'
 import chai from 'chai/chai'
