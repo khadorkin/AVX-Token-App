@@ -26,7 +26,7 @@ let showingAutoUpdateCloseAlert = false;
 
 // Keep a global reference, if you don't, they will be closed automatically when the JavaScript
 // object is garbage collected.
-let rendererWindow;
+let uiWindow;
 // eslint-disable-next-line no-unused-vars
 let tray;
 let daemon;
@@ -34,7 +34,7 @@ let daemon;
 let isQuitting;
 
 const updateRendererWindow = window => {
-  rendererWindow = window;
+  uiWindow = window;
 };
 
 const installExtensions = async () => {
@@ -72,15 +72,15 @@ app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development') {
     await installExtensions();
   }
-  rendererWindow = createWindow();
-  tray = new Tray(rendererWindow, updateRendererWindow);
+  uiWindow = createWindow();
+  tray = new Tray(uiWindow, updateRendererWindow);
   tray.create();
 });
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (!rendererWindow) rendererWindow = createWindow();
+  if (!uiWindow) uiWindow = createWindow();
 });
 
 app.on('will-quit', (event) => {
@@ -112,12 +112,12 @@ app.on('will-finish-launching', () => {
   // Protocol handler for macOS
   app.on('open-url', (event, URL) => {
     event.preventDefault();
-    if (rendererWindow && !rendererWindow.isDestroyed()) {
-      rendererWindow.webContents.send('open-uri-requested', URL);
-      rendererWindow.show();
-      rendererWindow.focus();
+    if (uiWindow && !uiWindow.isDestroyed()) {
+      uiWindow.webContents.send('open-uri-requested', URL);
+      uiWindow.show();
+      uiWindow.focus();
     } else {
-      rendererWindow = createWindow(URL);
+      uiWindow = createWindow(URL);
     }
   });
 });
@@ -174,13 +174,13 @@ ipcMain.on('version-info-requested', () => {
       const tagName = JSON.parse(result).tag_name;
       const [, remoteVersion] = tagName.match(/^v([\d.]+(?:-?rc\d+)?)$/);
       if (!remoteVersion) {
-        if (rendererWindow) {
-          rendererWindow.webContents.send('version-info-received', null);
+        if (uiWindow) {
+          uiWindow.webContents.send('version-info-received', null);
         }
       } else {
         const upgradeAvailable = SemVer.gt(formatRc(remoteVersion), formatRc(localVersion));
-        if (rendererWindow) {
-          rendererWindow.webContents.send('version-info-received', {
+        if (uiWindow) {
+          uiWindow.webContents.send('version-info-received', {
             remoteVersion,
             localVersion,
             upgradeAvailable,
@@ -192,8 +192,8 @@ ipcMain.on('version-info-requested', () => {
 
   req.on('error', err => {
     console.log('Failed to get current version from GitHub. Error:', err);
-    if (rendererWindow) {
-      rendererWindow.webContents.send('version-info-received', null);
+    if (uiWindow) {
+      uiWindow.webContents.send('version-info-received', null);
     }
   });
 });
@@ -226,13 +226,13 @@ const isSecondInstance = app.makeSingleInstance(argv => {
     URI = argv[1].replace(/\/$/, '').replace('/#', '#');
   }
 
-  if (rendererWindow && !rendererWindow.isDestroyed()) {
-    rendererWindow.webContents.send('open-uri-requested', URI);
+  if (uiWindow && !uiWindow.isDestroyed()) {
+    uiWindow.webContents.send('open-uri-requested', URI);
 
-    rendererWindow.show();
-    rendererWindow.focus();
+    uiWindow.show();
+    uiWindow.focus();
   } else {
-    rendererWindow = createWindow(URI);
+    uiWindow = createWindow(URI);
   }
 });
 

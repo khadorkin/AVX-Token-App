@@ -1,8 +1,8 @@
 // @flow
 import { Menu, BrowserWindow } from 'electron';
 
-export default (rendererWindow: BrowserWindow) => {
-  rendererWindow.webContents.on('context-menu', (e, params) => {
+export default (uiWindow: BrowserWindow) => {
+  uiWindow.webContents.on('context-menu', (e, params) => {
     const { x, y } = params;
 
     const template = [{ role: 'cut' }, { role: 'copy' }, { role: 'paste' }];
@@ -12,7 +12,7 @@ export default (rendererWindow: BrowserWindow) => {
       {
         label: 'Inspect element',
         click: () => {
-          rendererWindow.inspectElement(x, y);
+          uiWindow.inspectElement(x, y);
         },
       },
     ];

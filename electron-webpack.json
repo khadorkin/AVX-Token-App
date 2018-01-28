@@ -1,5 +1,6 @@
 {
   "renderer": {
-    "webpackConfig": "webpack.renderer.additions.js"
+    "sourceDirectory": "src/ui",
+    "webpackConfig": "webpack.ui.additions.js"
   }
 }

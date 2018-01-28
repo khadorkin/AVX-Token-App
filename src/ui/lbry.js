@@ -10,6 +10,7 @@ const Lbry = {
 };
 
 function apiCall(method, params, resolve, reject) {
+  console.warn('api', method);
   return jsonrpc.call(Lbry.daemonConnectionString, method, params, resolve, reject, reject);
 }
 

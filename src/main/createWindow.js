@@ -11,7 +11,7 @@ export default deepLinkingURIArg => {
     show: false,
   };
 
-  // Disable renderer process's webSecurity on development to enable CORS.
+  // Disable ui process's webSecurity on development to enable CORS.
   windowConfiguration =
     process.env.NODE_ENV === 'development'
       ? {
@@ -22,7 +22,7 @@ export default deepLinkingURIArg => {
         }
       : windowConfiguration;
 
-  const rendererURL =
+  const uiURL =
     process.env.NODE_ENV === 'development'
       ? `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`
       : `file://${__dirname}/index.html`;
@@ -31,7 +31,7 @@ export default deepLinkingURIArg => {
 
   window.maximize();
 
-  window.loadURL(rendererURL);
+  window.loadURL(uiURL);
 
   let deepLinkingURI;
   // Protocol handler for win32

@@ -1,7 +1,7 @@
 const path = require('path');
 const FlowFlowPlugin = require('./flowtype-plugin');
 
-const ELECTRON_RENDERER_PROCESS_ROOT = path.resolve(__dirname, 'src/renderer/');
+const ELECTRON_RENDERER_PROCESS_ROOT = path.resolve(__dirname, 'src/ui/');
 
 module.exports = {
   // This rule is temporarily necessary until https://github.com/electron-userland/electron-webpack/issues/60 is fixed.
@@ -16,7 +16,7 @@ module.exports = {
       },
     ],
   },
-  // This allows imports to be made from the renderer process root (https://moduscreate.com/blog/es6-es2015-import-no-relative-path-webpack/).
+  // This allows imports to be made from the ui process root (https://moduscreate.com/blog/es6-es2015-import-no-relative-path-webpack/).
   resolve: {
     modules: [ELECTRON_RENDERER_PROCESS_ROOT, 'node_modules', __dirname],
     extensions: ['.js', '.jsx', '.scss'],

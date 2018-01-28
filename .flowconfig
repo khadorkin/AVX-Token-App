@@ -11,12 +11,12 @@ flow-typed
 [options]
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
 suppress_comment=\\(.\\|\n\\)*\\$FlowIssue
-module.name_mapper='^constants\(.*\)$' -> '<PROJECT_ROOT>/src/renderer/constants\1'
-module.name_mapper='^util\(.*\)$' -> '<PROJECT_ROOT>/src/renderer/util\1'
-module.name_mapper='^redux\(.*\)$' -> '<PROJECT_ROOT>/src/renderer/redux\1'
-module.name_mapper='^types\(.*\)$' -> '<PROJECT_ROOT>/src/renderer/types\1'
-module.name_mapper='^component\(.*\)$' -> '<PROJECT_ROOT>/src/renderer/component\1'
-module.name_mapper='^page\(.*\)$' -> '<PROJECT_ROOT>/src/renderer/page\1'
-module.name_mapper='^lbry\(.*\)$' -> '<PROJECT_ROOT>/src/renderer/lbry\1'
+module.name_mapper='^constants\(.*\)$' -> '<PROJECT_ROOT>/src/ui/constants\1'
+module.name_mapper='^util\(.*\)$' -> '<PROJECT_ROOT>/src/ui/util\1'
+module.name_mapper='^redux\(.*\)$' -> '<PROJECT_ROOT>/src/ui/redux\1'
+module.name_mapper='^types\(.*\)$' -> '<PROJECT_ROOT>/src/ui/types\1'
+module.name_mapper='^component\(.*\)$' -> '<PROJECT_ROOT>/src/ui/component\1'
+module.name_mapper='^page\(.*\)$' -> '<PROJECT_ROOT>/src/ui/page\1'
+module.name_mapper='^lbry\(.*\)$' -> '<PROJECT_ROOT>/src/ui/lbry\1'
 
 [strict]

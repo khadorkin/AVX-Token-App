@@ -9,7 +9,7 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack.renderer.additions.js"
+        "config": "webpack.ui.additions.js"
       }
     }
   },
