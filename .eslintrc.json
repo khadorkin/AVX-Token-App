@@ -9,7 +9,7 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack.ui.additions.js"
+        "config": "webpack/ui.config.js"
       }
     }
   },
@@ -28,6 +28,9 @@
   "rules": {
     "import/no-commonjs": "warn",
     "import/no-amd": "warn",
-    "func-names": ["warn", "as-needed"]
+    "func-names": ["warn", "as-needed"],
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": ["**/*.test.js", "**/*.spec.js", "./webpack/**/*.js", "./src/common/*/dev.js"]
+    }]
   }
 }

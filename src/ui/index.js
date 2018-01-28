@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
-import amplitude from 'amplitude-js';
+// import amplitude from 'amplitude-js';
 import App from 'component/app';
 import SnackBar from 'component/snackBar';
 import SplashScreen from 'component/splash';
@@ -9,7 +9,12 @@ import lbry from 'lbry';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { doConditionalAuthNavigate, doDaemonReady, doShowSnackBar, doAutoUpdate } from 'redux/actions/app';
+import {
+  doConditionalAuthNavigate,
+  doDaemonReady,
+  doShowSnackBar,
+  doAutoUpdate,
+} from 'redux/actions/app';
 import { doUpdateIsNightAsync } from 'redux/actions/settings';
 import { doNavigate } from 'redux/actions/navigation';
 import { doDownloadLanguages } from 'redux/actions/settings';
@@ -20,7 +25,7 @@ import app from './app';
 
 const { autoUpdater } = remote.require('electron-updater');
 
-autoUpdater.logger = remote.require("electron-log");
+autoUpdater.logger = remote.require('electron-log');
 
 window.addEventListener('contextmenu', event => {
   contextMenu(remote.getCurrentWindow(), event.x, event.y, app.env === 'development');
@@ -65,10 +70,9 @@ ipcRenderer.on('window-is-focused', () => {
 ((history, ...args) => {
   const { replaceState } = history;
   const newHistory = history;
-  newHistory.replaceState = (_, __, path) => {
-    amplitude.getInstance().logEvent('NAVIGATION', { destination: path ? path.slice(1) : path });
-    return replaceState.apply(history, args);
-  };
+  newHistory.replaceState = (_, __, path) =>
+    // amplitude.getInstance().logEvent('NAVIGATION', { destination: path ? path.slice(1) : path });
+    replaceState.apply(history, args);
 })(window.history);
 
 document.addEventListener('click', event => {
@@ -78,17 +82,17 @@ document.addEventListener('click', event => {
       // TODO: Look into using accessiblity labels (this would also make the app more accessible)
       const hrefParts = window.location.href.split('#');
       const element = target.title || (target.textContent && target.textContent.trim());
-      if (element) {
-        amplitude.getInstance().logEvent('CLICK', {
-          target: element,
-          location: hrefParts.length > 1 ? hrefParts[hrefParts.length - 1] : '/',
-        });
-      } else {
-        amplitude.getInstance().logEvent('UNMARKED_CLICK', {
-          location: hrefParts.length > 1 ? hrefParts[hrefParts.length - 1] : '/',
-          source: target.outerHTML,
-        });
-      }
+      // if (element) {
+      //   amplitude.getInstance().logEvent('CLICK', {
+      //     target: element,
+      //     location: hrefParts.length > 1 ? hrefParts[hrefParts.length - 1] : '/',
+      //   });
+      // } else {
+      //   amplitude.getInstance().logEvent('UNMARKED_CLICK', {
+      //     location: hrefParts.length > 1 ? hrefParts[hrefParts.length - 1] : '/',
+      //     source: target.outerHTML,
+      //   });
+      // }
     }
     if (target.matches('a[href^="http"]') || target.matches('a[href^="mailto"]')) {
       event.preventDefault();
@@ -100,19 +104,19 @@ document.addEventListener('click', event => {
 });
 
 const init = () => {
-  autoUpdater.on("update-downloaded", () => {
+  autoUpdater.on('update-downloaded', () => {
     app.store.dispatch(doAutoUpdate());
   });
 
-  if (["win32", "darwin"].includes(process.platform)) {
-    autoUpdater.on("update-available", () => {
-      console.log("Update available");
+  if (['win32', 'darwin'].includes(process.platform)) {
+    autoUpdater.on('update-available', () => {
+      console.log('Update available');
     });
-    autoUpdater.on("update-not-available", () => {
-      console.log("Update not available");
+    autoUpdater.on('update-not-available', () => {
+      console.log('Update not available');
     });
-    autoUpdater.on("update-downloaded", () => {
-      console.log("Update downloaded");
+    autoUpdater.on('update-downloaded', () => {
+      console.log('Update downloaded');
       app.store.dispatch(doAutoUpdate());
     });
   }
@@ -121,26 +125,26 @@ const init = () => {
 
   function onDaemonReady() {
     lbry.status().then(info => {
-      amplitude.getInstance().init(
-        // Amplitude API Key
-        '0b130efdcbdbf86ec2f7f9eff354033e',
-        info.lbry_id,
-        null,
-        () => {
-          window.sessionStorage.setItem('loaded', 'y'); // once we've made it here once per session, we don't need to show splash again
-          app.store.dispatch(doDaemonReady());
+      // amplitude.getInstance().init(
+      //   // Amplitude API Key
+      //   '0b130efdcbdbf86ec2f7f9eff354033e',
+      //   info.lbry_id,
+      //   null,
+      //   () => {
+      window.sessionStorage.setItem('loaded', 'y'); // once we've made it here once per session, we don't need to show splash again
+      app.store.dispatch(doDaemonReady());
 
-          ReactDOM.render(
-            <Provider store={store}>
-              <div>
-                <App />
-                <SnackBar />
-              </div>
-            </Provider>,
-            document.getElementById('app')
-          );
-        }
+      ReactDOM.render(
+        <Provider store={store}>
+          <div>
+            <App />
+            <SnackBar />
+          </div>
+        </Provider>,
+        document.getElementById('app')
       );
+      // }
+      // );
     });
   }
 

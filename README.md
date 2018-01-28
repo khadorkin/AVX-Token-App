@@ -58,6 +58,11 @@ The app can be run from the sources using the following command:
 
 `yarn dev`
 
+The app can be run with a separate server:
+
+`yarn server:dev`
+`yarn electron-ui:dev`
+
 ### On Windows
 
 #### One-time Setup

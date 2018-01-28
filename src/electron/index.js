@@ -6,9 +6,21 @@ import url from 'url';
 import https from 'https';
 import { shell, app, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
-import Daemon from './Daemon';
+import Server from './Server';
 import Tray from './Tray';
 import createWindow from './createWindow';
+
+process.on('uncaughtException', err => {
+  console.error(err);
+  // eslint-disable-next-line no-process-exit
+  process.exit(1);
+});
+process.on('unhandledRejection', (reason, p) => {
+  console.error(`Unhandled Rejection at: Promise ${p} reason: ${reason}`);
+  if (reason.stack) {
+    console.error(reason.stack);
+  }
+});
 
 autoUpdater.autoDownload = true;
 
@@ -29,7 +41,7 @@ let showingAutoUpdateCloseAlert = false;
 let uiWindow;
 // eslint-disable-next-line no-unused-vars
 let tray;
-let daemon;
+let server;
 
 let isQuitting;
 
@@ -57,21 +69,21 @@ app.setAsDefaultProtocolClient('lbry');
 app.setName('LBRY');
 
 app.on('ready', async () => {
-  daemon = new Daemon();
-  daemon.on('exit', () => {
-    daemon = null;
+  if (process.env.NODE_ENV === 'development') {
+    await installExtensions();
+  }
+  server = new Server();
+  server.on('exit', () => {
+    server = null;
     if (!isQuitting) {
       dialog.showErrorBox(
-        'Daemon has Exited',
-        'The daemon may have encountered an unexpected error, or another daemon instance is already running.'
+        'server has Exited',
+        'The server may have encountered an unexpected error, or another server instance is already running.'
       );
       app.quit();
     }
   });
-  daemon.launch();
-  if (process.env.NODE_ENV === 'development') {
-    await installExtensions();
-  }
+  server.launch();
   uiWindow = createWindow();
   tray = new Tray(uiWindow, updateRendererWindow);
   tray.create();
@@ -83,28 +95,37 @@ app.on('activate', () => {
   if (!uiWindow) uiWindow = createWindow();
 });
 
-app.on('will-quit', (event) => {
-  if (process.platform === 'win32' && autoUpdateDownloaded && !autoUpdateAccepted && !showingAutoUpdateCloseAlert) {
+app.on('will-quit', event => {
+  if (
+    process.platform === 'win32' &&
+    autoUpdateDownloaded &&
+    !autoUpdateAccepted &&
+    !showingAutoUpdateCloseAlert
+  ) {
     // We're on Win and have an update downloaded, but the user declined it (or closed
     // the app without accepting it). Now the user is closing the app, so the new update
     // will install. On Mac this is silent, but on Windows they get a confusing permission
     // escalation dialog, so we show Windows users a warning dialog first.
 
     showingAutoUpdateCloseAlert = true;
-    dialog.showMessageBox({
-      type: 'info',
-      title: 'LBRY Will Upgrade',
-      message: 'LBRY has a pending upgrade. Please select "Yes" to install it on the prompt shown after this one.',
-    }, () => {
-      app.quit();
-    });
+    dialog.showMessageBox(
+      {
+        type: 'info',
+        title: 'LBRY Will Upgrade',
+        message:
+          'LBRY has a pending upgrade. Please select "Yes" to install it on the prompt shown after this one.',
+      },
+      () => {
+        app.quit();
+      }
+    );
 
     event.preventDefault();
     return;
   }
 
   isQuitting = true;
-  if (daemon) daemon.quit();
+  if (server) server.quit();
 });
 
 // https://electronjs.org/docs/api/app#event-will-finish-launching
@@ -144,7 +165,7 @@ ipcMain.on('upgrade', (event, installerPath) => {
 
 autoUpdater.on('update-downloaded', () => {
   autoUpdateDownloaded = true;
-})
+});
 
 ipcMain.on('autoUpdateAccepted', () => {
   autoUpdateAccepted = true;
@@ -211,7 +232,7 @@ ipcMain.on('set-auth-token', (event, token) => {
 process.on('uncaughtException', error => {
   dialog.showErrorBox('Error Encountered', `Caught error: ${error}`);
   isQuitting = true;
-  if (daemon) daemon.quit();
+  if (server) server.quit();
   app.exit(1);
 });
 

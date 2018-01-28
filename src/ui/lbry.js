@@ -1,17 +1,29 @@
+/* eslint-disable no-console */
+
 import { ipcRenderer } from 'electron';
 import jsonrpc from 'jsonrpc';
+import WSTransport from './transport/ws';
 
 const CHECK_DAEMON_STARTED_TRY_NUMBER = 200;
 
+const transport = new WSTransport('localhost:5279');
 const Lbry = {
-  isConnected: false,
+  get isConnected() {
+    return transport.isConnected;
+  },
   daemonConnectionString: 'http://localhost:5279',
   pendingPublishTimeout: 20 * 60 * 1000,
 };
 
-function apiCall(method, params, resolve, reject) {
+function apiCall2(method, params, resolve, reject) {
   console.warn('api', method);
   return jsonrpc.call(Lbry.daemonConnectionString, method, params, resolve, reject, reject);
+}
+
+function apiCall(method, params, resolve, reject) {
+  const result = transport.call(method, params);
+  result.then(resolve).catch(reject);
+  return result;
 }
 
 const lbryProxy = new Proxy(Lbry, {
