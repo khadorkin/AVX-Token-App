@@ -14,7 +14,7 @@
     "name": "LBRY Inc.",
     "email": "hello@lbry.io"
   },
-  "main": "src/main/index.js",
+  "main": "src/electron/index.js",
   "scripts": {
     "extract-langs": "node build/extractLocals.js",
     "dev": "electron-webpack dev",

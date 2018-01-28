@@ -2,5 +2,8 @@
   "renderer": {
     "sourceDirectory": "src/ui",
     "webpackConfig": "webpack.ui.additions.js"
+  },
+  "main": {
+    "sourceDirectory": "src/electron"
   }
 }
