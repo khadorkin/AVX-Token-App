@@ -15,9 +15,8 @@ import {
   doShowSnackBar,
   doAutoUpdate,
 } from 'redux/actions/app';
-import { doUpdateIsNightAsync } from 'redux/actions/settings';
+import { doUpdateIsNightAsync, doDownloadLanguages } from 'redux/actions/settings';
 import { doNavigate } from 'redux/actions/navigation';
-import { doDownloadLanguages } from 'redux/actions/settings';
 import { doUserEmailVerify } from 'redux/actions/user';
 import 'scss/all.scss';
 import store from 'store';
