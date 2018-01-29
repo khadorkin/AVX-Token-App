@@ -60,8 +60,29 @@ The app can be run from the sources using the following command:
 
 The app can be run with a separate server:
 
+#### Server
 `yarn server:dev`
-`yarn electron-ui:dev`
+
+#### Electron
+`yarn electron:dev`
+
+##### Debugging Electron Main
+
+Go to chrome://inspect/#devices and click `Open dedicated DevTools for Node`
+
+Add a connection for localhost:5858
+
+Connect after starting eleectron
+
+#### Web
+`yarn web:dev`
+
+#### Android
+
+You need the android tools setup and in your path, and `ANDROID_HOME` set in your environmnt, and your device plugged in via usb :(
+
+`yarn native:dev`
+`yarn android`
 
 ### On Windows
 

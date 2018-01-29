@@ -1,7 +1,7 @@
 {
-  "name": "LBRY",
+  "name": "avx-token-app",
   "version": "0.20.0-rc4",
-  "description": "A browser for the LBRY network, a digital marketplace controlled by its users.",
+  "description": "A browser for the AVX Token network, a digital marketplace controlled by its users.",
   "homepage": "https://lbry.io/",
   "bugs": {
     "url": "https://github.com/lbryio/lbry-app/issues"
@@ -11,28 +11,33 @@
     "url": "https://github.com/lbryio/lbry-app"
   },
   "author": {
-    "name": "LBRY Inc.",
+    "name": "AVX Token Inc.",
     "email": "hello@lbry.io"
   },
   "main": "src/electron/index.js",
   "scripts": {
-    "extract-langs": "node build/extractLocals.js",
     "dev": "electron-webpack dev",
     "server:dev": "webpack --watch --progress --config webpack/server.config.dev.node",
-    "electron-ui:dev": "cross-env ELECTRON_WEBPACK_MAIN_SERVER=false electron-webpack dev",
-    "ui:dev": "webpack-dev-server --watch --progress --config webpack/ui.dev",
-    "compile": "electron-webpack && yarn extract-langs",
-    "build": "yarn compile && electron-builder build",
+    "web:dev": "webpack-dev-server --hot --watch --progress --config webpack/mobile-ui.config",
+    "electron:dev": "cross-env ELECTRON_WEBPACK_MAIN_SERVER=false electron-webpack dev",
+    "native:dev": "node node_modules/react-native/local-cli/cli.js start --port 8081 --platforms android --verbose",
+    "native:cli": "node node_modules/react-native/local-cli/cli.js",
+    "android": "react-native run-android",
+    "electron:compile": "electron-webpack && yarn electron:extract-langs",
+    "electron:build": "yarn electron:compile && electron-builder build",
+    "electron:extract-langs": "node build/extractLocals.js",
     "build:dir": "yarn build -- --dir -c.compression=store -c.mac.identity=null",
     "postinstall": "electron-builder install-app-deps",
-    "lint": "eslint 'src/**/*.{js,jsx}' 'webpack/**/*.js' --fix",
-    "format": "prettier 'src/**/*.{js,jsx,scss,json}' --write"
+    "lint": "eslint 'src/{common,electron,mobile-ui}/**/*.{js,jsx}' 'webpack/**/*.js' --fix",
+    "format": "prettier 'src/**/*.{js,jsx,scss,json}' --write",
+    "vendor": "webpack --config webpack/mobile-vendor.config.js"
   },
   "keywords": [
     "lbry"
   ],
   "dependencies": {
     "amplitude-js": "^4.0.0",
+    "babel-polyfill": "^6.20.0",
     "bluebird": "^3.5.1",
     "classnames": "^2.2.5",
     "country-data": "^0.0.31",
@@ -49,15 +54,18 @@
     "localforage": "^1.5.0",
     "moment": "^2.20.1",
     "npm": "^5.5.1",
+    "prop-types": "^15.6.0",
     "qrcode.react": "^0.7.2",
     "rc-progress": "^2.0.6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-markdown": "^2.5.0",
     "react-modal": "^3.1.7",
+    "react-native-web": "^0.3.2",
     "react-paginate": "^5.0.0",
     "react-redux": "^5.0.3",
     "react-simplemde-editor": "^3.6.11",
+    "react-universal-ui": "^0.1.78",
     "redux": "^3.6.0",
     "redux-action-buffer": "^1.1.0",
     "redux-logger": "^3.0.1",
@@ -75,13 +83,14 @@
     "y18n": "^4.0.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26",
     "babel-eslint": "^8.0.3",
     "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-react-require": "^3.0.0",
-    "babel-polyfill": "^6.20.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.18.0",
+    "colors": "^1.1.2",
     "cross-env": "^5.1.3",
     "devtron": "^1.4.0",
     "electron": "^1.7.11",
@@ -100,6 +109,7 @@
     "flow-babel-webpack-plugin": "^1.1.0",
     "flow-bin": "^0.61.0",
     "flow-typed": "^2.2.3",
+    "html-webpack-plugin": "^2.30.1",
     "husky": "^0.14.3",
     "i18n-extract": "^0.5.1",
     "json-loader": "^0.5.4",
@@ -107,6 +117,8 @@
     "node-loader": "^0.6.0",
     "node-sass": "^4.7.2",
     "prettier": "^1.4.2",
+    "react-native": "^0.52.2",
+    "react-hot-loader": "^3.1.3",
     "reload-server-webpack-plugin": "^1.0.1",
     "sass-loader": "^6.0.6",
     "start-server-webpack-plugin": "^2.2.0",

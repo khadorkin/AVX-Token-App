@@ -66,7 +66,7 @@ const installExtensions = async () => {
 };
 
 app.setAsDefaultProtocolClient('lbry');
-app.setName('LBRY');
+app.setName('AVX Token');
 
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -111,9 +111,9 @@ app.on('will-quit', event => {
     dialog.showMessageBox(
       {
         type: 'info',
-        title: 'LBRY Will Upgrade',
+        title: 'AVX Token Will Upgrade',
         message:
-          'LBRY has a pending upgrade. Please select "Yes" to install it on the prompt shown after this one.',
+          'AVX Token has a pending upgrade. Please select "Yes" to install it on the prompt shown after this one.',
       },
       () => {
         app.quit();
@@ -157,7 +157,7 @@ ipcMain.on('upgrade', (event, installerPath) => {
   // what to do if no shutdown in a long time?
   console.log('Update downloaded to', installerPath);
   console.log(
-    'The app will close, and you will be prompted to install the latest version of LBRY.'
+    'The app will close, and you will be prompted to install the latest version of AVX Token.'
   );
   console.log('After the install is complete, please reopen the app.');
   app.quit();

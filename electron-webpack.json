@@ -1,7 +1,7 @@
 {
   "renderer": {
-    "sourceDirectory": "src/ui",
-    "webpackConfig": "webpack/ui.config.js"
+    "sourceDirectory": "src/mobile-ui",
+    "webpackConfig": "webpack/mobile-ui.electron.config.js"
   },
   "main": {
     "sourceDirectory": "src/electron"

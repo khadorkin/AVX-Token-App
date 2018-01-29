@@ -9,9 +9,10 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack/ui.config.js"
+        "config": "webpack/mobile-ui.config.js"
       }
-    }
+    },
+    "import/core-modules": [ "react-native", "react-hot-loader-patch", "electron", "react-hot-loader-app-container" ]
   },
   "parser": "babel-eslint",
   "env": {
@@ -28,6 +29,8 @@
   "rules": {
     "import/no-commonjs": "warn",
     "import/no-amd": "warn",
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": "off",
     "func-names": ["warn", "as-needed"],
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": ["**/*.test.js", "**/*.spec.js", "./webpack/**/*.js", "./src/common/*/dev.js"]

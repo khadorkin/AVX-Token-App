@@ -1,0 +1,15 @@
+{
+  "name": "avx-token-app",
+  "displayName": "AVX Token",
+  "entryPoint": "src/mobile-ui/index.jsx",
+  "roots": [
+    "./src/mobile-ui"
+  ],
+  "expo": {
+    "name": "AVX Token App",
+    "slug": "expo.io/@avx-token-app/slug",
+    "sdkVersion": "25.0.0",
+    "privacy": "public",
+    "orientation": "portrait"
+  }
+}

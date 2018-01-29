@@ -65,3 +65,7 @@ export default class Server {
     });
   }
 }
+
+if (module.hot) {
+  module.hot.accept('./Server.js', () => {});
+}

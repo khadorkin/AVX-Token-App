@@ -69,9 +69,9 @@ export default deepLinkingURIArg => {
       {
         type: 'warning',
         buttons: ['Wait', 'Quit'],
-        title: 'LBRY Unresponsive',
+        title: 'AVX Token Unresponsive',
         defaultId: 1,
-        message: 'LBRY is not responding. Would you like to quit?',
+        message: 'AVX Token is not responding. Would you like to quit?',
         cancelId: 0,
       },
       buttonIndex => {

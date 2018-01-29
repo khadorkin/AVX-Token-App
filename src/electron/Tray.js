@@ -40,7 +40,7 @@ export default class Tray {
       }
     });
 
-    this.tray.setToolTip('LBRY App');
+    this.tray.setToolTip('AVX Token App');
 
     const template = [
       {
