@@ -11,3 +11,6 @@
 /android/.idea
 /android/.gradle
 /android/local.properties
+
+#Marc's IDE files
+.idea/
