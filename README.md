@@ -84,6 +84,26 @@ You need the android tools setup and in your path, and `ANDROID_HOME` set in you
 `yarn native:dev`
 `yarn android`
 
+##### Android Simulator
+
+Start the android emulator and ensure it shows up in `adb devices`.
+
+`emulator @Nexus_5X_API_25`
+`yarn native:dev`
+`yarn android`
+
+#### IOS
+
+You need xcode, and your device plugged in via usb
+
+`yarn native:dev`
+`yarn ios`
+
+##### IOS Simulator
+
+`yarn native:dev`
+`yarn ios-sim`
+
 ### On Windows
 
 #### One-time Setup

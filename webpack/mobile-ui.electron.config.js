@@ -10,12 +10,14 @@ const env = process.env.ENV || 'development';
 const optimizeMode = process.env.OPTIMIZE !== undefined;
 const publicPath = '/';
 const isProduction = env === 'production';
-let flowTypePlugin = null;
+const plugins = [];
 
 if (!isProduction) {
-  flowTypePlugin = new FlowFlowPlugin({
-    warn: true,
-  });
+  plugins.push(
+    new FlowFlowPlugin({
+      warn: true,
+    })
+  );
 }
 
 module.exports = {
@@ -61,11 +63,10 @@ module.exports = {
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
-    flowTypePlugin,
     new webpack.DefinePlugin({
       'process.env.BROWSER': 'true',
     }),
-  ],
+  ].concat(plugins),
   devServer: {
     publicPath,
     contentBase: [path.resolve(__dirname, '../dist/web'), path.resolve(__dirname, '../static')],

@@ -15,17 +15,19 @@ const port = process.env.PORT || 3000;
 const isProduction = env === 'production';
 const appRoot = path.resolve(__dirname, '../src/mobile-ui');
 
-let dllReferencePlugin = null;
+const plugins = [];
 let useVendorChunks;
 
 if (!isProduction) {
   if (fs.existsSync(path.resolve(__dirname, '../dist/web/vendor-manifest.json'))) {
     useVendorChunks = true;
-    dllReferencePlugin = new webpack.DllReferencePlugin({
-      context: '.',
-      // eslint-disable-next-line global-require
-      manifest: require('../dist/web/vendor-manifest.json'),
-    });
+    plugins.push(
+      new webpack.DllReferencePlugin({
+        context: '.',
+        // eslint-disable-next-line global-require
+        manifest: require('../dist/web/vendor-manifest.json'),
+      })
+    );
   }
 }
 
@@ -59,8 +61,7 @@ module.exports = webpackMerge(baseConfig, {
       template: path.resolve(__dirname, '../src/mobile-ui/index.ejs'),
       filename: 'index.html',
     }),
-    dllReferencePlugin,
-  ],
+  ].concat(plugins),
   devServer: {
     port,
     inline: true,
