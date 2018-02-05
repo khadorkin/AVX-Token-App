@@ -92,6 +92,10 @@ Start the android emulator and ensure it shows up in `adb devices`.
 `yarn native:dev`
 `yarn android`
 
+##### Debugging
+
+Install and run https://github.com/jhen0409/react-native-debugger/
+
 #### IOS
 
 You need xcode, and your device plugged in via usb
@@ -103,6 +107,10 @@ You need xcode, and your device plugged in via usb
 
 `yarn native:dev`
 `yarn ios-sim`
+
+##### Debugging
+
+Install and run https://github.com/jhen0409/react-native-debugger/
 
 ### On Windows
 

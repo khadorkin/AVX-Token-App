@@ -66,5 +66,10 @@ module.exports = webpackMerge(baseConfig, {
     port,
     inline: true,
     open: true,
+    proxy: {
+      '/server': {
+        target: process.env.PROXY_SERVER,
+      },
+    },
   },
 });

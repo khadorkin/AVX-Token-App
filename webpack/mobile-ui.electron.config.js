@@ -20,6 +20,8 @@ if (!isProduction) {
   );
 }
 
+const srcRoot = path.resolve(__dirname, '../src/mobile-ui');
+
 module.exports = {
   cache: true,
   devtool: isProduction ? 'source-map' : 'eval-source-map',
@@ -35,6 +37,7 @@ module.exports = {
         ? path.resolve(__dirname, '../node_modules/react-hot-loader/lib/AppContainer.prod')
         : path.resolve(__dirname, '../node_modules/react-hot-loader/lib/AppContainer.dev'),
       'react-native': 'react-native-web',
+      'react-router-native': 'react-router-dom',
     },
     extensions: ['.js', '.jsx', '.scss'],
   },
@@ -46,7 +49,26 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           cacheDirectory: true,
-          plugins: ['react-hot-loader/babel'],
+          plugins: [
+            'react-hot-loader/babel',
+            [
+              'module-resolver',
+              {
+                root: ['./src/mobile-ui'],
+                alias: {
+                  components: path.join(srcRoot, 'components'),
+                  constants: path.join(srcRoot, 'constants'),
+                  styles: path.join(srcRoot, 'styles'),
+                  'redux/actions': path.join(srcRoot, 'redux/actions'),
+                  'redux/reducers': path.join(srcRoot, 'redux/reducers'),
+                  'redux/selectors': path.join(srcRoot, 'redux/selectors'),
+                  types: path.join(srcRoot, 'types'),
+                  utils: path.join(srcRoot, 'utils'),
+                },
+                extensions: ['.js'],
+              },
+            ],
+          ],
           presets: ['env', 'react', 'stage-2'],
         },
       },
@@ -65,6 +87,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env.BROWSER': 'true',
+      'process.env.API_SERVER': `'${process.env.API_SERVER || 'ws://localhost:5279'}'`,
     }),
   ].concat(plugins),
   devServer: {

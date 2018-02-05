@@ -1,0 +1,20 @@
+{
+  "presets": ["react-native"],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src/mobile-ui"],
+      "alias": {
+        "components": "./src/mobile-ui/components",
+        "constants": "./src/mobile-ui/constants",
+        "styles": "./src/mobile-ui/styles",
+        "redux/actions": "./src/mobile-ui/redux/actions",
+        "redux/reducers": "./src/mobile-ui/redux/reducers",
+        "redux/selectors": "./src/mobile-ui/redux/selectors",
+        "types": "./src/mobile-ui/types",
+        "utils": "./src/mobile-ui/utils",
+        "package.json": "./package.json",
+      },
+      "extensions": [".js"]
+    }]
+  ]
+}

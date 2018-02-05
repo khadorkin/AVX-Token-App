@@ -24,6 +24,7 @@
     "staticResourcesPath": true,
     "__": true,
     "__n": true,
+    "__DEV__": true,
     "app": true
   },
   "rules": {
@@ -31,6 +32,7 @@
     "import/no-amd": "warn",
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": "off",
+    "react/prefer-stateless-function": "off",
     "func-names": ["warn", "as-needed"],
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": ["**/*.test.js", "**/*.spec.js", "./webpack/**/*.js", "./src/common/*/dev.js"]
