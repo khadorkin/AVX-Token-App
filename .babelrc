@@ -4,11 +4,13 @@
     ["module-resolver", {
       "root": ["./src/mobile-ui"],
       "alias": {
+        "styled-components/native": "./node_modules/styled-components/native",
         "styled-components": "./node_modules/styled-components/native",
         "react-router-platform": "./node_modules/react-router-native",
         "components": "./src/mobile-ui/components",
         "constants": "./src/mobile-ui/constants",
         "styles": "./src/mobile-ui/styles",
+        "theme": "./src/mobile-ui/styles/vars",
         "redux/actions": "./src/mobile-ui/redux/actions",
         "redux/reducers": "./src/mobile-ui/redux/reducers",
         "redux/selectors": "./src/mobile-ui/redux/selectors",

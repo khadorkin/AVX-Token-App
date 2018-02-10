@@ -1,19 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { Platform } from 'components/core';
+import styledNative from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as icons from 'constants/icon';
+import theme from 'theme';
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.defaultTextColor};
+const size = '40px';
+
+const platformStyles = {
+  web: `
+  user-select: none;
+`,
+};
+
+const StyledIcon = (Icon.extend || styledNative(Icon))`
+  color: ${theme.defaultTextColor};
   text-align: center;
-  margin-right: 7px;
-  margin-left: 7px;
   flex-shrink: 0;
-  ${props => (props['data-fixed'] ? 'flex-grow: 0' : '')};
+  flex-grow: 0;
+  max-height: ${size};
+  max-width: ${size};
+  min-width: ${size};
+  min-height: ${size};
+  line-height: ${size};
+  justify-content: center;
+  align-items: center;
+  ${platformStyles[Platform.OS] || ''}
 `;
 
-export default class IconComponent extends React.PureComponent {
+export default class IconComponentImpl extends React.PureComponent {
   static propTypes = {
     icon: PropTypes.string.isRequired,
     fixed: PropTypes.bool,

@@ -20,7 +20,6 @@ legend,
 input,
 select,
 textarea,
-p,
 blockquote,
 th,
 td,
@@ -76,6 +75,9 @@ img {
 a {
   color: inherit;
   text-decoration: none;
+}
+p {
+  margin: 4px 0px;
 }
 
 * {

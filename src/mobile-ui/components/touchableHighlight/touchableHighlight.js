@@ -3,16 +3,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableHighlight as NativeImpl, Platform } from 'react-native';
+import { View } from 'components/core';
 
-const platformStyles =
-  Platform.OS !== 'web'
-    ? {}
-    : {
-        transitionProperty: 'background',
-        transitionDuration: '160ms',
-        transitionTimingFunction: 'ease',
-      };
+const Impl = View.extend`
+  border-radius: 3px;
+  transition-property: background;
+  transition-duration: 160ms;
+  transition-timingfunction: ease;
+  &:active {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+`;
 
 class TouchableHighlight extends React.PureComponent {
   static propTypes = {
@@ -20,39 +21,24 @@ class TouchableHighlight extends React.PureComponent {
     impl: PropTypes.object,
     onPress: PropTypes.func,
     onClick: PropTypes.func,
+    view: PropTypes.any,
+    underlayColor: PropTypes.string,
   };
 
   static defaultProps = {
-    impl: {
-      underlayColor: 'rgba(0,0,0,0.12)',
-      style: {
-        borderRadius: 3,
-        ...platformStyles,
-      },
-    },
     onPress: undefined,
     onClick: undefined,
+    view: View,
   };
 
   render() {
-    const nextProps = Object.assign({}, this.props, {
-      children: undefined,
-      onClick: undefined,
-      onPress: undefined,
-    });
-    delete nextProps.onPress;
-    const { children, impl, onPress, onClick } = this.props;
-    if (Array.isArray(children)) {
-      return (
-        <NativeImpl {...impl} onPress={onPress || onClick}>
-          <View {...nextProps}>{children}</View>
-        </NativeImpl>
-      );
-    }
+    // return <NativeImpl {...this.props}>{this.props.children}</NativeImpl>;
+    const { children, onClick, onPress, view, ...nextProps } = this.props;
+    const InnerView = view;
     return (
-      <NativeImpl {...impl} onPress={onPress || onClick}>
-        {children}
-      </NativeImpl>
+      <Impl {...nextProps} onClick={onPress || onClick}>
+        <InnerView>{children}</InnerView>
+      </Impl>
     );
   }
 }

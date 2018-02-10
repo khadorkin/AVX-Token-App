@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Platform } from 'react-native';
+import { Platform } from 'components/core';
 import {
   selectPageTitle,
   // selectHistoryIndex,

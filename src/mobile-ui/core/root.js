@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { Platform } from 'react-native';
+import { Platform } from 'components/core';
 import { ConnectedRouter } from 'connected-react-router';
 
 import theme from 'styles/vars';

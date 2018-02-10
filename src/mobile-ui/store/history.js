@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform } from 'components/core';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 
 const commonOptions = {
@@ -25,4 +25,6 @@ const platforms = {
     }),
 };
 
-export default (platforms[Platform.OS] || platforms.default)();
+const history = (platforms[Platform.OS] || platforms.default)();
+
+export default history;

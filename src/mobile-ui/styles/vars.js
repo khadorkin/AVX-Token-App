@@ -34,7 +34,7 @@ export default {
   heightVideoEmbedded: `${widthPageConstrained} * 9 / 16`,
 
   /* Font */
-  fontSize: '16px',
+  fontSize: 16,
   fontLineHeight: '1.3333',
   fontSizeSubtextMultiple: '0.82',
 
@@ -127,9 +127,9 @@ export default {
   /* Card */
   cardBg: colorBg,
   cardHoverTranslate: '10px',
-  cardMargin: `${spacingVertical * 2 / 3}px`,
-  cardMaxWidth: widthPageConstrained,
-  cardPadding: `${spacingVertical * 2 / 3}px`,
+  cardMargin: `${spacingVertical * 2 / 3}`,
+  cardMaxWidth: '200px', // widthPageConstrained,
+  cardPadding: `${spacingVertical * 2 / 3}`,
   cardRadius: '2px',
   cardLinkScaling: '1.1',
   cardSmallWidth: `${spacingVertical * 10}px`,

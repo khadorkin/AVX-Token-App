@@ -4,17 +4,17 @@
  * apply the global theme to the standard components here instead
  */
 
-const ReactNative = require('react-native');
-const styled = require('styled-components').default;
+// const ReactNative = require('react-native');
+// const styled = require('styled-components').default;
 
-const Text = styled(ReactNative.Text)`
-  color: ${props => props.theme.defaultTextColor};
-`;
+// const Text = styled(ReactNative.Text)`
+//   color: ${theme.defaultTextColor};
+// `;
 
-Object.defineProperties(ReactNative, {
-  Text: {
-    configurable: true,
-    enumerable: true,
-    value: Text,
-  },
-});
+// Object.defineProperties(ReactNative, {
+//   Text: {
+//     configurable: true,
+//     enumerable: true,
+//     value: Text,
+//   },
+// });

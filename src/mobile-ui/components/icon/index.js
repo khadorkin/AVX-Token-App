@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
-import Icon from './view';
+import Icon from './icon';
 
-export default connect(null, null)(Icon);
+export default Icon;

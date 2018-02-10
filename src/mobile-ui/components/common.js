@@ -5,29 +5,37 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View } from 'react-native';
+import styled from 'styled-components';
+import { Text, View } from 'components/core';
 import { formatCredits, formatFullPrice } from 'utils/formatCredits';
+import theme from 'theme';
+
 // import lbry from '../lbry.js';
 
 // const viewStyle = {
 //   WebkitLineClamp: props.lines,
 // };
 
-export class TruncatedText extends React.PureComponent {
-  static propTypes = {
-    // lines: PropTypes.number,
-    children: PropTypes.any, // eslint-disable-line react/forbid-prop-types
-  };
+export const TruncatedText = styled(Text)`
+  line-height: ${theme.fontSize * theme.fontLineHeight}px;
+  height: ${theme.fontSize * theme.fontLineHeight}px;
+  overflow: hidden;
+`;
+// export class TruncatedText extends React.PureComponent {
+//   static propTypes = {
+//     // lines: PropTypes.number,
+//     children: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+//   };
 
-  static defaultProps = {
-    // lines: null,
-    children: null,
-  };
+//   static defaultProps = {
+//     // lines: null,
+//     children: null,
+//   };
 
-  render() {
-    return <Text className="truncated-text">{this.props.children}</Text>;
-  }
-}
+//   render() {
+//     return <Text className="truncated-text">{this.props.children}</Text>;
+//   }
+// }
 
 export class BusyMessage extends React.PureComponent {
   static propTypes = {
@@ -50,7 +58,7 @@ export class BusyMessage extends React.PureComponent {
 
 export class CurrencySymbol extends React.PureComponent {
   render() {
-    return <span>LBC</span>;
+    return <Text>LBC</Text>;
   }
 }
 
@@ -112,17 +120,17 @@ export class CreditAmount extends React.PureComponent {
     }
 
     return (
-      <span className={`credit-amount credit-amount--${this.props.look}`} title={fullPrice}>
-        <span>{amountText}</span>
+      <View className={`credit-amount credit-amount--${this.props.look}`} title={fullPrice}>
+        <Text>{amountText}</Text>
         {this.props.isEstimate ? (
-          <span
+          <Text
             className="credit-amount__estimate"
             title={__('This is an estimate and does not include data fees')}
           >
             *
-          </span>
+          </Text>
         ) : null}
-      </span>
+      </View>
     );
   }
 }

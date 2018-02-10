@@ -2,42 +2,28 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-platform';
-import { Text, StyleSheet } from 'react-native';
+import { View, Text } from 'components/core';
 
 import * as appActions from '../../store/action/app';
 
-const styles = StyleSheet.create({
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  counterButton: {
-    backgroundColor: '#00bcd4',
-    marginTop: 10,
-  },
-  buttonWrapper: {
-    backgroundColor: '#00bcd4',
-    marginTop: 20,
-  },
-  buttonIcon: {
-    fontSize: 28,
-    color: '#ffffff',
-  },
-});
+const ButtonContent = styled(Text)`
+  background-color: #00bcd4;
+  margin-top: 20px;
+`;
 
-const Container = styled.View`
+const Welcome = View.extend`
+  font-size: 20px;
+  text-align: center;
+  margin: 10px;
+`;
+
+const Container = View.extend`
   flex-grow: 1;
   flex-direction: column;
   align-items: center;
 `;
 
-const Block = styled.View`
+const Block = View.extend`
   padding: 24px 0px;
   flex-basis: auto;
   flex-shrink: 0;
@@ -58,9 +44,9 @@ export default class TestView extends Component {
     return (
       <Container>
         <Block>
-          <Text style={styles.welcome}>Test 2</Text>
+          <Welcome>Test 2</Welcome>
           <Link to="/">
-            <Text style={styles.buttonWrapper}>Back to Home</Text>
+            <ButtonContent>Back to Home</ButtonContent>
           </Link>
         </Block>
       </Container>

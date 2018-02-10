@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StatusBar, Text } from 'react-native';
+import { View, StatusBar, Text } from 'components/core';
 // import ReactModal from 'react-modal';
 import styled from 'styled-components';
 import Header from 'components/header';
@@ -8,7 +8,7 @@ import Header from 'components/header';
 
 import Routes from '../routes';
 
-const Window = styled.View`
+const Window = View.extend`
   display: flex;
   flex-direction: column;
 `;

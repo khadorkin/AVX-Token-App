@@ -1,35 +1,35 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react';
-import { Platform } from 'react-native';
+import { View, Platform } from 'components/core';
 import styled, { css } from 'styled-components';
 import Link from 'components/link';
+import theme from 'theme';
 // import WunderBar from 'components/wunderbar';
 
-const osStyles = {
-  ios: css`
-    padding-top: 30px;
-  `,
-};
+const paddingTop =
+  {
+    ios: 20,
+  }[Platform.OS] || 0;
 
-const StyledHeader = styled.View`
-  background: ${props => props.theme.headerBg};
+const StyledHeader = (View.extend || View.extend)`
+  background: ${theme.headerBg};
   display: flex;
   flex-direction: row;
   align-items: stretch;
   justify-content: space-around;
   position: relative;
-  box-shadow: ${props => props.theme.boxShadowLayer};
-  width: 100%;
-  z-index: 3;
-  padding: 0px 12px;
-  ${osStyles[Platform.OS] || ''};
+  box-shadow: ${theme.boxShadowLayer};
+  padding-top: ${paddingTop}px;
+  height: ${paddingTop + 40}px;
+  min-height: ${paddingTop + 40}px;
+  max-height: ${paddingTop + 40}px;
 `;
 
-const HeaderItem = styled.View`
+const HeaderItem = Link.extend`
   justify-content: center;
-  padding-left: ${props => props.theme.spacingVertical / 4}px;
-  padding-right: ${props => props.theme.spacingVertical / 4}px;
+  padding-left: ${theme.spacingVertical / 4}px;
+  padding-right: ${theme.spacingVertical / 4}px;
 `;
 
 const WunderBarHeader = styled(HeaderItem)`
@@ -44,22 +44,22 @@ const linkStyles = {
   padding: '12px 0px',
 };
 
-export const Header = props => {
-  const {
-    balance,
-    back,
-    forward,
-    isBackDisabled,
-    isForwardDisabled,
-    isUpgradeAvailable,
-    autoUpdateDownloaded,
-    navigate,
-    downloadUpgradeRequested,
-  } = props;
-  return (
-    <StyledHeader>
-      <HeaderItem>
-        <Link
+class Header extends React.PureComponent {
+  render() {
+    const {
+      balance,
+      back,
+      forward,
+      isBackDisabled,
+      isForwardDisabled,
+      isUpgradeAvailable,
+      autoUpdateDownloaded,
+      navigate,
+      downloadUpgradeRequested,
+    } = this.props;
+    return (
+      <StyledHeader>
+        <HeaderItem
           onClick={back}
           disabled={isBackDisabled}
           button="alt button--flat"
@@ -67,9 +67,7 @@ export const Header = props => {
           title={__('Back')}
           {...linkStyles}
         />
-      </HeaderItem>
-      <HeaderItem>
-        <Link
+        <HeaderItem
           onClick={forward}
           disabled={isForwardDisabled}
           button="alt button--flat"
@@ -77,28 +75,22 @@ export const Header = props => {
           title={__('Forward')}
           {...linkStyles}
         />
-      </HeaderItem>
-      <HeaderItem>
-        <Link
+        <HeaderItem
           onClick={() => navigate('/discover')}
           button="alt button--flat"
           icon="home"
           title={__('Discover Content')}
           {...linkStyles}
         />
-      </HeaderItem>
-      <HeaderItem>
-        <Link
+        <HeaderItem
           onClick={() => navigate('/subscriptions')}
           button="alt button--flat"
           icon="at"
           title={__('My Subscriptions')}
           {...linkStyles}
         />
-      </HeaderItem>
-      <WunderBarHeader>{/*<WunderBar />*/}</WunderBarHeader>
-      <HeaderItem>
-        <Link
+        <WunderBarHeader>{/*<WunderBar />*/}</WunderBarHeader>
+        <HeaderItem
           onClick={() => navigate('/wallet')}
           button="text"
           className="no-underline"
@@ -107,45 +99,39 @@ export const Header = props => {
           title={__('Wallet')}
           {...linkStyles}
         />
-      </HeaderItem>
-      <HeaderItem>
-        <Link
+        <HeaderItem
           onClick={() => navigate('/publish')}
           button="primary button--flat"
           icon="upload"
           label={__('Publish')}
           {...linkStyles}
         />
-      </HeaderItem>
-      <HeaderItem>
-        <Link
+        <HeaderItem
           onClick={() => navigate('/downloaded')}
           button="alt button--flat"
           icon="folder"
           title={__('Downloads and Publishes')}
           {...linkStyles}
         />
-      </HeaderItem>
-      <HeaderItem>
-        <Link
+        <HeaderItem
           onClick={() => navigate('/settings')}
           button="alt button--flat"
           icon="gear"
           title={__('Settings')}
           {...linkStyles}
         />
-      </HeaderItem>
-      {(autoUpdateDownloaded || (process.platform === 'linux' && isUpgradeAvailable)) && (
-        <Link
-          onClick={() => downloadUpgradeRequested()}
-          button="primary button--flat"
-          icon="arrow-up"
-          label={__('Upgrade App')}
-          {...linkStyles}
-        />
-      )}
-    </StyledHeader>
-  );
-};
+        {(autoUpdateDownloaded || (process.platform === 'linux' && isUpgradeAvailable)) && (
+          <HeaderItem
+            onClick={() => downloadUpgradeRequested()}
+            button="primary button--flat"
+            icon="arrow-up"
+            label={__('Upgrade App')}
+            {...linkStyles}
+          />
+        )}
+      </StyledHeader>
+    );
+  }
+}
 
 export default Header;

@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 
-import { AppRegistry, NativeModules, Platform } from 'react-native';
+import { AppRegistry, NativeModules, Platform } from 'components/core';
 
 import 'styles';
 import Root from './core/root';

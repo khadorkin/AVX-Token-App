@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-platform';
-import { Button, Text, StyleSheet, Platform } from 'react-native';
+import { Button, View, Text, Platform } from 'components/core';
 
 import * as appActions from '../../store/action/app';
 
@@ -11,47 +11,40 @@ const instructions = Platform.select({
 Cmd+D or shake for dev menu`,
   android: `Double tap R on your keyboard to reload,
 Shake or press menu button for dev menu`,
-  web: `Command/Control+R to reload your browser :p
-And in Browser, we have great advantage
-when using Chrome Developer Tool
-compare to the poor native-dev-menu!`,
+  web: `Command/Control+R to reload your browser`,
 });
 
-const styles = StyleSheet.create({
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  counterButton: {
-    backgroundColor: '#00bcd4',
-    marginTop: 10,
-  },
-  buttonWrapper: {
-    backgroundColor: '#00bcd4',
-    marginTop: 20,
-  },
-  buttonIcon: {
-    fontSize: 28,
-    color: '#ffffff',
-  },
-});
-
-const Container = styled.View`
-  flex-grow: 1;
-  flex-direction: column;
-  align-items: center;
+const Instructions = styled(Text)`
+  text-align: center;
+  color: #333333;
+  margin-bottom: 5px;
 `;
 
-const Block = styled.View`
+const ButtonContent = View.extend`
+  background-color: #00bcd4;
+  margin-top: 20px;
+`;
+const CustomButton = styled(Button)`
+  background-color: #00bcd4;
+  margin-top: 20px;
+`;
+
+const Welcome = View.extend`
+  font-size: 20px;
+  text-align: center;
+  margin: 10px;
+`;
+
+const Container = View.extend`
+  flex-grow: 1;
+  flex-direction: column;
+`;
+
+const Block = View.extend`
   padding: 24px 0px;
   flex-basis: auto;
   flex-shrink: 0;
+  align-items: center;
 `;
 
 export default class TestView extends Component {
@@ -70,19 +63,18 @@ export default class TestView extends Component {
     return (
       <Container>
         <Block>
-          <Text style={styles.welcome}>Welcome to Universal Ui</Text>
-          <Text style={styles.instructions}>To get started, edit src/index.js</Text>
-          <Text style={styles.instructions}>{instructions}</Text>
-          <Button
-            wrapperStyle={styles.buttonWrapper}
+          <Welcome>Welcome to Universal Ui</Welcome>
+          <Instructions>To get started, edit src/index.js</Instructions>
+          <Instructions>{instructions}</Instructions>
+          <CustomButton
             title={`Increase counter [${this.props.counter}]`}
             onPress={this.increaseCounter}
           />
         </Block>
         <Block>
-          <Text style={styles.welcome}>Views</Text>
+          <Welcome>Views</Welcome>
           <Link to="/test2">
-            <Text style={styles.buttonWrapper}>Go To Next View</Text>
+            <ButtonContent>Go To Next View</ButtonContent>
           </Link>
         </Block>
       </Container>

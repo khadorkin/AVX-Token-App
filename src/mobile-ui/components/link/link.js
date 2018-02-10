@@ -2,16 +2,11 @@
 
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Text, Platform } from 'react-native';
+import { View, Text, Platform } from 'components/core';
 import Icon from 'components/icon';
 import { ButtonContent } from 'components/button';
 import TouchableHighlight from 'components/touchableHighlight';
-
-const LinkContent = styled(TouchableHighlight)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
+import BoxContainer from './box';
 
 class Link extends React.PureComponent {
   onClick = event => {
@@ -57,17 +52,12 @@ class Link extends React.PureComponent {
       ];
     }
 
-    const Box = button ? ButtonContent : LinkContent;
+    const Box = button ? ButtonContent : TouchableHighlight;
     return (
-      <Box style={style} onClick={this.onClick} title={title} href={href}>
+      <Box style={style} onClick={this.onClick} title={title} href={href} view={BoxContainer}>
         {children}
       </Box>
     );
-    // return (
-    //   <Box onClick={this.onClick}>
-    //     <Text>{title}</Text>
-    //   </Box>
-    // );
 
     // const linkProps = {
     //   className: combinedClassName,
@@ -76,8 +66,6 @@ class Link extends React.PureComponent {
     //   onClick,
     //   style,
     // };
-
-    // return span ? <View {...linkProps}>{content}</View> : <A {...linkProps}>{content}</A>;
   }
 }
 

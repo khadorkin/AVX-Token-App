@@ -1,0 +1,81 @@
+table.table-standard {
+  word-wrap: break-word;
+  max-width: 100%;
+
+  th,
+  td {
+    padding: $spacing-vertical/2 8px;
+  }
+  th {
+    font-weight: 500;
+    font-size: 0.9em;
+  }
+  td {
+    vertical-align: top;
+  }
+  thead th,
+  > tr:first-child th {
+    vertical-align: bottom;
+    font-weight: 500;
+    font-size: 0.9em;
+    padding: $spacing-vertical/4+1 8px $spacing-vertical/4-2;
+    text-align: left;
+    border-bottom: var(--table-border);
+    img {
+      vertical-align: text-bottom;
+    }
+    &.text-center {
+      text-align: center;
+    }
+  }
+  tr.thead:not(:first-child) th {
+    border-top: var(--table-border);
+  }
+  tfoot td {
+    padding: $spacing-vertical / 2 8px;
+    font-size: 0.85em;
+  }
+  tbody {
+    tr {
+      &:nth-child(even):not(.odd) {
+        background-color: var(--table-item-odd);
+      }
+      &:nth-child(odd):not(.even) {
+        background-color: var(--table-item-even);
+      }
+      &.thead {
+        background: none;
+      }
+      td {
+        border: 0 none;
+      }
+    }
+  }
+}
+.table-standard--definition-list {
+  th {
+    text-align: right;
+  }
+}
+
+table.table-stretch {
+  width: 100%;
+}
+
+table.table-transactions {
+  td:nth-of-type(1) {
+    width: 15%;
+  }
+  td:nth-of-type(2) {
+    width: 15%;
+  }
+  td:nth-of-type(3) {
+    width: 15%;
+  }
+  td:nth-of-type(4) {
+    width: 40%;
+  }
+  td:nth-of-type(5) {
+    width: 15%;
+  }
+}

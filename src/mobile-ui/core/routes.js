@@ -1,28 +1,23 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import { Route, Switch } from 'react-router-platform';
-import styled from 'styled-components';
+import { Platform, View } from 'components/core';
+import { Route, Switch, withRouter } from 'react-router-platform';
 
 import Test from '../page/test';
 import Test2 from '../page/test2';
-// import Discover from '../page/discover';
+import Discover from '../page/discover';
 
-const Routes = styled.View`
-  top: ${Platform.OS === 'web' ? 0 : 58}px;
-`;
-
-class AppRoutes extends React.Component {
+class AppRoutes extends React.PureComponent {
   render() {
     return (
-      <Routes>
+      <View>
         <Switch>
           <Route key="/" exact path="/" component={Test} />
-          {/*<Route key="/discover" path="/discover" component={Discover} />*/}
-          <Route key="/test2" path="/test2" component={Test2} />
+          <Route key="/discover" path="/discover" component={Discover} />
+          <Route key="/subscriptions" path="/subscriptions" component={Test2} />
         </Switch>
-      </Routes>
+      </View>
     );
   }
 }
 
-export default AppRoutes;
+export default withRouter(AppRoutes);
