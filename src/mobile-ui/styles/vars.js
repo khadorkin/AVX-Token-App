@@ -8,7 +8,7 @@ const colorBgAlt = '#d9d9d9';
 const widthPageConstrained = '800px';
 const spacingVertical = 24;
 
-module.exports = {
+export default {
   /* Colors */
   colorBrand: '#155b4a',
   colorPrimary,

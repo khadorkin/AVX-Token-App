@@ -1,6 +1,6 @@
 import { formatCredits } from 'utils/formatCredits';
 import { connect } from 'react-redux';
-import { selectIsBackDisabled, selectIsForwardDisabled } from 'redux/selectors/navigation';
+// import { selectIsBackDisabled, selectIsForwardDisabled } from 'redux/selectors/navigation';
 import { selectBalance } from 'redux/selectors/wallet';
 import { doNavigate, doHistoryBack, doHistoryForward } from 'redux/actions/navigation';
 import { Header } from './header';

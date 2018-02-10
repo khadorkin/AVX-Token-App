@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Platform } from 'react-native';
-import { BrowserRouter, NativeRouter } from 'react-router-native';
+import { BrowserRouter, NativeRouter } from 'react-router-platform';
 import { AppContainer } from 'react-hot-loader'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { store } from '../store';

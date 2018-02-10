@@ -1,8 +1,11 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
-import styled from 'styled-components/native';
-import { Text, View } from 'react-native';
+import styled, { css } from 'styled-components';
+import { Text, View, Platform } from 'react-native';
 import Icon from 'components/icon';
 import { ButtonContent } from 'components/button';
+
 const A = View;
 
 const LinkContent = styled.View`
@@ -59,7 +62,7 @@ const Link = props => {
 
   const linkProps = {
     className: combinedClassName,
-    href: href || 'javascript:;',
+    href: href || 'javascript:;', // eslint-disable-line no-script-url
     title,
     onClick,
     style,
@@ -68,4 +71,15 @@ const Link = props => {
   return span ? <View {...linkProps}>{content}</View> : <A {...linkProps}>{content}</A>;
 };
 
-export default Link;
+const osStyles = {
+  web: css`
+    cursor: pointer;
+  `,
+};
+
+export default styled(Link)`
+  flex-direction: row;
+  align-items: center;
+  padding: ${props => props.padding || 0};
+  ${osStyles[Platform.OS] || ''};
+`;

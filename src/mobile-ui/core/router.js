@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { Route } from 'react-router-native';
-import styled from 'styled-components/native';
+import { Route } from 'react-router-platform';
+import styled from 'styled-components';
 
 import Test from '../page/test';
 // import Discover from '../page/discover';

@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StatusBar } from 'react-native';
 // import ReactModal from 'react-modal';
-import { ThemeProvider } from 'styled-components';
-import styled from 'styled-components/native';
+import styled, { ThemeProvider } from 'styled-components';
 import Header from 'components/header';
 // import ModalRouter from 'modals/modalRouter';
 
@@ -15,6 +15,10 @@ const Window = styled.View`
 `;
 
 class App extends React.PureComponent {
+  static propTypes = {
+    alertError: PropTypes.func.isRequired,
+  };
+
   constructor() {
     super();
     this.mainContent = undefined;
@@ -48,7 +52,13 @@ class App extends React.PureComponent {
     return (
       <ThemeProvider theme={theme}>
         <Window id="window" theme={theme}>
-          <StatusBar hidden={false} translucent={false} networkActivityIndicatorVisible={false} backgroundColor="white" barStyle="dark-content" />
+          <StatusBar
+            hidden={false}
+            translucent={false}
+            networkActivityIndicatorVisible={false}
+            backgroundColor="white"
+            barStyle="dark-content"
+          />
           <Header />
           <Router />
           {/*<ModalRouter />*/}

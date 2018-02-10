@@ -37,8 +37,7 @@ module.exports = {
         ? path.resolve(__dirname, '../node_modules/react-hot-loader/lib/AppContainer.prod')
         : path.resolve(__dirname, '../node_modules/react-hot-loader/lib/AppContainer.dev'),
       'react-native': 'react-native-web',
-      'styled-components/native': 'styled-components',
-      'react-router-native': 'react-router-dom',
+      'react-router-platform': 'react-router-dom',
       styles: path.join(srcRoot, 'styles'),
       fontawesome: path.resolve(__dirname, '../static/font'),
     },
@@ -66,6 +65,7 @@ module.exports = {
                     'redux/actions': path.join(srcRoot, 'redux/actions'),
                     'redux/reducers': path.join(srcRoot, 'redux/reducers'),
                     'redux/selectors': path.join(srcRoot, 'redux/selectors'),
+                    'styled-components': 'styled-components/native',
                     types: path.join(srcRoot, 'types'),
                     utils: path.join(srcRoot, 'utils'),
                     styles: path.join(srcRoot, 'styles'),

@@ -1,32 +1,36 @@
+/* eslint-disable no-unused-vars */
+
 import * as ACTIONS from 'constants/action_types';
 import * as MODALS from 'constants/modal_types';
-// import * as SETTINGS from 'constants/settings';
+import * as SETTINGS from 'constants/settings';
 // import { ipcRenderer } from 'electron';
 // import Lbry from 'lbry';
 // import Lbryio from 'lbryio';
-// import { normalizeURI, buildURI } from 'utils/lbryURI';
+import { normalizeURI, buildURI } from 'utils/lbryURI';
 import { doAlertError, doOpenModal } from 'redux/actions/app';
 // import { doClaimEligiblePurchaseRewards } from 'redux/actions/rewards';
 import { selectBadgeNumber } from 'redux/selectors/app';
 // import { selectMyClaimsRaw } from 'redux/selectors/claims';
 import { selectResolvingUris } from 'redux/selectors/content';
-// import { makeSelectCostInfoForUri } from 'redux/selectors/cost_info';
-// import {
-//   makeSelectFileInfoForUri,
-//   selectDownloadingByOutpoint,
-//   selectTotalDownloadProgress,
-// } from 'redux/selectors/file_info';
-// import { makeSelectClientSetting } from 'redux/selectors/settings';
+import { makeSelectCostInfoForUri } from 'redux/selectors/cost_info';
+import {
+  makeSelectFileInfoForUri,
+  selectDownloadingByOutpoint,
+  selectTotalDownloadProgress,
+} from 'redux/selectors/file_info';
+import { makeSelectClientSetting } from 'redux/selectors/settings';
 // import { selectBalance } from 'redux/selectors/wallet';
 import batchActions from 'utils/batchActions';
 // import setBadge from 'utils/setBadge';
 // import setProgressBar from 'utils/setProgressBar';
 
+const Lbry = {};
+const Lbryio = {};
 const DOWNLOAD_POLL_INTERVAL = 250;
 
 export function doResolveUris(uris) {
   return (dispatch, getState) => {
-    const normalizedUris = uris; // .map(normalizeURI);
+    const normalizedUris = uris.map(normalizeURI);
     const state = getState();
 
     // Filter out URIs that are already resolving
@@ -185,7 +189,7 @@ export function doUpdateLoadStatus(uri, outpoint) {
         });
 
         const totalProgress = selectTotalDownloadProgress(getState());
-        setProgressBar(totalProgress);
+        // setProgressBar(totalProgress);
 
         setTimeout(() => {
           dispatch(doUpdateLoadStatus(uri, outpoint));
@@ -207,6 +211,7 @@ export function doStartDownload(uri, outpoint) {
 
     if (downloadingByOutpoint[outpoint]) return;
 
+    getState();
     // Lbry.file_list({ outpoint, full_status: true }).then(([fileInfo]) => {
     //   dispatch({
     //     type: ACTIONS.DOWNLOADING_STARTED,
@@ -290,53 +295,53 @@ export function doLoadVideo(uri) {
 
 export function doPurchaseUri(uri) {
   return (dispatch, getState) => {
-    // const state = getState();
-    // const balance = 123.45; // selectBalance(state);
-    // const fileInfo = {}; // makeSelectFileInfoForUri(uri)(state);
-    // const downloadingByOutpoint = selectDownloadingByOutpoint(state);
-    // const alreadyDownloading = fileInfo && !!downloadingByOutpoint[fileInfo.outpoint];
-    // function attemptPlay(cost, instantPurchaseMax = null) {
-    //   if (cost > 0 && (!instantPurchaseMax || cost > instantPurchaseMax)) {
-    //     dispatch(doOpenModal(MODALS.AFFIRM_PURCHASE, { uri }));
-    //   } else {
-    //     dispatch(doLoadVideo(uri));
-    //   }
-    // }
-    // // we already fully downloaded the file.
-    // if (fileInfo && fileInfo.completed) {
-    //   // If written_bytes is false that means the user has deleted/moved the
-    //   // file manually on their file system, so we need to dispatch a
-    //   // doLoadVideo action to reconstruct the file from the blobs
-    //   if (!fileInfo.written_bytes) dispatch(doLoadVideo(uri));
-    //   Promise.resolve();
-    //   return;
-    // }
-    // // we are already downloading the file
-    // if (alreadyDownloading) {
-    //   Promise.resolve();
-    //   return;
-    // }
-    // const costInfo = makeSelectCostInfoForUri(uri)(state);
-    // const { cost } = costInfo;
-    // if (cost > balance) {
-    //   dispatch(doSetPlayingUri(null));
-    //   dispatch(doOpenModal(MODALS.INSUFFICIENT_CREDITS));
-    //   Promise.resolve();
-    //   return;
-    // }
-    // if (cost === 0 || !makeSelectClientSetting(SETTINGS.INSTANT_PURCHASE_ENABLED)(state)) {
-    //   attemptPlay(cost);
-    // } else {
-    //   const instantPurchaseMax = makeSelectClientSetting(SETTINGS.INSTANT_PURCHASE_MAX)(state);
-    //   if (instantPurchaseMax.currency === 'LBC') {
-    //     attemptPlay(cost, instantPurchaseMax.amount);
-    //   } else {
-    //     // Need to convert currency of instant purchase maximum before trying to play
-    //     Lbryio.getExchangeRates().then(({ LBC_USD }) => {
-    //       attemptPlay(cost, instantPurchaseMax.amount / LBC_USD);
-    //     });
-    //   }
-    // }
+    const state = getState();
+    const balance = 123.45; // selectBalance(state);
+    const fileInfo = makeSelectFileInfoForUri(uri)(state);
+    const downloadingByOutpoint = selectDownloadingByOutpoint(state);
+    const alreadyDownloading = fileInfo && !!downloadingByOutpoint[fileInfo.outpoint];
+    function attemptPlay(cost, instantPurchaseMax = null) {
+      if (cost > 0 && (!instantPurchaseMax || cost > instantPurchaseMax)) {
+        dispatch(doOpenModal(MODALS.AFFIRM_PURCHASE, { uri }));
+      } else {
+        dispatch(doLoadVideo(uri));
+      }
+    }
+    // we already fully downloaded the file.
+    if (fileInfo && fileInfo.completed) {
+      // If written_bytes is false that means the user has deleted/moved the
+      // file manually on their file system, so we need to dispatch a
+      // doLoadVideo action to reconstruct the file from the blobs
+      if (!fileInfo.written_bytes) dispatch(doLoadVideo(uri));
+      Promise.resolve();
+      return;
+    }
+    // we are already downloading the file
+    if (alreadyDownloading) {
+      Promise.resolve();
+      return;
+    }
+    const costInfo = makeSelectCostInfoForUri(uri)(state);
+    const { cost } = costInfo;
+    if (cost > balance) {
+      dispatch(doSetPlayingUri(null));
+      dispatch(doOpenModal(MODALS.INSUFFICIENT_CREDITS));
+      Promise.resolve();
+      return;
+    }
+    if (cost === 0 || !makeSelectClientSetting(SETTINGS.INSTANT_PURCHASE_ENABLED)(state)) {
+      attemptPlay(cost);
+    } else {
+      const instantPurchaseMax = makeSelectClientSetting(SETTINGS.INSTANT_PURCHASE_MAX)(state);
+      if (instantPurchaseMax.currency === 'LBC') {
+        attemptPlay(cost, instantPurchaseMax.amount);
+      } else {
+        // Need to convert currency of instant purchase maximum before trying to play
+        Lbryio.getExchangeRates().then(({ LBC_USD }) => {
+          attemptPlay(cost, instantPurchaseMax.amount / LBC_USD);
+        });
+      }
+    }
   };
 }
 
@@ -476,7 +481,7 @@ export function doPublish(params) {
 export function doAbandonClaim(txid, nout) {
   return (dispatch, getState) => {
     const state = getState();
-    const myClaims = selectMyClaimsRaw(state);
+    const myClaims = []; // selectMyClaimsRaw(state);
     const { claim_id: claimId, name } = myClaims.find(
       claim => claim.txid === txid && claim.nout === nout
     );

@@ -11,16 +11,16 @@ import { doAuthNavigate } from 'redux/actions/navigation';
 
 import {
   selectCurrentModal,
-  selectIsUpgradeSkipped,
-  selectRemoteVersion,
-  selectUpdateUrl,
-  selectUpgradeDownloadItem,
-  selectUpgradeDownloadPath,
-  selectUpgradeFilename,
-  selectAutoUpdateDeclined,
+  // selectIsUpgradeSkipped,
+  // selectRemoteVersion,
+  // selectUpdateUrl,
+  // selectUpgradeDownloadItem,
+  // selectUpgradeDownloadPath,
+  // selectUpgradeFilename,
+  // selectAutoUpdateDeclined,
 } from 'redux/selectors/app';
 
-const { lbrySettings: config } = require('package.json');
+// const { lbrySettings: config } = require('package.json');
 
 export function doOpenModal(modal, modalProps = {}) {
   return {
@@ -51,7 +51,7 @@ export function doAlertError(errorList) {
 }
 
 export function doDaemonReady() {
-  return (dispatch, getState) => {
+  return dispatch => {
     // dispatch(doAuthenticate());
     dispatch({ type: ACTIONS.DAEMON_READY });
     // dispatch(doFetchDaemonSettings());

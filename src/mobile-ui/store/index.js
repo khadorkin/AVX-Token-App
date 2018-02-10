@@ -1,6 +1,7 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import reducers from './reducers';
+import mockData from './mock';
 
 const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__';
 const composeEnhancers = global[DEVTOOLS] || compose;
@@ -28,4 +29,4 @@ export default function configureStore(initialState) {
   return store;
 }
 
-export const store = configureStore(Object.assign({}, require('./mock')));
+export const store = configureStore(Object.assign({}, mockData));

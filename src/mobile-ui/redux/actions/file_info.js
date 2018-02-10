@@ -15,8 +15,11 @@ import {
   selectTotalDownloadProgress,
   selectUrisLoading,
 } from 'redux/selectors/file_info';
-import batchActions from 'util/batchActions';
-import setProgressBar from 'util/setProgressBar';
+// import batchActions from 'util/batchActions';
+// import setProgressBar from 'util/setProgressBar';
+
+const Lbry = {};
+const setProgressBar = () => {};
 
 export function doFetchFileInfo(uri) {
   return (dispatch, getState) => {
@@ -124,7 +127,7 @@ export function doDeleteFileAndGoBack(fileInfo, deleteFromComputer, abandonClaim
     actions.push(doCloseModal());
     actions.push(doHistoryBack());
     actions.push(doDeleteFile(fileInfo, deleteFromComputer, abandonClaim));
-    dispatch(batchActions(...actions));
+    actions.forEach(dispatch); // dispatch(batchActions(...actions));
   };
 }
 

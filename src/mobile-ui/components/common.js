@@ -1,26 +1,30 @@
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/no-multi-comp */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/no-string-refs */
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Text, View } from 'react-native';
 import { formatCredits, formatFullPrice } from 'utils/formatCredits';
 // import lbry from '../lbry.js';
-import { span } from 'components/web';
 
 export class TruncatedText extends React.PureComponent {
   static propTypes = {
     lines: PropTypes.number,
+    children: PropTypes.any, // eslint-disable-line react/forbid-prop-types
   };
 
   static defaultProps = {
     lines: null,
+    children: null,
   };
 
   render() {
     return (
-      <span className="truncated-text" style={{ WebkitLineClamp: this.props.lines }}>
+      <View className="truncated-text" style={{ WebkitLineClamp: this.props.lines }}>
         {this.props.children}
-      </span>
+      </View>
     );
   }
 }
@@ -30,11 +34,16 @@ export class BusyMessage extends React.PureComponent {
     message: PropTypes.string,
   };
 
+  static defaultProps = {
+    message: '',
+  };
+
   render() {
     return (
-      <span>
-        {this.props.message} <span className="busy-indicator" />
-      </span>
+      <View>
+        <Text>{this.props.message}</Text>
+        <View className="busy-indicator" />
+      </View>
     );
   }
 }
@@ -64,10 +73,11 @@ export class CreditAmount extends React.PureComponent {
     look: 'indicator',
     showFullPrice: false,
     showPlus: false,
+    isEstimate: false,
   };
 
   render() {
-    const minimumRenderableAmount = Math.pow(10, -1 * this.props.precision);
+    const minimumRenderableAmount = 10 ** (-1 * this.props.precision);
     const { amount, precision, showFullPrice } = this.props;
 
     let formattedAmount;
@@ -87,10 +97,10 @@ export class CreditAmount extends React.PureComponent {
       amountText = __('free');
     } else {
       if (this.props.label) {
-        const label =
-          typeof this.props.label === 'string'
-            ? this.props.label
-            : parseFloat(amount) == 1 ? __('credit') : __('credits');
+        let { props: label } = this;
+        if (typeof this.props.label !== 'string') {
+          label = parseFloat(amount) === 1 ? __('credit') : __('credits');
+        }
 
         amountText = `${formattedAmount} ${label}`;
       } else {
@@ -120,25 +130,23 @@ export class CreditAmount extends React.PureComponent {
 export class Thumbnail extends React.PureComponent {
   static propTypes = {
     src: PropTypes.string,
+    className: PropTypes.string,
   };
 
-  handleError() {
-    if (this.state.imageUrl != this._defaultImageUri) {
-      this.setState({
-        imageUri: this._defaultImageUri,
-      });
-    }
-  }
+  static defaultProps = {
+    src: '',
+    className: '',
+  };
 
   constructor(props) {
     super(props);
 
-    this._defaultImageUri = lbry.imagePath('default-thumb.svg');
+    // this._defaultImageUri = lbry.imagePath('default-thumb.svg');
     this._maxLoadTime = 10000;
     this._isMounted = false;
 
     this.state = {
-      imageUri: this.props.src || this._defaultImageUri,
+      imageUri: this.props.src || '', //this._defaultImageUri,
     };
   }
 
@@ -157,6 +165,14 @@ export class Thumbnail extends React.PureComponent {
     this._isMounted = false;
   }
 
+  handleError() {
+    if (this.state.imageUrl !== this._defaultImageUri) {
+      this.setState({
+        imageUri: this._defaultImageUri,
+      });
+    }
+  }
+
   render() {
     const className = this.props.className ? this.props.className : '';
     const otherProps = Object.assign({}, this.props);
@@ -164,6 +180,7 @@ export class Thumbnail extends React.PureComponent {
     return (
       <img
         ref="img"
+        alt=""
         onError={() => {
           this.handleError();
         }}

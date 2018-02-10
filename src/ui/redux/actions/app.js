@@ -2,7 +2,7 @@
 import * as ACTIONS from 'constants/action_types';
 import * as MODALS from 'constants/modal_types';
 import { ipcRenderer, remote } from 'electron';
-import Lbry from 'lbry';
+// import Lbry from 'lbry';
 import Path from 'path';
 import { doFetchRewardedContent } from 'redux/actions/content';
 import { doFetchFileInfosAndPublishedClaims } from 'redux/actions/file_info';
@@ -22,6 +22,8 @@ import {
   selectUpgradeFilename,
   selectAutoUpdateDeclined,
 } from 'redux/selectors/app';
+
+const Lbry = {};
 
 const { autoUpdater } = remote.require('electron-updater');
 const { download } = remote.require('electron-dl');
@@ -70,43 +72,6 @@ export function doStartUpgrade() {
   };
 }
 
-export function doDownloadUpgradeRequested() {
-  // This means the user requested an upgrade by clicking the "upgrade" button in the navbar.
-  // If on Mac and Windows, we do some new behavior for the auto-update system.
-  // This will probably be reorganized once we get auto-update going on Linux and remove
-  // the old logic.
-
-  return (dispatch, getState) => {
-    const state = getState();
-
-    // Pause video if needed
-    dispatch(doPause());
-
-    const autoUpdateDeclined = selectAutoUpdateDeclined(state);
-
-    if (['win32', 'darwin'].includes(process.platform)) {
-      // electron-updater behavior
-      if (autoUpdateDeclined) {
-        // The user declined an update before, so show the "confirm" dialog
-        dispatch({
-          type: ACTIONS.OPEN_MODAL,
-          data: { modal: MODALS.AUTO_UPDATE_CONFIRM },
-        });
-      } else {
-        // The user was never shown the original update dialog (e.g. because they were
-        // watching a video). So show the inital "update downloaded" dialog.
-        dispatch({
-          type: ACTIONS.OPEN_MODAL,
-          data: { modal: MODALS.AUTO_UPDATE_DOWNLOADED },
-        });
-      }
-    } else {
-      // Old behavior for Linux
-      dispatch(doDownloadUpgrade());
-    }
-  };
-}
-
 export function doDownloadUpgrade() {
   return (dispatch, getState) => {
     const state = getState();
@@ -146,51 +111,83 @@ export function doDownloadUpgrade() {
   };
 }
 
-export function doAutoUpdate() {
-  return function(dispatch, getState) {
-    const state = getState();
-    dispatch({
-      type: ACTIONS.AUTO_UPDATE_DOWNLOADED,
-    });
+export function doDownloadUpgradeRequested() {
+  // This means the user requested an upgrade by clicking the "upgrade" button in the navbar.
+  // If on Mac and Windows, we do some new behavior for the auto-update system.
+  // This will probably be reorganized once we get auto-update going on Linux and remove
+  // the old logic.
 
-    dispatch({
-      type: ACTIONS.OPEN_MODAL,
-      data: { modal: MODALS.AUTO_UPDATE_DOWNLOADED },
-    });
-  };
-}
-
-export function doAutoUpdateDeclined() {
-  return function(dispatch, getState) {
-    const state = getState();
-    dispatch({
-      type: ACTIONS.AUTO_UPDATE_DECLINED,
-    });
-  };
-}
-
-export function doCancelUpgrade() {
   return (dispatch, getState) => {
     const state = getState();
-    const upgradeDownloadItem = selectUpgradeDownloadItem(state);
 
-    if (upgradeDownloadItem) {
-      /*
+    // Pause video if needed
+    dispatch(doPause());
+
+    const autoUpdateDeclined = selectAutoUpdateDeclined(state);
+
+    if (['win32', 'darwin'].includes(process.platform)) {
+      // electron-updater behavior
+      if (autoUpdateDeclined) {
+        // The user declined an update before, so show the "confirm" dialog
+        dispatch({
+          type: ACTIONS.OPEN_MODAL,
+          data: { modal: MODALS.AUTO_UPDATE_CONFIRM },
+        });
+      } else {
+        // The user was never shown the original update dialog (e.g. because they were
+        // watching a video). So show the inital "update downloaded" dialog.
+        dispatch({
+          type: ACTIONS.OPEN_MODAL,
+          data: { modal: MODALS.AUTO_UPDATE_DOWNLOADED },
+        });
+      }
+    } else {
+      // Old behavior for Linux
+      dispatch(doDownloadUpgrade());
+    }
+  };
+}
+
+export const doAutoUpdate = () => (dispatch, getState) => {
+  getState();
+  dispatch({
+    type: ACTIONS.AUTO_UPDATE_DOWNLOADED,
+  });
+
+  dispatch({
+    type: ACTIONS.OPEN_MODAL,
+    data: { modal: MODALS.AUTO_UPDATE_DOWNLOADED },
+  });
+};
+
+export const doAutoUpdateDeclined = () => (dispatch, getState) => {
+  getState();
+  dispatch({
+    type: ACTIONS.AUTO_UPDATE_DECLINED,
+  });
+};
+
+export const doCancelUpgrade = () => (dispatch, getState) => {
+  const state = getState();
+  const upgradeDownloadItem = selectUpgradeDownloadItem(state);
+
+  if (upgradeDownloadItem) {
+    /*
        * Right now the remote reference to the download item gets garbage collected as soon as the
        * the download is over (maybe even earlier), so trying to cancel a finished download may
        * throw an error.
        */
-      try {
-        upgradeDownloadItem.cancel();
-      } catch (err) {
-        console.error(err);
-        // Do nothing
-      }
+    try {
+      upgradeDownloadItem.cancel();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+      // Do nothing
     }
+  }
 
-    dispatch({ type: ACTIONS.UPGRADE_CANCELLED });
-  };
-}
+  dispatch({ type: ACTIONS.UPGRADE_CANCELLED });
+};
 
 export function doCheckUpgradeAvailable() {
   return (dispatch, getState) => {

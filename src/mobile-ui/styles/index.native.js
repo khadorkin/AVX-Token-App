@@ -5,7 +5,7 @@
  */
 
 const ReactNative = require('react-native');
-const styled = require('styled-components/native').default;
+const styled = require('styled-components').default;
 
 const Text = styled(ReactNative.Text)`
   color: ${props => props.theme.defaultTextColor};
@@ -16,7 +16,5 @@ Object.defineProperties(ReactNative, {
     configurable: true,
     enumerable: true,
     value: Text,
-  }
-})
-
-module.exports = {};
+  },
+});

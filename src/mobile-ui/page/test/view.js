@@ -4,10 +4,6 @@ import { Button, View, Text, StyleSheet, Platform } from 'react-native';
 
 import * as appActions from '../../store/action/app';
 
-const utils = {
-  isBrowser: process.env.BROWSER || false,
-};
-
 const instructions = Platform.select({
   ios: `Press Cmd+R to reload,
 Cmd+D or shake for dev menu`,

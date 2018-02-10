@@ -4,6 +4,8 @@
     ["module-resolver", {
       "root": ["./src/mobile-ui"],
       "alias": {
+        "styled-components": "./node_modules/styled-components/native",
+        "react-router-platform": "./node_modules/react-router-native",
         "components": "./src/mobile-ui/components",
         "constants": "./src/mobile-ui/constants",
         "styles": "./src/mobile-ui/styles",

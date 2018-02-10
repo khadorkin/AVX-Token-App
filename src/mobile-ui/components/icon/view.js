@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
+import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import classnames from 'classnames';
 import * as icons from 'constants/icon';
 
-const ThemedIcon = styled(Icon)`
+const StyledIcon = styled(Icon)`
   color: ${props => props.theme.defaultTextColor};
   text-align: center;
   margin-right: 7px;
   margin-left: 7px;
+  flex-shrink: 0;
+  ${props => (props['data-fixed'] ? 'flex-grow: 0' : '')};
 `;
 
 export default class IconComponent extends React.PureComponent {
@@ -45,19 +46,17 @@ export default class IconComponent extends React.PureComponent {
 
   render() {
     const { fixed, className, leftPad, icon } = this.props;
-    const iconClass = this.getIconClass();
+    // const iconClass = this.getIconClass();
     const title = this.getIconTitle();
 
-    const spanClassName = classnames(
-      'icon',
-      iconClass,
-      {
-        'fixed-width': fixed,
-        '-left-pad': leftPad,
-      },
-      className
+    return (
+      <StyledIcon
+        name={icon}
+        className={className}
+        title={title}
+        data-fixed={fixed}
+        data-left-pad={leftPad}
+      />
     );
-
-    return <ThemedIcon name={icon} className={className} title={title} />;
   }
 }

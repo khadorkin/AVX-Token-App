@@ -1,22 +1,33 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
-import styled from 'styled-components/native';
+import { Platform } from 'react-native';
+import styled, { css } from 'styled-components';
 import Link from 'components/link';
 // import WunderBar from 'components/wunderbar';
+
+const osStyles = {
+  ios: css`
+    padding-top: 30px;
+  `,
+};
 
 const StyledHeader = styled.View`
   background: ${props => props.theme.headerBg};
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-around;
   position: relative;
   box-shadow: ${props => props.theme.boxShadowLayer};
   width: 100%;
   z-index: 3;
-  padding: 12px;
+  padding: 0px 12px;
+  ${osStyles[Platform.OS] || ''};
 `;
 
 const HeaderItem = styled.View`
+  justify-content: center;
   padding-left: ${props => props.theme.spacingVertical / 4}px;
   padding-right: ${props => props.theme.spacingVertical / 4}px;
 `;
@@ -46,6 +57,7 @@ export const Header = props => {
           button="alt button--flat"
           icon="arrow-left"
           title={__('Back')}
+          padding="12px"
         />
       </HeaderItem>
       <HeaderItem>

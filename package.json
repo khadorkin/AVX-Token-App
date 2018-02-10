@@ -43,7 +43,6 @@
     "amplitude-js": "^4.0.0",
     "babel-polyfill": "^6.20.0",
     "bluebird": "^3.5.1",
-    "classnames": "^2.2.5",
     "country-data": "^0.0.31",
     "electron-dl": "^1.6.0",
     "electron-log": "^2.2.12",
@@ -128,10 +127,10 @@
     "metro": "^0.24.1",
     "node-loader": "^0.6.0",
     "node-sass": "^4.7.2",
+    "pre-commit": "^1.2.2",
     "prettier": "^1.4.2",
     "react-hot-loader": "^3.1.3",
     "react-native": "^0.52.2",
-    "react-native-css": "^2.1.2",
     "reload-server-webpack-plugin": "^1.0.1",
     "sass-loader": "^6.0.6",
     "start-server-webpack-plugin": "^2.2.0",
@@ -151,5 +150,8 @@
   "lbrySettings": {
     "lbrynetDaemonVersion": "0.18.2",
     "lbrynetDaemonUrlTemplate": "https://github.com/lbryio/lbry/releases/download/vDAEMONVER/lbrynet-daemon-vDAEMONVER-OSNAME.zip"
-  }
+  },
+  "pre-commit": [
+    "lint"
+  ]
 }
