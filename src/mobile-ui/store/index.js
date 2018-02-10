@@ -28,4 +28,4 @@ export default function configureStore(initialState) {
   return store;
 }
 
-export const store = configureStore();
+export const store = configureStore(Object.assign({}, require('./mock')));

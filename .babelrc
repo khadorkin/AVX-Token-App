@@ -12,9 +12,9 @@
         "redux/selectors": "./src/mobile-ui/redux/selectors",
         "types": "./src/mobile-ui/types",
         "utils": "./src/mobile-ui/utils",
-        "package.json": "./package.json",
+        "package.json": "./package.json"
       },
-      "extensions": [".js"]
+      "extensions": [".js", ".jsx", ".scss"]
     }]
   ]
 }

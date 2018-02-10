@@ -31,8 +31,12 @@
     "import/no-commonjs": "warn",
     "import/no-amd": "warn",
     "import/prefer-default-export": "off",
+    "react/prop-types": "warn",
     "react/jsx-filename-extension": "off",
     "react/prefer-stateless-function": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "class-methods-use-this": "off",
+    "spaced-comment": "off",
     "func-names": ["warn", "as-needed"],
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": ["**/*.test.js", "**/*.spec.js", "./webpack/**/*.js", "./src/common/*/dev.js"]

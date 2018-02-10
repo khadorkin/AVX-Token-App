@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect, Provider } from 'react-redux';
 import { Button, View, Text, StyleSheet, Platform } from 'react-native';
-import { AppContainer } from 'react-hot-loader';
 
-import { store } from './store';
-import * as appActions from './store/action/app';
+import * as appActions from '../../store/action/app';
 
 const utils = {
   isBrowser: process.env.BROWSER || false,
@@ -52,7 +49,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class App extends Component {
+export default class TestView extends Component {
   static propTypes = {
     counter: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -77,27 +74,3 @@ class App extends Component {
     );
   }
 }
-
-const ConnectedApp = connect(({ app }) => ({
-  counter: app.counter,
-}))(App);
-
-function Root(props) {
-  return (
-    <Provider store={store} {...props}>
-      <ConnectedApp />
-    </Provider>
-  );
-}
-
-function HotRoot(props) {
-  return (
-    <AppContainer>
-      <Provider store={store} {...props}>
-        <ConnectedApp />
-      </Provider>
-    </AppContainer>
-  );
-}
-
-export default (utils.isBrowser ? HotRoot : Root);

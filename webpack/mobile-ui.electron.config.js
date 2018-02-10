@@ -31,13 +31,16 @@ module.exports = {
   resolve: {
     alias: {
       'react-hot-loader-patch': isProduction
-        ? path.resolve(__dirname, 'lib/stub')
+        ? path.resolve(__dirname, '../lib/stub')
         : path.resolve(__dirname, '../node_modules/react-hot-loader/patch'),
       'react-hot-loader-app-container': isProduction
         ? path.resolve(__dirname, '../node_modules/react-hot-loader/lib/AppContainer.prod')
         : path.resolve(__dirname, '../node_modules/react-hot-loader/lib/AppContainer.dev'),
       'react-native': 'react-native-web',
+      'styled-components/native': 'styled-components',
       'react-router-native': 'react-router-dom',
+      styles: path.join(srcRoot, 'styles'),
+      fontawesome: path.resolve(__dirname, '../static/font'),
     },
     extensions: ['.js', '.jsx', '.scss'],
   },
@@ -45,41 +48,80 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules|packages/, // <- comment this if you want hot-reload node_modules
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true,
-          plugins: [
-            'react-hot-loader/babel',
-            [
-              'module-resolver',
-              {
-                root: ['./src/mobile-ui'],
-                alias: {
-                  components: path.join(srcRoot, 'components'),
-                  constants: path.join(srcRoot, 'constants'),
-                  styles: path.join(srcRoot, 'styles'),
-                  'redux/actions': path.join(srcRoot, 'redux/actions'),
-                  'redux/reducers': path.join(srcRoot, 'redux/reducers'),
-                  'redux/selectors': path.join(srcRoot, 'redux/selectors'),
-                  types: path.join(srcRoot, 'types'),
-                  utils: path.join(srcRoot, 'utils'),
+        exclude: /node_modules(?!\/react-native-vector-icons)|packages/, // <- comment this if you want hot-reload node_modules
+        use: {
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            cacheDirectory: true,
+            plugins: [
+              'react-hot-loader/babel',
+              [
+                'module-resolver',
+                {
+                  root: ['./src/mobile-ui'],
+                  alias: {
+                    components: path.join(srcRoot, 'components'),
+                    constants: path.join(srcRoot, 'constants'),
+                    'redux/actions': path.join(srcRoot, 'redux/actions'),
+                    'redux/reducers': path.join(srcRoot, 'redux/reducers'),
+                    'redux/selectors': path.join(srcRoot, 'redux/selectors'),
+                    types: path.join(srcRoot, 'types'),
+                    utils: path.join(srcRoot, 'utils'),
+                    styles: path.join(srcRoot, 'styles'),
+                  },
+                  extensions: ['.js', '.scss'],
                 },
-                extensions: ['.js'],
-              },
+              ],
+              ['babel-plugin-styled-components'],
             ],
-          ],
-          presets: ['env', 'react', 'stage-2'],
+            presets: ['env', 'react', 'stage-2'],
+          },
         },
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
       {
-        test: /\.(png|jpg|svg|ttf)$/,
-        loader: 'file-loader?name=[name].[ext]',
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif|svg|ttf|woff|woff2|eot)$/,
+        include: [
+          path.resolve(__dirname, '../node_modules/react-native-vector-icons'),
+          path.resolve(__dirname, '../static/font'),
+        ],
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+          },
+        },
       },
       {
         test: /\.json/,
-        loader: 'json-loader',
+        use: {
+          loader: 'json-loader',
+        },
       },
     ],
   },
@@ -88,6 +130,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.BROWSER': 'true',
       'process.env.API_SERVER': `'${process.env.API_SERVER || 'ws://localhost:5279'}'`,
+      'process.env.STATIC_RESOURCES_PATH': `'${path.join(publicPath, 'static')}'`,
     }),
   ].concat(plugins),
   devServer: {
