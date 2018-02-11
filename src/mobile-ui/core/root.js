@@ -1,34 +1,28 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import { Platform } from 'react-native';
-import { BrowserRouter, NativeRouter } from 'react-router-platform';
-import { AppContainer } from 'react-hot-loader'; // eslint-disable-line import/no-extraneous-dependencies
+import { ConnectedRouter } from 'connected-react-router';
 
+import theme from 'styles/vars';
 import { store } from '../store';
-import AppRouter from './app';
+import App from './app';
+import history from '../store/history';
 
-const isBrowser = Platform.OS === 'web';
+let Root = props => (
+  <Provider store={store} {...props}>
+    <ThemeProvider theme={theme}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </ThemeProvider>
+  </Provider>
+);
 
-function Root(props) {
-  return (
-    <Provider store={store} {...props}>
-      <NativeRouter>
-        <AppRouter />
-      </NativeRouter>
-    </Provider>
-  );
+if (Platform.OS === 'web') {
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  Root = require('react-hot-loader').hot(module)(Root); // eslint-disable-line global-require
 }
 
-function HotRoot(props) {
-  return (
-    <AppContainer>
-      <Provider store={store} {...props}>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
-      </Provider>
-    </AppContainer>
-  );
-}
-
-export default (isBrowser ? HotRoot : Root);
+const AppRoot = Root;
+export default AppRoot;

@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+// import { routerReducer } from 'react-router-redux';
+
 import app from './app';
 import availability from './availability';
 import content from './content';
@@ -29,4 +31,5 @@ export default combineReducers({
   subscriptions,
   user,
   wallet,
+  // routing: routerReducer,
 });

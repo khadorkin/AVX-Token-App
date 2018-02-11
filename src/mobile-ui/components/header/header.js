@@ -36,6 +36,14 @@ const WunderBarHeader = styled(HeaderItem)`
   flex-grow: 1;
 `;
 
+// const StyledLink = styled(Link)`
+//   flex-grow: 1;
+// `
+
+const linkStyles = {
+  padding: '12px 0px',
+};
+
 export const Header = props => {
   const {
     balance,
@@ -57,7 +65,7 @@ export const Header = props => {
           button="alt button--flat"
           icon="arrow-left"
           title={__('Back')}
-          padding="12px"
+          {...linkStyles}
         />
       </HeaderItem>
       <HeaderItem>
@@ -67,6 +75,7 @@ export const Header = props => {
           button="alt button--flat"
           icon="arrow-right"
           title={__('Forward')}
+          {...linkStyles}
         />
       </HeaderItem>
       <HeaderItem>
@@ -75,6 +84,7 @@ export const Header = props => {
           button="alt button--flat"
           icon="home"
           title={__('Discover Content')}
+          {...linkStyles}
         />
       </HeaderItem>
       <HeaderItem>
@@ -83,6 +93,7 @@ export const Header = props => {
           button="alt button--flat"
           icon="at"
           title={__('My Subscriptions')}
+          {...linkStyles}
         />
       </HeaderItem>
       <WunderBarHeader>{/*<WunderBar />*/}</WunderBarHeader>
@@ -94,6 +105,7 @@ export const Header = props => {
           icon="bank"
           label={balance}
           title={__('Wallet')}
+          {...linkStyles}
         />
       </HeaderItem>
       <HeaderItem>
@@ -102,6 +114,7 @@ export const Header = props => {
           button="primary button--flat"
           icon="upload"
           label={__('Publish')}
+          {...linkStyles}
         />
       </HeaderItem>
       <HeaderItem>
@@ -110,6 +123,7 @@ export const Header = props => {
           button="alt button--flat"
           icon="folder"
           title={__('Downloads and Publishes')}
+          {...linkStyles}
         />
       </HeaderItem>
       <HeaderItem>
@@ -118,6 +132,7 @@ export const Header = props => {
           button="alt button--flat"
           icon="gear"
           title={__('Settings')}
+          {...linkStyles}
         />
       </HeaderItem>
       {(autoUpdateDownloaded || (process.platform === 'linux' && isUpgradeAvailable)) && (
@@ -126,6 +141,7 @@ export const Header = props => {
           button="primary button--flat"
           icon="arrow-up"
           label={__('Upgrade App')}
+          {...linkStyles}
         />
       )}
     </StyledHeader>

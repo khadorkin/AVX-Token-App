@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StatusBar } from 'react-native';
+import { StatusBar, Text } from 'react-native';
 // import ReactModal from 'react-modal';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import Header from 'components/header';
 // import ModalRouter from 'modals/modalRouter';
 
-import theme from 'styles/vars';
-import Router from '../router';
+import Routes from '../routes';
 
 const Window = styled.View`
   display: flex;
   flex-direction: column;
 `;
 
-class App extends React.PureComponent {
+class App extends React.Component {
   static propTypes = {
     alertError: PropTypes.func.isRequired,
   };
@@ -22,6 +21,7 @@ class App extends React.PureComponent {
   constructor() {
     super();
     this.mainContent = undefined;
+    this.state = { error: null, errorInfo: null };
   }
 
   componentWillMount() {
@@ -48,22 +48,48 @@ class App extends React.PureComponent {
     }
   }
 
-  render() {
+  componentDidCatch(error, errorInfo) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    // Catch errors in any components below and re-render with error message
+    this.setState({
+      error,
+      errorInfo,
+    });
+  }
+
+  renderWithError() {
     return (
-      <ThemeProvider theme={theme}>
-        <Window id="window" theme={theme}>
-          <StatusBar
-            hidden={false}
-            translucent={false}
-            networkActivityIndicatorVisible={false}
-            backgroundColor="white"
-            barStyle="dark-content"
-          />
-          <Header />
-          <Router />
-          {/*<ModalRouter />*/}
-        </Window>
-      </ThemeProvider>
+      <Window id="window">
+        <StatusBar
+          hidden={false}
+          translucent={false}
+          networkActivityIndicatorVisible={false}
+          backgroundColor="white"
+          barStyle="dark-content"
+        />
+        <Text>{JSON.stringify(this.state.errorInfo)}</Text>
+      </Window>
+    );
+  }
+
+  render() {
+    if (this.state.error) {
+      return this.renderWithError();
+    }
+    return (
+      <Window id="window">
+        <StatusBar
+          hidden={false}
+          translucent={false}
+          networkActivityIndicatorVisible={false}
+          backgroundColor="white"
+          barStyle="dark-content"
+        />
+        <Header />
+        <Routes />
+        {/*<ModalRouter />*/}
+      </Window>
     );
   }
 }

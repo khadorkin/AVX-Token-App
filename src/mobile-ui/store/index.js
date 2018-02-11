@@ -1,5 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
+import { routerMiddleware, connectRouter } from 'connected-react-router';
+import thunk from 'redux-thunk';
+
+import history from './history';
 import reducers from './reducers';
 import mockData from './mock';
 
@@ -13,16 +17,17 @@ const logger = createLogger({
 });
 
 export default function configureStore(initialState) {
-  const enhancers = composeEnhancers(applyMiddleware(logger));
+  const enhancers = composeEnhancers(applyMiddleware(thunk, routerMiddleware(history), logger));
+  const rootReducer = connectRouter(history)(reducers);
 
   const store = initialState
-    ? createStore(reducers, initialState, enhancers)
-    : createStore(reducers, enhancers);
+    ? createStore(rootReducer, initialState, enhancers)
+    : createStore(rootReducer, enhancers);
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       const nextRootReducer = require('./reducers').default; // eslint-disable-line global-require
-      store.replaceReducer(nextRootReducer);
+      store.replaceReducer(connectRouter(history)(nextRootReducer));
     });
   }
 

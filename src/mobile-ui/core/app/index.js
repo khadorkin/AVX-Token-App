@@ -8,6 +8,7 @@ import {
 // import { selectUser } from 'redux/selectors/user';
 import { doAlertError } from 'redux/actions/app';
 import { doRecordScroll } from 'redux/actions/navigation';
+import { withRouter } from 'react-router';
 import App from './view';
 
 const select = state => ({
@@ -23,4 +24,4 @@ const perform = dispatch => ({
   recordScroll: scrollPosition => dispatch(doRecordScroll(scrollPosition)),
 });
 
-export default connect(select, perform)(App);
+export default withRouter(connect(select, perform)(App));

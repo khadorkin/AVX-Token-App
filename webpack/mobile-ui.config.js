@@ -66,6 +66,9 @@ module.exports = webpackMerge(baseConfig, {
     port,
     inline: true,
     open: true,
+    historyApiFallback: {
+      index: '/',
+    },
     proxy: {
       '/server': {
         target: process.env.PROXY_SERVER,

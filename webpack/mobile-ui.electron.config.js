@@ -30,12 +30,6 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react-hot-loader-patch': isProduction
-        ? path.resolve(__dirname, '../lib/stub')
-        : path.resolve(__dirname, '../node_modules/react-hot-loader/patch'),
-      'react-hot-loader-app-container': isProduction
-        ? path.resolve(__dirname, '../node_modules/react-hot-loader/lib/AppContainer.prod')
-        : path.resolve(__dirname, '../node_modules/react-hot-loader/lib/AppContainer.dev'),
       'react-native': 'react-native-web',
       'react-router-platform': 'react-router-dom',
       styles: path.join(srcRoot, 'styles'),
@@ -54,7 +48,7 @@ module.exports = {
             babelrc: false,
             cacheDirectory: true,
             plugins: [
-              'react-hot-loader/babel',
+              ['react-hot-loader/babel'],
               [
                 'module-resolver',
                 {
@@ -74,6 +68,7 @@ module.exports = {
                 },
               ],
               ['babel-plugin-styled-components'],
+              ['transform-export-extensions'],
             ],
             presets: ['env', 'react', 'stage-2'],
           },
@@ -109,6 +104,7 @@ module.exports = {
         include: [
           path.resolve(__dirname, '../node_modules/react-native-vector-icons'),
           path.resolve(__dirname, '../static/font'),
+          path.resolve(__dirname, '../static/img'),
         ],
         use: {
           loader: 'file-loader',

@@ -12,7 +12,7 @@
         "config": "webpack/mobile-ui.config.js"
       }
     },
-    "import/core-modules": [ "react-native", "react-hot-loader-patch", "electron", "react-hot-loader-app-container" ]
+    "import/core-modules": [ "react-native", "electron" ]
   },
   "parser": "babel-eslint",
   "env": {

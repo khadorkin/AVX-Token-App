@@ -1,8 +1,5 @@
 import 'babel-polyfill';
 
-// todo: figure out how to do this right in production
-import 'react-hot-loader/patch'; // eslint-disable-line
-import { AppContainer } from 'react-hot-loader'; // eslint-disable-line
 import { AppRegistry, NativeModules, Platform } from 'react-native';
 
 import 'styles';

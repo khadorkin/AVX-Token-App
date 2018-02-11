@@ -9,23 +9,23 @@ import { Text, View } from 'react-native';
 import { formatCredits, formatFullPrice } from 'utils/formatCredits';
 // import lbry from '../lbry.js';
 
+// const viewStyle = {
+//   WebkitLineClamp: props.lines,
+// };
+
 export class TruncatedText extends React.PureComponent {
   static propTypes = {
-    lines: PropTypes.number,
+    // lines: PropTypes.number,
     children: PropTypes.any, // eslint-disable-line react/forbid-prop-types
   };
 
   static defaultProps = {
-    lines: null,
+    // lines: null,
     children: null,
   };
 
   render() {
-    return (
-      <View className="truncated-text" style={{ WebkitLineClamp: this.props.lines }}>
-        {this.props.children}
-      </View>
-    );
+    return <Text className="truncated-text">{this.props.children}</Text>;
   }
 }
 
