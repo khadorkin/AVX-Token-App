@@ -32,7 +32,7 @@ const CardRowHeader = View.extend`
 const CardRowScrollhouse = View.extend`
   position: relative;
   flex-direction: row;
-  align-items: stretch;
+  align-items: flex-start;
   padding-right: ${paddingRightCardHoverHack};
   padding-left: ${paddingRightCardHoverHack};
 `;
@@ -82,7 +82,7 @@ const CardRowScrollButton = styled(TouchableHighlight)`
 // padding-right: ${paddingRightCardHoverHack};
 // margin-right: -1 * ${paddingRightCardHoverHack};
 
-const StyledFileCard = FileCard;
+// const StyledFileCard = FileCard;
 // styled(FileCard)`
 //   align-self: flex-start;
 //   overflow: hidden;
@@ -300,7 +300,7 @@ export default class FeaturedCategory extends React.Component {
           )}
         */}
           {limitedNames.map(name => (
-            <StyledFileCard key={name} displayStyle="card" uri={normalizeURI(name)} />
+            <FileCard key={name} displayStyle="card" uri={normalizeURI(name)} />
           ))}
         </CardRowScrollhouse>
       </SmallCardRow>
