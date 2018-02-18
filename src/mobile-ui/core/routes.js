@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View } from 'components/core';
+import { View } from 'components/core';
 import { Route, Switch, withRouter } from 'react-router-platform';
 
 import Test from '../page/test';
@@ -12,8 +12,8 @@ class AppRoutes extends React.PureComponent {
       <View>
         <Switch>
           <Route key="/" exact path="/" component={Test} />
-          <Route key="/discover" path="/discover" component={Discover} />
           <Route key="/subscriptions" path="/subscriptions" component={Test2} />
+          <Route key="/discover" path="/discover" component={Discover} />
         </Switch>
       </View>
     );

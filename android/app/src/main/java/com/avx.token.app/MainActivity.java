@@ -1,4 +1,4 @@
-package com.app;
+package com.avx.token.app;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "app";
+        return "avx.token.app";
     }
 }

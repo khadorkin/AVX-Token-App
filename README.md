@@ -87,9 +87,12 @@ You need the android tools setup and in your path, and `ANDROID_HOME` set in you
 ##### Android Simulator
 
 Start the android emulator and ensure it shows up in `adb devices`.
+See https://stackoverflow.com/questions/40898934/unable-to-connect-with-remote-debugger for debugging
 
-`emulator @Nexus_5X_API_25`
+`emulator @Nexus_7_Android_7`
+
 `yarn native:dev`
+
 `yarn android`
 
 ##### Debugging

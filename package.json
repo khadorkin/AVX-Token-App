@@ -1,5 +1,5 @@
 {
-  "name": "avx-token-app",
+  "name": "avx.token.app",
   "version": "0.20.0-rc4",
   "description": "A browser for the AVX Token network, a digital marketplace controlled by its users.",
   "homepage": "https://lbry.io/",
@@ -22,7 +22,7 @@
     "web:dev": "cross-env API_SERVER=webworker PROXY_SERVER=http://localhost:3001 yarn web-ui:dev",
     "webworker:dev": "webpack-dev-server --hot --watch --progress --config webpack/server.config.webworker",
     "electron:dev": "cross-env ELECTRON_WEBPACK_MAIN_SERVER=false API_SERVER=ws://localhost:5279 electron-webpack dev",
-    "native:dev": "cross-env REACT_DEBUGGER='rndebugger-open --open --port 8081' node node_modules/react-native/local-cli/cli.js start --port 8081 --platforms android ios --verbose",
+    "native:dev": "cross-env REACT_DEBUGGER='rndebugger-open --open --port 8081' node node_modules/react-native/local-cli/cli.js start --port 8081 --verbose",
     "native:cli": "node node_modules/react-native/local-cli/cli.js",
     "native:debug": "rndebugger-open --open --port 8081",
     "android": "react-native run-android",
