@@ -95,6 +95,9 @@ See https://stackoverflow.com/questions/40898934/unable-to-connect-with-remote-d
 
 `yarn android`
 
+To bring up the dev menu:
+`adb shell input keyevent 82`
+
 ##### Debugging
 
 Install and run https://github.com/jhen0409/react-native-debugger/

@@ -10,7 +10,8 @@
         "components": "./src/mobile-ui/components",
         "constants": "./src/mobile-ui/constants",
         "styles": "./src/mobile-ui/styles",
-        "theme": "./src/mobile-ui/styles/vars",
+        "static": "./static",
+        "theme": "./src/mobile-ui/styles/theme",
         "redux/actions": "./src/mobile-ui/redux/actions",
         "redux/reducers": "./src/mobile-ui/redux/reducers",
         "redux/selectors": "./src/mobile-ui/redux/selectors",
@@ -18,7 +19,7 @@
         "utils": "./src/mobile-ui/utils",
         "package.json": "./package.json"
       },
-      "extensions": [".js", ".jsx", ".scss"]
+      "extensions": [".js", ".jsx", ".css"]
     }]
   ]
 }

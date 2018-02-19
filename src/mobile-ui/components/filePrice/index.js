@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { doFetchCostInfoForUri } from 'redux/actions/cost_info';
 import {

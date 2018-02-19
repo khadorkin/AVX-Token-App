@@ -1,8 +1,22 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Text } from 'components/core';
 import { CreditAmount } from 'components/common';
 
 class FilePrice extends React.PureComponent {
+  static propTypes = {
+    costInfo: PropTypes.object.isRequired,
+    showFullPrice: PropTypes.bool,
+    look: PropTypes.string,
+  };
+
+  static defaultProps = {
+    look: 'indicator',
+    showFullPrice: false,
+  };
+
   componentWillMount() {
     this.fetchCost(this.props);
   }
@@ -20,7 +34,7 @@ class FilePrice extends React.PureComponent {
   }
 
   render() {
-    const { costInfo, look = 'indicator', showFullPrice = false } = this.props;
+    const { costInfo, look, showFullPrice } = this.props;
 
     const isEstimate = costInfo ? !costInfo.includesData : null;
 

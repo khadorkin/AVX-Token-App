@@ -1,13 +1,11 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-unused-state */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import styled from 'styled-components';
+// import ReactDOM from 'react-dom';
 import FileCard from 'components/fileCard';
-import Icon from 'components/icon';
 import { ToolTip } from 'components/tooltip';
 import Link from 'components/link';
-import TouchableHighlight from 'components/touchableHighlight';
 import { normalizeURI } from 'utils/lbryURI';
 import theme from 'theme';
 
@@ -37,37 +35,36 @@ const CardRowScrollhouse = View.extend`
   padding: 0px ${theme.cardMargin / 2}px;
 `;
 
-const CardRowNav = View.extend`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 ${theme.cardMargin}px;
-  height: 100%;
-  ${props => props.align}: 0;
-  width: 0px;
-  z-index: 2;
-`;
+// const CardRowNav = View.extend`
+//   position: absolute;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   padding: 0 ${theme.cardMargin}px;
+//   height: 100%;
+//   ${props => props.align}: 0;
+//   width: 0px;
+//   z-index: 2;
+// `;
 
 /*color: ${theme.colorHelp};
   transition-property: transform;
   transition-duration: 0.2s;
   transition-timing-function: ${theme.animationStyle};*/
-const CardRowScrollButton = styled(TouchableHighlight)`
-  background: ${theme.cardBg};
-  box-shadow: ${theme.boxShadowLayer};
-  padding: ${theme.spacingVertical / 4}px
-    ${theme.spacingVertical / 10}px;
-  position: absolute;
-  ${props => props.align}: -${theme.spacingVertical}px;
-  top: -${theme.spacingVertical * 0.8}px;
-  opacity: 0.8;
+// const CardRowScrollButton = styled(TouchableHighlight)`
+//   background: ${theme.cardBg};
+//   box-shadow: ${theme.boxShadowLayer};
+//   padding: ${theme.spacingVertical / 4}px ${theme.spacingVertical / 10}px;
+//   position: absolute;
+//   ${props => props.align}: -${theme.spacingVertical}px;
+//   top: -${theme.spacingVertical * 0.8}px;
+//   opacity: 0.8;
 
-  &:hover {
-    opacity: 1;
-    transform: scale(calc(var(--card-link-scaling) * 1.1));
-  }
-`;
+//   &:hover {
+//     opacity: 1;
+//     transform: scale(calc(var(--card-link-scaling) * 1.1));
+//   }
+// `;
 
 // const CardRowItems = View.extend`
 //   width: 100%;
@@ -104,118 +101,118 @@ export default class FeaturedCategory extends React.Component {
     });
   }
 
-  componentDidMount() {
-    const cardRow = ReactDOM.findDOMNode(this.refs.rowitems);
-    if (!cardRow || !cardRow.getElementsByTagName) return;
-    const cards = cardRow.getElementsByTagName('section');
+  // componentDidMount() {
+  //   const cardRow = ReactDOM.findDOMNode(this.refs.rowitems);
+  //   if (!cardRow || !cardRow.getElementsByTagName) return;
+  //   const cards = cardRow.getElementsByTagName('section');
 
-    // check if the last card is visible
-    const lastCard = cards[cards.length - 1];
-    const isCompletelyVisible = this.isCardVisible(lastCard, cardRow, false);
+  //   // check if the last card is visible
+  //   const lastCard = cards[cards.length - 1];
+  //   const isCompletelyVisible = this.isCardVisible(lastCard, cardRow, false);
 
-    if (!isCompletelyVisible) {
-      this.setState({
-        canScrollNext: true,
-      });
-    }
-  }
+  //   if (!isCompletelyVisible) {
+  //     this.setState({
+  //       canScrollNext: true,
+  //     });
+  //   }
+  // }
 
-  handleScrollPrevious = () => {
-    const cardRow = ReactDOM.findDOMNode(this.refs.rowitems);
-    if (!cardRow || !cardRow.getElementsByTagName) return;
-    if (cardRow.scrollLeft > 0) {
-      // check the visible cards
-      const cards = cardRow.getElementsByTagName('section');
-      let firstVisibleCard = null;
-      let firstVisibleIdx = -1;
-      for (let i = 0; i < cards.length; i++) {
-        if (this.isCardVisible(cards[i], cardRow, false)) {
-          firstVisibleCard = cards[i];
-          firstVisibleIdx = i;
-          break;
-        }
-      }
+  // handleScrollPrevious = () => {
+  //   const cardRow = ReactDOM.findDOMNode(this.refs.rowitems);
+  //   if (!cardRow || !cardRow.getElementsByTagName) return;
+  //   if (cardRow.scrollLeft > 0) {
+  //     // check the visible cards
+  //     const cards = cardRow.getElementsByTagName('section');
+  //     let firstVisibleCard = null;
+  //     let firstVisibleIdx = -1;
+  //     for (let i = 0; i < cards.length; i++) {
+  //       if (this.isCardVisible(cards[i], cardRow, false)) {
+  //         firstVisibleCard = cards[i];
+  //         firstVisibleIdx = i;
+  //         break;
+  //       }
+  //     }
 
-      const numDisplayed = this.numDisplayedCards(cardRow);
-      const scrollToIdx = firstVisibleIdx - numDisplayed;
-      const animationCallback = () => {
-        this.setState({
-          canScrollPrevious: cardRow.scrollLeft !== 0,
-          canScrollNext: true,
-        });
-      };
-      this.scrollCardItemsLeftAnimated(
-        cardRow,
-        scrollToIdx < 0 ? 0 : cards[scrollToIdx].offsetLeft,
-        100,
-        animationCallback
-      );
-    }
-  };
+  //     const numDisplayed = this.numDisplayedCards(cardRow);
+  //     const scrollToIdx = firstVisibleIdx - numDisplayed;
+  //     const animationCallback = () => {
+  //       this.setState({
+  //         canScrollPrevious: cardRow.scrollLeft !== 0,
+  //         canScrollNext: true,
+  //       });
+  //     };
+  //     this.scrollCardItemsLeftAnimated(
+  //       cardRow,
+  //       scrollToIdx < 0 ? 0 : cards[scrollToIdx].offsetLeft,
+  //       100,
+  //       animationCallback
+  //     );
+  //   }
+  // };
 
-  handleScrollNext = () => {
-    const cardRow = ReactDOM.findDOMNode(this.refs.rowitems);
-    if (!cardRow || !cardRow.getElementsByTagName) return;
+  // handleScrollNext = () => {
+  //   const cardRow = ReactDOM.findDOMNode(this.refs.rowitems);
+  //   if (!cardRow || !cardRow.getElementsByTagName) return;
 
-    // check the visible cards
-    const cards = cardRow.getElementsByTagName('section');
-    let lastVisibleCard = null;
-    let lastVisibleIdx = -1;
-    for (let i = 0; i < cards.length; i++) {
-      if (this.isCardVisible(cards[i], cardRow, true)) {
-        lastVisibleCard = cards[i];
-        lastVisibleIdx = i;
-      }
-    }
+  //   // check the visible cards
+  //   const cards = cardRow.getElementsByTagName('section');
+  //   let lastVisibleCard = null;
+  //   let lastVisibleIdx = -1;
+  //   for (let i = 0; i < cards.length; i++) {
+  //     if (this.isCardVisible(cards[i], cardRow, true)) {
+  //       lastVisibleCard = cards[i];
+  //       lastVisibleIdx = i;
+  //     }
+  //   }
 
-    if (lastVisibleCard) {
-      const numDisplayed = this.numDisplayedCards(cardRow);
-      const animationCallback = () => {
-        // update last visible index after scroll
-        for (let i = 0; i < cards.length; i++) {
-          if (this.isCardVisible(cards[i], cardRow, true)) {
-            lastVisibleIdx = i;
-          }
-        }
+  //   if (lastVisibleCard) {
+  //     const numDisplayed = this.numDisplayedCards(cardRow);
+  //     const animationCallback = () => {
+  //       // update last visible index after scroll
+  //       for (let i = 0; i < cards.length; i++) {
+  //         if (this.isCardVisible(cards[i], cardRow, true)) {
+  //           lastVisibleIdx = i;
+  //         }
+  //       }
 
-        this.setState({ canScrollPrevious: true });
-        if (lastVisibleIdx === cards.length - 1) {
-          this.setState({ canScrollNext: false });
-        }
-      };
+  //       this.setState({ canScrollPrevious: true });
+  //       if (lastVisibleIdx === cards.length - 1) {
+  //         this.setState({ canScrollNext: false });
+  //       }
+  //     };
 
-      this.scrollCardItemsLeftAnimated(
-        cardRow,
-        Math.min(lastVisibleCard.offsetLeft, cardRow.scrollWidth - cardRow.clientWidth),
-        100,
-        animationCallback
-      );
-    }
-  };
+  //     this.scrollCardItemsLeftAnimated(
+  //       cardRow,
+  //       Math.min(lastVisibleCard.offsetLeft, cardRow.scrollWidth - cardRow.clientWidth),
+  //       100,
+  //       animationCallback
+  //     );
+  //   }
+  // };
 
-  scrollCardItemsLeftAnimated(cardRow, target, duration, callback) {
-    if (!duration || duration <= diff) {
-      cardRow.scrollLeft = target;
-      if (callback) {
-        callback();
-      }
-      return;
-    }
+  // scrollCardItemsLeftAnimated(cardRow, target, duration, callback) {
+  //   if (!duration || duration <= diff) {
+  //     cardRow.scrollLeft = target;
+  //     if (callback) {
+  //       callback();
+  //     }
+  //     return;
+  //   }
 
-    const component = this;
-    const diff = target - cardRow.scrollLeft;
-    const tick = diff / duration * 10;
-    setTimeout(() => {
-      cardRow.scrollLeft += tick;
-      if (cardRow.scrollLeft === target) {
-        if (callback) {
-          callback();
-        }
-        return;
-      }
-      component.scrollCardItemsLeftAnimated(cardRow, target, duration - 10, callback);
-    }, 10);
-  }
+  //   const component = this;
+  //   const diff = target - cardRow.scrollLeft;
+  //   const tick = diff / duration * 10;
+  //   setTimeout(() => {
+  //     cardRow.scrollLeft += tick;
+  //     if (cardRow.scrollLeft === target) {
+  //       if (callback) {
+  //         callback();
+  //       }
+  //       return;
+  //     }
+  //     component.scrollCardItemsLeftAnimated(cardRow, target, duration - 10, callback);
+  //   }, 10);
+  // }
 
   // eslint-disable-next-line class-methods-use-this
   isCardVisible(section, cardRow, partialVisibility) {
@@ -225,7 +222,7 @@ export default class FeaturedCategory extends React.Component {
     // check if a card is fully or partialy visible in its parent
     const cardRowWidth = cardRow.offsetWidth;
     const cardRowLeft = cardRow.scrollLeft;
-    const cardRowEnd = cardRowLeft + cardRow.offsetWidth;
+    // const cardRowEnd = cardRowLeft + cardRow.offsetWidth;
     const sectionLeft = section.offsetLeft - cardRowLeft;
     const sectionEnd = sectionLeft + section.offsetWidth;
 
@@ -254,7 +251,7 @@ export default class FeaturedCategory extends React.Component {
   render() {
     const { category, names = [], categoryLink } = this.props;
 
-    const limitedNames = names.slice(0, Platform.OS == 'web' ? 5 : 3);
+    const limitedNames = names.slice(0, Platform.OS === 'web' ? 5 : 3);
 
     return (
       <SmallCardRow>

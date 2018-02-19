@@ -1,4 +1,6 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { normalizeURI } from 'utils/lbryURI';
 import CardMedia from 'components/cardMedia';
@@ -76,6 +78,21 @@ const CardIcons = View.extend`
 `;
 
 class FileCard extends React.PureComponent {
+  static propTypes = {
+    claim: PropTypes.object.isRequired,
+    fileInfo: PropTypes.object,
+    metadata: PropTypes.object.isRequired,
+    uri: PropTypes.string.isRequired,
+    // isResolvingUri: PropTypes.bool,
+    navigate: PropTypes.func.isRequired,
+    rewardedContentClaimIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  };
+
+  static defaultProps = {
+    fileInfo: undefined,
+    // isResolvingUri: false,
+  };
+
   componentWillMount() {
     this.resolve(this.props);
   }
@@ -98,7 +115,7 @@ class FileCard extends React.PureComponent {
       claim,
       fileInfo,
       metadata,
-      isResolvingUri,
+      // isResolvingUri,
       navigate,
       rewardedContentClaimIds,
     } = this.props;
@@ -108,14 +125,14 @@ class FileCard extends React.PureComponent {
     const thumbnail = metadata && metadata.thumbnail ? metadata.thumbnail : null;
     const isRewardContent = claim && rewardedContentClaimIds.includes(claim.claim_id);
 
-    let description = '';
-    if (isResolvingUri && !claim) {
-      description = __('Loading...');
-    } else if (metadata && metadata.description) {
-      description = metadata.description;
-    } else if (claim === null) {
-      description = __('This address contains no content.');
-    }
+    // let description = '';
+    // if (isResolvingUri && !claim) {
+    //   description = __('Loading...');
+    // } else if (metadata && metadata.description) {
+    //   description = metadata.description;
+    // } else if (claim === null) {
+    //   description = __('This address contains no content.');
+    // }
 
     return (
       <Card onClick={() => navigate('/show', { uri })} className="card__link">

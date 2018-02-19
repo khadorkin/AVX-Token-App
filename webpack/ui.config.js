@@ -29,7 +29,7 @@ module.exports = {
       'node_modules',
       path.resolve(__dirname, '..'),
     ],
-    extensions: ['.js', '.jsx', '.scss'],
+    extensions: ['.js', '.jsx', '.css'],
   },
 };
 

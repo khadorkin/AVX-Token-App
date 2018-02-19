@@ -16,11 +16,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface avx.token.appTests : XCTestCase
+@interface AvxTokenAppTests : XCTestCase
 
 @end
 
-@implementation avx.token.appTests
+@implementation AvxTokenAppTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

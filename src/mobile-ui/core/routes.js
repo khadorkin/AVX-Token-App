@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'components/core';
 import { Redirect, Route, Switch, withRouter } from 'react-router-platform';
 
-import Test from '../page/test';
+// import Test from '../page/test';
 import Test2 from '../page/test2';
 import Discover from '../page/discover';
 

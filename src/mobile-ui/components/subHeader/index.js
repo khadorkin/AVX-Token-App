@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 // import { doNavigate } from 'redux/actions/navigation';
 import SubHeader from './subHeader';
 
-const select = (state, props) => ({
+const select = () => ({
   // currentPage: selectCurrentPage(state),
   // subLinks: selectHeaderLinks(state),
 });
 
-const perform = dispatch => ({
+const perform = () => ({
   // navigate: path => dispatch(doNavigate(path)),
 });
 

@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { View, Text, Platform } from 'components/core';
+import { View, Text } from 'components/core';
 import theme from 'theme';
 
 const ImageCard = View.extend`
@@ -38,6 +39,16 @@ class CardMedia extends React.Component {
     'yellow',
     'orange',
   ];
+
+  static propTypes = {
+    title: PropTypes.string,
+    thumbnail: PropTypes.string,
+  };
+
+  static defaultProps = {
+    title: '',
+    thumbnail: undefined,
+  };
 
   componentWillMount() {
     this.setState({

@@ -32,10 +32,11 @@ module.exports = {
     alias: {
       'react-native': 'react-native-web',
       'react-router-platform': 'react-router-dom',
+      theme: path.join(srcRoot, 'styles', 'theme'),
       styles: path.join(srcRoot, 'styles'),
       fontawesome: path.resolve(__dirname, '../static/font'),
     },
-    extensions: ['.js', '.jsx', '.scss'],
+    extensions: ['.js', '.jsx', '.css'],
   },
   module: {
     rules: [
@@ -48,7 +49,7 @@ module.exports = {
             babelrc: false,
             cacheDirectory: true,
             plugins: [
-              ['react-hot-loader/babel'],
+              ['transform-export-extensions'],
               [
                 'module-resolver',
                 {
@@ -62,13 +63,14 @@ module.exports = {
                     types: path.join(srcRoot, 'types'),
                     utils: path.join(srcRoot, 'utils'),
                     styles: path.join(srcRoot, 'styles'),
-                    theme: path.join(srcRoot, 'styles', 'vars'),
+                    static: path.join('./static'),
+                    theme: path.join(srcRoot, 'styles', 'theme'),
                   },
-                  extensions: ['.js', '.scss'],
+                  extensions: ['.js', '.css'],
                 },
               ],
               ['babel-plugin-styled-components'],
-              ['transform-export-extensions'],
+              ['react-hot-loader/babel'],
             ],
             presets: ['env', 'react', 'stage-2'],
           },
@@ -82,20 +84,6 @@ module.exports = {
           },
           {
             loader: 'css-loader',
-          },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'sass-loader',
           },
         ],
       },

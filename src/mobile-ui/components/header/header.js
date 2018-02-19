@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { View, Platform } from 'components/core';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Link from 'components/link';
 import theme from 'theme';
 // import WunderBar from 'components/wunderbar';
+
+import AvxLogoSvg from 'components/logo';
 
 const paddingTop =
   {
@@ -40,9 +42,17 @@ const WunderBarHeader = styled(HeaderItem)`
   max-width: 20%;
 `;
 
-// const StyledLink = styled(Link)`
-//   flex-grow: 1;
-// `
+const logoSize = Platform.OS === 'web' ? 24 : 20;
+const logoMarginLeft = Platform.OS === 'web' ? 3 : 12;
+const logoMarginBottom = Platform.OS === 'web' ? 0 : -1;
+const AvxLogo = styled(AvxLogoSvg)`
+  align-self: center;
+  min-width: ${logoSize}px;
+  height: ${logoSize}px;
+  flex-grow: 0;
+  margin-left: ${logoMarginLeft}px;
+  margin-bottom: ${logoMarginBottom}px;
+`;
 
 class Header extends React.PureComponent {
   render() {
@@ -59,6 +69,7 @@ class Header extends React.PureComponent {
     } = this.props;
     return (
       <StyledHeader>
+        <AvxLogo label={Platform.OS === 'web'} secondaryColor={theme.defaultTextColor} />
         <HeaderItem
           onClick={back}
           disabled={isBackDisabled}
@@ -94,12 +105,12 @@ class Header extends React.PureComponent {
           label={balance}
           title={__('Wallet')}
         />
-        <HeaderItem
+        {/*<HeaderItem
           onClick={() => navigate('/publish')}
           button="primary button--flat"
           icon="upload"
           label={__('Publish')}
-        />
+        />*/}
         <HeaderItem
           onClick={() => navigate('/downloaded')}
           button="alt button--flat"

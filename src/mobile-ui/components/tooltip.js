@@ -7,6 +7,11 @@ export class ToolTip extends React.PureComponent {
   static propTypes = {
     body: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    className: PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: '',
   };
 
   constructor(props) {
@@ -43,6 +48,9 @@ export class ToolTip extends React.PureComponent {
         <Text
           className={`tooltip__body ${this.state.showTooltip ? '' : ' hidden'}`}
           onMouseOut={() => {
+            this.handleTooltipMouseOut();
+          }}
+          onBlur={() => {
             this.handleTooltipMouseOut();
           }}
         >

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { View, Text } from 'components/core';
 import { Image } from 'react-native';
@@ -38,6 +39,16 @@ class CardMedia extends React.PureComponent {
     'yellow',
     'orange',
   ];
+
+  static propTypes = {
+    title: PropTypes.string,
+    thumbnail: PropTypes.string,
+  };
+
+  static defaultProps = {
+    title: '',
+    thumbnail: undefined,
+  };
 
   componentWillMount() {
     this.setState({

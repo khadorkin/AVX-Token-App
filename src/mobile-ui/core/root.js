@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { Platform } from 'components/core';
 import { ConnectedRouter } from 'connected-react-router';
 
-import theme from 'styles/vars';
+import theme from 'theme';
 import { store } from '../store';
 import App from './app';
 import history from '../store/history';

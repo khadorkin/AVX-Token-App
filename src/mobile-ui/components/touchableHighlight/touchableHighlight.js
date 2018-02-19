@@ -23,12 +23,14 @@ class TouchableHighlight extends React.PureComponent {
     onClick: PropTypes.func,
     view: PropTypes.any,
     underlayColor: PropTypes.string,
+    span: PropTypes.func,
   };
 
   static defaultProps = {
     onPress: undefined,
     onClick: undefined,
     view: View,
+    span: undefined,
   };
 
   render() {
