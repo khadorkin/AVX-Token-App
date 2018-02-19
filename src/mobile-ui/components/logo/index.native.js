@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Svg, { G, Path } from 'react-native-svg';
+import theme from 'theme';
 
 export default class IconLogo extends React.PureComponent {
   static propTypes = {
@@ -12,7 +13,7 @@ export default class IconLogo extends React.PureComponent {
   static defaultProps = {
     label: false,
     primaryColor: '#3BBCE9',
-    secondaryColor: '#FFFFFF',
+    secondaryColor: theme.defaultTextColor,
   };
 
   renderLabel(primaryColor, secondaryColor) {

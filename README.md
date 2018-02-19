@@ -132,6 +132,12 @@ Run `yarn build`.
 We use [electron-builder](https://github.com/electron-userland/electron-builder) to create
 distributable packages.
 
+### Icons
+
+Use https://github.com/dwmkerr/app-icon to generate icons sizes based on icon.png
+
+`yarn global add react-native-icon && react-native-icon`
+
 ## Contributing
 
 Please read [our contributing manual](CONTRIBUTING.md) for details on how to develop for the

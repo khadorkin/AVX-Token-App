@@ -1,28 +1,23 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
-import { Platform } from 'components/core';
-import { ConnectedRouter } from 'connected-react-router';
+import Splash from 'components/splash';
 
-import theme from 'theme';
-import { store } from '../store';
-import App from './app';
-import history from '../store/history';
+export default class Root extends React.Component {
+  state = {};
 
-let Root = props => (
-  <Provider store={store} {...props}>
-    <ThemeProvider theme={theme}>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
-    </ThemeProvider>
-  </Provider>
-);
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        // eslint-disable-next-line global-require
+        Provider: require('./provider').default,
+      });
+    }, 1);
+  }
 
-if (Platform.OS === 'web') {
-  // eslint-disable-next-line import/no-extraneous-dependencies
-  Root = require('react-hot-loader').hot(module)(Root); // eslint-disable-line global-require
+  render() {
+    const { Provider } = this.state;
+    if (!Provider) {
+      return <Splash {...this.props} />;
+    }
+    return <Provider {...this.props} />;
+  }
 }
-
-const AppRoot = Root;
-export default AppRoot;

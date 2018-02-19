@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import theme from 'theme';
 
 export default class IconLogo extends React.PureComponent {
   static propTypes = {
     label: PropTypes.bool,
     primaryColor: PropTypes.string,
     secondaryColor: PropTypes.string,
+    icon: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
 
   static defaultProps = {
     label: false,
     primaryColor: '#3BBCE9',
-    secondaryColor: '#FFFFFF',
+    secondaryColor: theme.defaultTextColor,
+    icon: {},
   };
 
   renderLabel() {
@@ -62,7 +65,7 @@ export default class IconLogo extends React.PureComponent {
   }
 
   render() {
-    const { props: { label = false, primaryColor, secondaryColor, ...svgProps } } = this;
+    const { props: { label = false, primaryColor, secondaryColor, icon, ...svgProps } } = this;
     const viewBox = label ? '0 0 792 182.6' : '0 0 182.6 182.6';
     //         style="enable-background:new 0 0 792 182.6;"
     return (
@@ -72,7 +75,7 @@ export default class IconLogo extends React.PureComponent {
           .st1{`{fill:${primaryColor};}`}
         </style>
         {label ? this.renderLabel() : null}
-        <g id="XMLID_1356_">
+        <g id="XMLID_1356_" {...icon}>
           <g id="XMLID_111_">
             <path
               id="XMLID_115_"
