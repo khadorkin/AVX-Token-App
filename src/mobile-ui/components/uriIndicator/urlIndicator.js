@@ -8,13 +8,14 @@ import { View, Text } from 'components/core';
 
 class UriIndicator extends React.PureComponent {
   static propTypes = {
-    claim: PropTypes.object.isRequired,
+    claim: PropTypes.object,
     link: PropTypes.bool,
     uri: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
     isResolvingUri: PropTypes.bool,
   };
 
   static defaultProps = {
+    claim: undefined,
     link: false,
     isResolvingUri: false,
   };

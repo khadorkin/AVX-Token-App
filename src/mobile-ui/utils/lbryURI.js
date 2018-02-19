@@ -1,3 +1,5 @@
+import memoize from 'lodash.memoize';
+
 const channelNameMinLength = 1;
 const claimIdMaxLength = 40;
 
@@ -26,7 +28,7 @@ export const regexAddress = /^b(?=[^0OIl]{32,33})[0-9A-Za-z]{32,33}$/;
  *   - contentName (string): For anon claims, the name; for channel claims, the path
  *   - channelName (string, if present): Channel name without @
  */
-export function parseURI(URI, requireProto = false) {
+export const parseURI = memoize((URI, requireProto = false) => {
   // Break into components. Empty sub-matches are converted to null
   const componentsRegex = new RegExp(
     '^((?:lbry://)?)' + // protocol
@@ -138,7 +140,7 @@ export function parseURI(URI, requireProto = false) {
     ...(claimId ? { claimId } : {}),
     ...(path ? { path } : {}),
   };
-}
+});
 
 /**
  * Takes an object in the same format returned by parse() and builds a URI.
@@ -189,12 +191,12 @@ export function buildURI(URIObj, includeProto = true) {
 }
 
 /* Takes a parseable LBRY URI and converts it to standard, canonical format */
-export function normalizeURI(URI) {
+export const normalizeURI = memoize(URI => {
   if (URI.match(/pending_claim/)) return URI;
 
   const { name, path, bidPosition, claimSequence, claimId } = parseURI(URI);
   return buildURI({ name, path, claimSequence, bidPosition, claimId });
-}
+});
 
 export function isURIValid(URI) {
   let parts;

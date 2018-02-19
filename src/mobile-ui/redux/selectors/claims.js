@@ -1,6 +1,6 @@
-import { normalizeURI } from 'utils/lbryURI';
-import { makeSelectCurrentParam } from 'redux/selectors/navigation';
 import { createSelector } from 'reselect';
+import { makeSelectCurrentParam, selectCurrentParams } from 'redux/selectors/navigation';
+import { normalizeURI } from 'utils/lbryURI';
 
 const selectState = state => state.claims || {};
 
@@ -33,6 +33,12 @@ export const selectAllClaimsByChannel = createSelector(
 
 export const makeSelectClaimForUri = uri =>
   createSelector(selectClaimsByUri, claims => claims && claims[normalizeURI(uri)]);
+
+export const selectClaim = createSelector(
+  selectState,
+  selectCurrentParams,
+  (state, params) => params.uri && state.byId[state.claimsByUri[normalizeURI(params.uri)]]
+);
 
 export const selectMyClaimsRaw = createSelector(selectState, state => state.myClaims);
 
@@ -87,6 +93,12 @@ export const makeSelectClaimsInChannelForCurrentPage = uri => {
     }
   );
 };
+
+export const selectMetadata = createSelector(selectClaim, claim => {
+  const metadata = claim && claim.value && claim.value.stream && claim.value.stream.metadata;
+
+  return metadata || (claim === undefined ? undefined : null);
+});
 
 export const makeSelectMetadataForUri = uri =>
   createSelector(makeSelectClaimForUri(uri), claim => {

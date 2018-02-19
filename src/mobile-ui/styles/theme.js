@@ -7,6 +7,7 @@ const colorBgAlt = '#d9d9d9';
 
 const widthPageConstrained = '800px';
 const spacingVertical = 24;
+const fontSize = 16;
 
 export default {
   /* Colors */
@@ -34,7 +35,7 @@ export default {
   heightVideoEmbedded: `${widthPageConstrained} * 9 / 16`,
 
   /* Font */
-  fontSize: 16,
+  fontSize,
   fontLineHeight: '1.3333',
   fontSizeSubtextMultiple: '0.82',
 
@@ -55,6 +56,14 @@ export default {
   textLinkPadding: '4px',
   textSelectionBg: 'rgba(saturate(lighten(#155b4a, 20%), 20%), 1)', // temp color
   textSelectionColor: '#fff',
+  heading1: `
+    font-size: ${fontSize * 1.5}px;
+    font-weight: 500;
+  `,
+  heading2: `
+    font-size: ${fontSize * 1.25}px;
+    font-weight: 500;
+  `,
 
   /* Window */
   windowBg: colorCanvas,

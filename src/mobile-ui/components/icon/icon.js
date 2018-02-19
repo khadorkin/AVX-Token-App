@@ -76,3 +76,5 @@ export default class IconComponentImpl extends React.PureComponent {
     );
   }
 }
+
+Object.assign(IconComponentImpl, icons);

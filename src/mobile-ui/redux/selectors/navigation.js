@@ -3,8 +3,14 @@ import { parseQueryParams, toQueryString } from 'utils/query_params';
 import { normalizeURI } from 'utils/lbryURI';
 
 export const selectState = state => state.navigation || {};
+export const selectLocation = function(state) {
+  return state.router.location;
+};
 
-export const selectCurrentPath = createSelector(selectState, state => state.currentPath);
+export const selectCurrentPath = createSelector(
+  selectLocation,
+  location => location.path + location.search + location.href
+);
 
 export const computePageFromPath = (path = '') => path.replace(/^\//, '').split('?')[0];
 
@@ -12,11 +18,11 @@ export const selectCurrentPage = createSelector(selectCurrentPath, path =>
   computePageFromPath(path)
 );
 
-export const selectCurrentParams = createSelector(selectCurrentPath, path => {
-  if (path === undefined) return {};
-  if (!path.match(/\?/)) return {};
+export const selectCurrentParams = createSelector(selectLocation, ({ search, hash }) => {
+  if (search === undefined) return {};
+  if (!search.match(/\?/)) return {};
 
-  return parseQueryParams(path.split('?')[1]);
+  return parseQueryParams(search.slice(1) + hash);
 });
 
 export const makeSelectCurrentParam = param =>

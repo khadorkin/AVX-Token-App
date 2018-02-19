@@ -3,6 +3,7 @@ import {
   selectIsFetchingClaimListMine,
   selectMyClaims,
 } from 'redux/selectors/claims';
+import { makeSelectCurrentParam } from 'redux/selectors/navigation';
 import { createSelector } from 'reselect';
 
 export const selectState = state => state.fileInfo || {};
@@ -30,6 +31,18 @@ export const makeSelectFileInfoForUri = uri =>
 
     return outpoint ? byOutpoint[outpoint] : undefined;
   });
+
+export const selectFileInfo = createSelector(
+  selectClaimsByUri,
+  selectFileInfosByOutpoint,
+  makeSelectCurrentParam('uri'),
+  (claims, byOutpoint, uri) => {
+    const claim = claims[uri];
+    const outpoint = claim ? `${claim.txid}:${claim.nout}` : undefined;
+
+    return outpoint ? byOutpoint[outpoint] : undefined;
+  }
+);
 
 export const selectDownloadingByOutpoint = createSelector(
   selectState,
