@@ -2,11 +2,14 @@
 
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { View, Text, Platform } from 'components/core';
+import { Text, Platform } from 'components/core';
 import Icon from 'components/icon';
 import { ButtonContent } from 'components/button';
 import TouchableHighlight from 'components/touchableHighlight';
-import BoxContainer from './box';
+
+const LabelText = styled(Text)`
+  margin-right: 12px;
+`;
 
 class Link extends React.PureComponent {
   onClick = event => {
@@ -20,18 +23,7 @@ class Link extends React.PureComponent {
   };
 
   render() {
-    const {
-      href,
-      title,
-      style,
-      label,
-      icon,
-      iconRight,
-      button,
-      // disabled,
-      // className,
-      // span,
-    } = this.props;
+    const { label, icon, iconRight, button, doNavigate, navigateParams, ...props } = this.props;
     let { children } = this.props;
 
     // const combinedClassName =
@@ -43,18 +35,14 @@ class Link extends React.PureComponent {
     if (!children) {
       children = [
         icon ? <Icon key="icon" icon={icon} fixed /> : null,
-        label ? (
-          <Text key="text" className="link-label">
-            {label}
-          </Text>
-        ) : null,
+        label ? <LabelText key="text">{label}</LabelText> : null,
         iconRight ? <Icon key="right-icon" icon={iconRight} fixed /> : null,
       ];
     }
 
     const Box = button ? ButtonContent : TouchableHighlight;
     return (
-      <Box style={style} onClick={this.onClick} title={title} href={href} view={BoxContainer}>
+      <Box onClick={this.onClick} {...props}>
         {children}
       </Box>
     );

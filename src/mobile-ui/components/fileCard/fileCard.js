@@ -17,7 +17,7 @@ import theme from 'theme';
   transition-timing-function: ${theme.animationStyle};*/
 const Card = styled(Link)`
   max-width: ${theme.cardMaxWidth};
-  height: ${theme.cardMaxWidth};
+  min-height: ${theme.cardWidth};
   background: ${theme.cardBg};
   box-shadow: ${theme.boxShadowLayer};
   border-radius: ${theme.cardRadius};
@@ -27,19 +27,21 @@ const Card = styled(Link)`
   flex-direction: column;
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: ${theme.cardMaxWidth};
+  flex-basis: ${theme.cardWidth};
+  flex-wrap: nowrap;
   align-items: stretch;
-
-  &:hover {
-    position: relative;
-    z-index: 1;
-    box-shadow: ${theme.boxShadowFocus};
-    transform: scale(${theme.cardLinkScaling} props.theme.cardHoverTranslate});
-    transform-origin: 50% 50%;
-    /* overflow-x: visible;
-    overflow-y: visible; */
-  }
+  position: relative;
 `;
+
+// &:hover {
+//   position: relative;
+//   z-index: 1;
+//   box-shadow: ${theme.boxShadowFocus};
+//   transform: scale(${theme.cardLinkScaling} props.theme.cardHoverTranslate});
+//   transform-origin: 50% 50%;
+//   /* overflow-x: visible;
+//   overflow-y: visible; */
+// }
 // .card--small {
 //   .card__title-primary,
 //   .card__title-identity,
@@ -52,13 +54,15 @@ const Card = styled(Link)`
 
 const CardContent = View.extend`
   padding: 0 ${theme.cardPadding / 2}px;
-  margin: 16px 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const CardTitle = TruncatedText;
+const CardTitle = TruncatedText.extend`
+  margin: 4px 0px 2px;
+`;
 
 // color: ${theme.colorHelp};
 // font-size: 0.85em;

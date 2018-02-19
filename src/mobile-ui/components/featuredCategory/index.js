@@ -11,10 +11,10 @@ import TouchableHighlight from 'components/touchableHighlight';
 import { normalizeURI } from 'utils/lbryURI';
 import theme from 'theme';
 
-import { View, Text } from 'components/core';
+import { View, Text, Platform } from 'components/core';
 
-const paddingTopCardHoverHack = 20;
-const paddingRightCardHoverHack = 30;
+// const paddingTopCardHoverHack = 20;
+// const paddingRightCardHoverHack = 30;
 
 const SmallCardRow = View.extend`
   overflow: hidden;
@@ -32,9 +32,9 @@ const CardRowHeader = View.extend`
 const CardRowScrollhouse = View.extend`
   position: relative;
   flex-direction: row;
+  justify-content: flex-start;
   align-items: flex-start;
-  padding-right: ${paddingRightCardHoverHack};
-  padding-left: ${paddingRightCardHoverHack};
+  padding: 0px ${theme.cardMargin / 2}px;
 `;
 
 const CardRowNav = View.extend`
@@ -44,7 +44,6 @@ const CardRowNav = View.extend`
   justify-content: center;
   padding: 0 ${theme.cardMargin}px;
   height: 100%;
-  top: ${theme.cardMargin - paddingTopCardHoverHack}px;
   ${props => props.align}: 0;
   width: 0px;
   z-index: 2;
@@ -255,7 +254,7 @@ export default class FeaturedCategory extends React.Component {
   render() {
     const { category, names = [], categoryLink } = this.props;
 
-    const limitedNames = names.slice(0, 7);
+    const limitedNames = names.slice(0, Platform.OS == 'web' ? 5 : 3);
 
     return (
       <SmallCardRow>

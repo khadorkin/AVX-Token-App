@@ -28,21 +28,21 @@ const StyledHeader = (View.extend || View.extend)`
 
 const HeaderItem = Link.extend`
   justify-content: center;
-  padding-left: ${theme.spacingVertical / 4}px;
-  padding-right: ${theme.spacingVertical / 4}px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: 0px;
+  flex-shrink: 0;
+  flex-grow: 0;
 `;
 
 const WunderBarHeader = styled(HeaderItem)`
   flex-grow: 1;
+  max-width: 20%;
 `;
 
 // const StyledLink = styled(Link)`
 //   flex-grow: 1;
 // `
-
-const linkStyles = {
-  padding: '12px 0px',
-};
 
 class Header extends React.PureComponent {
   render() {
@@ -65,7 +65,6 @@ class Header extends React.PureComponent {
           button="alt button--flat"
           icon="arrow-left"
           title={__('Back')}
-          {...linkStyles}
         />
         <HeaderItem
           onClick={forward}
@@ -73,21 +72,18 @@ class Header extends React.PureComponent {
           button="alt button--flat"
           icon="arrow-right"
           title={__('Forward')}
-          {...linkStyles}
         />
         <HeaderItem
           onClick={() => navigate('/discover')}
           button="alt button--flat"
           icon="home"
           title={__('Discover Content')}
-          {...linkStyles}
         />
         <HeaderItem
           onClick={() => navigate('/subscriptions')}
           button="alt button--flat"
           icon="at"
           title={__('My Subscriptions')}
-          {...linkStyles}
         />
         <WunderBarHeader>{/*<WunderBar />*/}</WunderBarHeader>
         <HeaderItem
@@ -97,28 +93,24 @@ class Header extends React.PureComponent {
           icon="bank"
           label={balance}
           title={__('Wallet')}
-          {...linkStyles}
         />
         <HeaderItem
           onClick={() => navigate('/publish')}
           button="primary button--flat"
           icon="upload"
           label={__('Publish')}
-          {...linkStyles}
         />
         <HeaderItem
           onClick={() => navigate('/downloaded')}
           button="alt button--flat"
           icon="folder"
           title={__('Downloads and Publishes')}
-          {...linkStyles}
         />
         <HeaderItem
           onClick={() => navigate('/settings')}
           button="alt button--flat"
           icon="gear"
           title={__('Settings')}
-          {...linkStyles}
         />
         {(autoUpdateDownloaded || (process.platform === 'linux' && isUpgradeAvailable)) && (
           <HeaderItem
@@ -126,7 +118,6 @@ class Header extends React.PureComponent {
             button="primary button--flat"
             icon="arrow-up"
             label={__('Upgrade App')}
-            {...linkStyles}
           />
         )}
       </StyledHeader>

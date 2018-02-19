@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { View, Text, Platform } from 'components/core';
+import { View, Text } from 'components/core';
+import { Image } from 'react-native';
 import theme from 'theme';
 
-const ImageCard = View.extend`
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+const ImageCard = styled(Image)`
   background-color: #cccccc;
   flex: 0 0 ${theme.cardWidth};
+  min-height: ${theme.cardWidth};
+  min-width: ${theme.cardWidth};
 `;
 
 const OuterCard = View.extend`
@@ -24,7 +24,7 @@ const InnerCard = styled(Text)`
   text-align: center;
 `;
 
-class CardMedia extends React.Component {
+class CardMedia extends React.PureComponent {
   static AUTO_THUMB_CLASSES = [
     'purple',
     'red',
@@ -53,13 +53,7 @@ class CardMedia extends React.Component {
     const atClass = this.state.autoThumbClass;
 
     if (thumbnail) {
-      return (
-        <ImageCard
-          style={{
-            backgroundImage: `url('${thumbnail}')`,
-          }}
-        />
-      );
+      return <ImageCard source={{ uri: thumbnail }} />;
     }
 
     return (

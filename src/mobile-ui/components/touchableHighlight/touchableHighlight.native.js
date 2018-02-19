@@ -20,7 +20,6 @@ class TouchableHighlight extends React.PureComponent {
     impl: PropTypes.object,
     onPress: PropTypes.func,
     onClick: PropTypes.func,
-    view: PropTypes.any,
     underlayColor: PropTypes.string,
   };
 
@@ -34,24 +33,23 @@ class TouchableHighlight extends React.PureComponent {
     },
     onPress: undefined,
     onClick: undefined,
-    view: View,
     underlayColor: 'rgba(0,0,0,0.12)',
   };
 
   render() {
     // return <NativeImpl {...this.props}>{this.props.children}</NativeImpl>;
-    const nextProps = Object.assign({}, this.props, {
-      children: undefined,
-      onClick: undefined,
-      onPress: undefined,
-      view: undefined,
-    });
-    const InnerView = this.props.view;
-    delete nextProps.onPress;
-    const { children, onPress, onClick } = this.props;
+    // const nextProps = Object.assign({}, this.props, {
+    //   children: undefined,
+    //   onClick: undefined,
+    //   onPress: undefined,
+    //   view: undefined,
+    // });
+    // const InnerView = this.props.view;
+    // delete nextProps.onPress;
+    const { children, onPress, onClick, underlayColor, impl, ...nextProps } = this.props;
     return (
-      <NativeImpl {...nextProps} onPress={onPress || onClick}>
-        <InnerView>{children}</InnerView>
+      <NativeImpl {...impl} underlayColor={underlayColor} onPress={onPress || onClick}>
+        <View {...nextProps}>{children}</View>
       </NativeImpl>
     );
   }

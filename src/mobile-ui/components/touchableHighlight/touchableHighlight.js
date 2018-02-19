@@ -33,11 +33,10 @@ class TouchableHighlight extends React.PureComponent {
 
   render() {
     // return <NativeImpl {...this.props}>{this.props.children}</NativeImpl>;
-    const { children, onClick, onPress, view, ...nextProps } = this.props;
-    const InnerView = view;
+    const { children, onClick, onPress, view, span, ...nextProps } = this.props;
     return (
       <Impl {...nextProps} onClick={onPress || onClick}>
-        <InnerView>{children}</InnerView>
+        {children}
       </Impl>
     );
   }

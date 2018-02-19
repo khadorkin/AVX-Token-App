@@ -30,4 +30,7 @@ class RawView extends React.PureComponent {
     return <NativeView {...this.props} />;
   }
 }
-export const View = styled(RawView)``;
+export const View = styled(RawView)`
+  margin: 0;
+  padding: 0;
+`;
