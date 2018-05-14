@@ -21,7 +21,7 @@ module.exports = webpackMerge(baseConfig, {
 
   entry: {
     vendor: [
-      'babel-polyfill',
+      '@babel/polyfill',
       ...devVendors,
       'classnames',
       'formik',

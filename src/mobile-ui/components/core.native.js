@@ -2,7 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import React from 'react';
-import { Text as NativeText, View as NativeView } from 'react-native';
+import { Text as NativeText, View as NativeView, Image as NativeImage } from 'react-native';
 import styled from 'styled-components';
 import theme from 'theme';
 
@@ -34,3 +34,5 @@ export const View = styled(RawView)`
   margin: 0;
   padding: 0;
 `;
+
+export const Image = NativeImage;

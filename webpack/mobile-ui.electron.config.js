@@ -24,6 +24,7 @@ const srcRoot = path.resolve(__dirname, '../src/mobile-ui');
 
 module.exports = {
   cache: true,
+  mode: isProduction ? 'production' : 'development',
   devtool: isProduction ? 'source-map' : 'eval-source-map',
   output: {
     publicPath,
@@ -49,6 +50,8 @@ module.exports = {
             babelrc: false,
             cacheDirectory: true,
             plugins: [
+              ['@babel/plugin-syntax-class-properties'],
+              ['@babel/plugin-proposal-class-properties'],
               ['transform-export-extensions'],
               [
                 'module-resolver',
@@ -72,7 +75,17 @@ module.exports = {
               ['babel-plugin-styled-components'],
               ['react-hot-loader/babel'],
             ],
-            presets: ['env', 'react', 'stage-2'],
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  shippedProposals: true,
+                  targets: ['last 5 Chrome versions'],
+                },
+              ],
+              '@babel/preset-react',
+              '@babel/preset-flow',
+            ],
           },
         },
       },
@@ -101,12 +114,12 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.json/,
-        use: {
-          loader: 'json-loader',
-        },
-      },
+      // {
+      //   test: /\.json/,
+      //   use: {
+      //     loader: 'json-loader',
+      //   },
+      // },
     ],
   },
   plugins: [

@@ -1,8 +1,8 @@
 {
-  "appId": "io.lbry.LBRY",
+  "appId": "com.avx.AvxToken",
   "publish": {
     "provider": "s3",
-    "bucket": "releases.lbry.io",
+    "bucket": "releases.avxtoken.com",
     "path": "app/latest"
   },
   "mac": {
@@ -32,8 +32,8 @@
   },
   "protocols": [
     {
-      "name": "lbry",
-      "schemes": ["lbry"],
+      "name": "avx",
+      "schemes": ["avx"],
       "role": "Viewer"
     }
   ],
@@ -41,8 +41,8 @@
     "target": "deb",
     "category": "Video",
     "desktop": {
-      "MimeType": "x-scheme-handler/lbry",
-      "Exec": "/opt/LBRY/lbry %U"
+      "MimeType": "x-scheme-handler/avx",
+      "Exec": "/opt/avxtoken/avxtoken %U"
     }
   },
   "deb": {

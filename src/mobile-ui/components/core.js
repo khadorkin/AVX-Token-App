@@ -3,7 +3,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Button as RnButton } from 'react-native-web';
+import { Button as RnButton, Image as RnImage } from 'react-native-web';
 
 export {
   AppRegistry,
@@ -15,6 +15,8 @@ export {
   ScrollView,
   TouchableHighlight,
 } from 'react-native-web';
+
+export const Image = RnImage;
 
 class RawView extends React.PureComponent {
   render() {

@@ -65,7 +65,9 @@ export default class IconLogo extends React.PureComponent {
 
   render() {
     // style="enable-background:new 0 0 792 182.6;"
-    const { props: { label = false, primaryColor, secondaryColor, ...svgProps } } = this;
+    const {
+      props: { label = false, primaryColor, secondaryColor, ...svgProps },
+    } = this;
     const viewBox = label ? '0 0 792 182.6' : '0 0 182.6 182.6';
     return (
       <Svg version="1.1" id="Layer_1" x="0px" y="0px" viewBox={viewBox} {...svgProps}>

@@ -1,5 +1,9 @@
 {
-  "presets": ["react-native"],
+  "presets": [
+    ["react-native", {
+      "dev": true
+    }]
+  ],
   "plugins": [
     ["module-resolver", {
       "root": ["./src/mobile-ui"],

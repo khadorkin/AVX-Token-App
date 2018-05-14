@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // Module imports
-import keytar from 'keytar-prebuild';
+import keytar from 'keytar';
 import SemVer from 'semver';
 import url from 'url';
 import https from 'https';

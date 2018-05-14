@@ -22,7 +22,9 @@ const AvxLogo = styled(AvxLogoSvg)`
 
 class Header extends React.PureComponent {
   render() {
-    const { props: { logoSize = defaultLogoSize, ...props } } = this;
+    const {
+      props: { logoSize = defaultLogoSize, ...props },
+    } = this;
     return (
       <View {...props}>
         <AvxLogo

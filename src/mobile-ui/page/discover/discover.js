@@ -24,6 +24,7 @@ class DiscoverPage extends React.PureComponent {
       category={category}
       names={featuredUris[category]}
     />*/
+
     return (
       <ScrollView contentContainerStyle={{ flexShrink: 0 }}>
         <SubHeader fullWidth smallMargin />

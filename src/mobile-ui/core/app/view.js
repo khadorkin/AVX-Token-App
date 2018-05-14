@@ -37,16 +37,6 @@ class App extends React.Component {
     this.setTitleFromProps(props);
   }
 
-  componentWillUnmount() {
-    this.mainContent.removeEventListener('scroll', this.scrollListener);
-  }
-
-  setTitleFromProps(props) {
-    if (window.document) {
-      window.document.title = props.pageTitle || 'AVX Token App';
-    }
-  }
-
   componentDidCatch(error, errorInfo) {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -55,6 +45,16 @@ class App extends React.Component {
       error,
       errorInfo,
     });
+  }
+
+  componentWillUnmount() {
+    this.mainContent.removeEventListener('scroll', this.scrollListener);
+  }
+
+  setTitleFromProps(props) {
+    if (window.document) {
+      window.document.title = props.pageTitle || 'AVX Token App';
+    }
   }
 
   renderWithError() {

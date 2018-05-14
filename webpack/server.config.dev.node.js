@@ -23,7 +23,7 @@ module.exports = {
   externals: [
     nodeExternals({
       modulesDir: path.resolve(__dirname, '../node_modules'),
-      whitelist: ['webpack/hot/poll?1000', 'babel-polyfill'],
+      whitelist: ['webpack/hot/poll?1000', '@babel/polyfill'],
     }),
   ],
   output: {
@@ -33,7 +33,7 @@ module.exports = {
     path: path.resolve(__dirname, '../dist/server'),
   },
   entry: {
-    index: ['babel-polyfill', /* 'webpack/hot/poll?1000', */ './src/common/api-server/dev.node'],
+    index: ['@babel/polyfill', /* 'webpack/hot/poll?1000', */ './src/common/api-server/dev.node'],
   },
   resolve: {
     alias: {
