@@ -73,7 +73,7 @@ export default class Wallet extends Component {
         </Block>
         <Block>
           <Welcome>Wallet</Welcome>
-          <Link to="/discover">
+          <Link to="/discover" type="button">
             <ButtonContent>Go To Next View</ButtonContent>
           </Link>
         </Block>

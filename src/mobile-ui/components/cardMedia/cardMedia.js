@@ -3,78 +3,50 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { View, Text } from 'components/core';
 import theme from 'theme';
+import imageCard from './imageCard';
 
-const ImageCard = View.extend`
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+const ImageCard = imageCard.extend`
+  min-height: ${theme.cardWidth - 4 * theme.fontSize}px
+  min-width: ${theme.cardWidth}px;
   background-color: #cccccc;
-  flex: 0 0 ${theme.cardWidth};
+  flex: 0 0 ${theme.cardWidth - 4 * theme.fontSize}px;
 `;
 
 const OuterCard = View.extend`
   position: relative;
   background-color: #cccccc;
-  flex: 0 0 ${theme.cardWidth};
+  flex: 0 0 ${theme.cardWidth - 4 * theme.fontSize}px;
 `;
 
 const InnerCard = styled(Text)`
-  font-size: 2em;
+  font-size: ${theme.fontSize * 2}px;
   width: 100%;
   color: #ffffff;
   text-align: center;
 `;
 
-class CardMedia extends React.Component {
-  static AUTO_THUMB_CLASSES = [
-    'purple',
-    'red',
-    'pink',
-    'indigo',
-    'blue',
-    'light-blue',
-    'cyan',
-    'teal',
-    'green',
-    'yellow',
-    'orange',
-  ];
-
+class CardMedia extends React.PureComponent {
   static propTypes = {
     title: PropTypes.string,
     thumbnail: PropTypes.string,
+    style: PropTypes.object, // eslint-disable-line
   };
 
   static defaultProps = {
     title: '',
     thumbnail: undefined,
+    style: {},
   };
 
-  componentWillMount() {
-    this.setState({
-      autoThumbClass:
-        CardMedia.AUTO_THUMB_CLASSES[
-          Math.floor(Math.random() * CardMedia.AUTO_THUMB_CLASSES.length)
-        ],
-    });
-  }
-
   render() {
-    const { title, thumbnail } = this.props;
-    const atClass = this.state.autoThumbClass;
+    const { title, thumbnail, style } = this.props;
 
     if (thumbnail) {
-      return (
-        <ImageCard
-          style={{
-            backgroundImage: `url('${thumbnail}')`,
-          }}
-        />
-      );
+      return <ImageCard style={style} source={{ uri: thumbnail }} />;
     }
 
     return (
-      <OuterCard className={atClass}>
+      <OuterCard style={style}>
         <InnerCard>
           {title &&
             title

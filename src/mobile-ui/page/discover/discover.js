@@ -2,15 +2,15 @@
 
 import React from 'react';
 import { BusyMessage } from 'components/common';
-import SubHeader from 'components/subHeader';
+// import SubHeader from 'components/subHeader';
 
 import FeaturedCategory from 'components/featuredCategory';
 import { ScrollView, Text } from 'components/core';
 
 class DiscoverPage extends React.PureComponent {
-  componentWillMount() {
-    // this.props.fetchFeaturedUris();
-  }
+  // componentWillMount() {
+  //   // this.props.fetchFeaturedUris();
+  // }
 
   render() {
     const { featuredUris, fetchingFeaturedUris } = this.props;
@@ -26,8 +26,8 @@ class DiscoverPage extends React.PureComponent {
     />*/
 
     return (
-      <ScrollView contentContainerStyle={{ flexShrink: 0 }}>
-        <SubHeader fullWidth smallMargin />
+      <ScrollView id="discover-scroll" contentContainerStyle={{ flexShrink: 0 }}>
+        {/*<SubHeader fullWidth smallMargin />*/}
         {!hasContent && fetchingFeaturedUris && <BusyMessage message={__('Fetching content')} />}
         {hasContent &&
           featureUriKeys

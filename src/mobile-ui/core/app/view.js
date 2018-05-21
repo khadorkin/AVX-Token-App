@@ -1,35 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, StatusBar, Text } from 'components/core';
+import { StatusBar } from 'components/core';
 // import ReactModal from 'react-modal';
 import Header from 'components/header';
 // import ModalRouter from 'modals/modalRouter';
+import styled from 'styled-components';
 
 import Routes from '../routes';
 
-const Window = View.extend`
-  display: flex;
-  flex-direction: column;
-`;
-
-class App extends React.Component {
+class App extends React.PureComponent {
   static propTypes = {
     alertError: PropTypes.func.isRequired,
   };
 
-  constructor() {
-    super();
-    this.mainContent = undefined;
-    this.state = { error: null, errorInfo: null };
-  }
-
   componentWillMount() {
-    const { alertError } = this.props;
-
     if (window.document) {
-      document.addEventListener('unhandledError', event => {
-        alertError(event.detail);
-      });
+      document.addEventListener('unhandledError', this.unhandledError);
     }
   }
 
@@ -41,14 +27,16 @@ class App extends React.Component {
     // eslint-disable-next-line no-console
     console.error(error);
     // Catch errors in any components below and re-render with error message
-    this.setState({
-      error,
-      errorInfo,
+    this.unhandledError({
+      detail: [errorInfo || error],
     });
   }
 
   componentWillUnmount() {
-    this.mainContent.removeEventListener('scroll', this.scrollListener);
+    // this.mainContent.removeEventListener('scroll', this.scrollListener);
+    if (window.document) {
+      document.removeEventListener('unhandledError', this.unhandledError);
+    }
   }
 
   setTitleFromProps(props) {
@@ -57,40 +45,29 @@ class App extends React.Component {
     }
   }
 
-  renderWithError() {
-    return (
-      <Window id="window">
-        <StatusBar
-          hidden={false}
-          translucent={false}
-          networkActivityIndicatorVisible={false}
-          backgroundColor="white"
-          barStyle="dark-content"
-        />
-        <Text>{JSON.stringify(this.state.errorInfo)}</Text>
-      </Window>
-    );
-  }
+  unhandledError = event => {
+    const { alertError } = this.props;
+    alertError(event.detail);
+  };
 
   render() {
-    if (this.state.error) {
-      return this.renderWithError();
-    }
-    return (
-      <Window id="window">
-        <StatusBar
-          hidden={false}
-          translucent={false}
-          networkActivityIndicatorVisible={false}
-          backgroundColor="white"
-          barStyle="dark-content"
-        />
-        <Header />
-        <Routes />
-        {/*<ModalRouter />*/}
-      </Window>
-    );
+    return [
+      <StatusBar
+        key="statusbar"
+        hidden={false}
+        translucent={false}
+        networkActivityIndicatorVisible={false}
+        backgroundColor="white"
+        barStyle="dark-content"
+      />,
+      <Header key="header" />,
+      <Routes key="routes" />,
+      // <ModalRouter />,
+    ];
   }
 }
 
-export default App;
+export default styled(App)`
+  display: flex;
+  flex-direction: column;
+`;

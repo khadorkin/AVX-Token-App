@@ -3,36 +3,42 @@
 
 import React from 'react';
 // import ReactDOM from 'react-dom';
+import { StateComponent } from 'components/react';
 import FileCard from 'components/fileCard';
-import { ToolTip } from 'components/tooltip';
+// import { ToolTip } from 'components/tooltip';
 import Link from 'components/link';
 import { normalizeURI } from 'utils/lbryURI';
 import theme from 'theme';
 
-import { View, Text, Platform } from 'components/core';
+import { View, Platform } from 'components/core';
 
 // const paddingTopCardHoverHack = 20;
 // const paddingRightCardHoverHack = 30;
 
-const SmallCardRow = View.extend`
-  overflow: hidden;
-  flex-wrap: nowrap;
-  width: 100%;
-  min-width: ${theme.cardSmallWidth};
-  margin-right: ${theme.spacingVertical}px;
-  margin-bottom: ${theme.spacingVertical / 3}px;
+const CardRowHeader = Link.extend`
+  margin-top: ${theme.spacingVertical}px;
+  margin-bottom: ${theme.spacingVertical / 4}px;
+  margin-left: ${theme.fontSize}px;
 `;
 
-const CardRowHeader = View.extend`
-  margin-bottom: 16px;
+const HeaderSpan = View.extend`
+  margin-top: 4px;
+  ${theme.heading1};
 `;
 
+const osCardRowScrollhouseWeb = `
+  flex-direction: row;
+  align-items: flex-start;
+`;
+const osCardRowScrollhouseNative = `
+  flex-direction: column;
+  align-items: center;
+`;
 const CardRowScrollhouse = View.extend`
   position: relative;
-  flex-direction: row;
   justify-content: flex-start;
-  align-items: flex-start;
   padding: 0px ${theme.cardMargin / 2}px;
+  ${Platform.OS === 'web' ? osCardRowScrollhouseWeb : osCardRowScrollhouseNative};
 `;
 
 // const CardRowNav = View.extend`
@@ -84,7 +90,7 @@ const CardRowScrollhouse = View.extend`
 //   overflow: hidden;
 // `;
 
-export default class FeaturedCategory extends React.Component {
+export default class FeaturedCategory extends StateComponent {
   constructor() {
     super();
 
@@ -249,57 +255,39 @@ export default class FeaturedCategory extends React.Component {
   }
 
   render() {
-    const { category, names = [], categoryLink } = this.props;
+    const { category, names = [] } = this.props;
 
     const limitedNames = names.slice(0, Platform.OS === 'web' ? 5 : 3);
 
-    return (
-      <SmallCardRow>
-        <CardRowHeader>
-          {categoryLink ? (
-            <Link
-              className="button-text no-underline"
-              label={category}
-              navigate="/show"
-              navigateParams={{ uri: categoryLink }}
-            />
-          ) : (
-            <Text>{category}</Text>
-          )}
-
-          {category &&
-            category.match(/^community/i) && (
-              <ToolTip
-                label={__("What's this?")}
-                body={__(
-                  'Community Content is a public space where anyone can share content with the rest of the LBRY community. Bid on the names "one," "two," "three," "four" and "five" to put your content here!'
-                )}
-                className="tooltip--header"
-              />
-            )}
-        </CardRowHeader>
-        <CardRowScrollhouse>
-          {/*
-          {this.state.canScrollPrevious && (
-            <CardRowNav align="left" key="left">
-              <CardRowScrollButton align="right" onClick={this.handleScrollPrevious}>
-                <Icon icon="chevron-left" />
-              </CardRowScrollButton>
-            </CardRowNav>
-          )}
-          {this.state.canScrollNext && (
-            <CardRowNav align="right" key="right">
-              <CardRowScrollButton align="left" onClick={this.handleScrollNext}>
-                <Icon icon="chevron-right" />
-              </CardRowScrollButton>
-            </CardRowNav>
-          )}
-        */}
-          {limitedNames.map(name => (
-            <FileCard key={name} displayStyle="card" uri={normalizeURI(name)} />
-          ))}
-        </CardRowScrollhouse>
-      </SmallCardRow>
-    );
+    return [
+      <CardRowHeader
+        key="header"
+        className="button-text no-underline"
+        to={`/show?uri={categoryLink}`}
+      >
+        <HeaderSpan>{category}</HeaderSpan>
+      </CardRowHeader>,
+      <CardRowScrollhouse key="items">
+        {/*
+        {this.state.canScrollPrevious && (
+          <CardRowNav align="left" key="left">
+            <CardRowScrollButton align="right" onClick={this.handleScrollPrevious}>
+              <Icon icon="chevron-left" />
+            </CardRowScrollButton>
+          </CardRowNav>
+        )}
+        {this.state.canScrollNext && (
+          <CardRowNav align="right" key="right">
+            <CardRowScrollButton align="left" onClick={this.handleScrollNext}>
+              <Icon icon="chevron-right" />
+            </CardRowScrollButton>
+          </CardRowNav>
+        )}
+      */}
+        {limitedNames.map(name => (
+          <FileCard key={name} displayStyle="card" uri={normalizeURI(name)} />
+        ))}
+      </CardRowScrollhouse>,
+    ];
   }
 }

@@ -1,16 +1,17 @@
 import React from 'react';
 import Splash from 'components/splash';
+import { StateComponent } from 'components/react';
 
-export default class Root extends React.Component {
+export default class Root extends StateComponent {
   state = {};
 
   componentDidMount() {
-    setTimeout(() => {
+    import(/* webpackChunkName: "app" */
+    './provider').then(provider => {
       this.setState({
-        // eslint-disable-next-line global-require
-        Provider: require('./provider').default,
+        Provider: provider.default,
       });
-    }, 1);
+    });
   }
 
   render() {

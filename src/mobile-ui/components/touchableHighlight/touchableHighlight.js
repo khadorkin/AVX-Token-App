@@ -5,8 +5,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'components/core';
 
+// border-radius: 3px;
 const Impl = View.extend`
-  border-radius: 3px;
+  border-radius: 1px;
   transition-property: background;
   transition-duration: 160ms;
   transition-timingfunction: ease;

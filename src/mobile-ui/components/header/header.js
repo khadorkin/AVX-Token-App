@@ -18,7 +18,7 @@ const StyledHeader = (View.extend || View.extend)`
   background: ${theme.headerBg};
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;
   justify-content: space-around;
   position: relative;
   box-shadow: ${theme.boxShadowLayer};
@@ -35,6 +35,10 @@ const HeaderItem = Link.extend`
   margin: 0px;
   flex-shrink: 0;
   flex-grow: 0;
+  min-width: ${theme.iconSize}px;
+  min-height: ${theme.iconSize}px;
+  max-width: ${theme.iconSize}px;
+  max-height: ${theme.iconSize}px;
 `;
 
 const WunderBarHeader = styled(HeaderItem)`
@@ -64,41 +68,23 @@ class Header extends React.PureComponent {
       isForwardDisabled,
       isUpgradeAvailable,
       autoUpdateDownloaded,
-      navigate,
       downloadUpgradeRequested,
     } = this.props;
     return (
       <StyledHeader>
         <AvxLogo label={Platform.OS === 'web'} secondaryColor={theme.defaultTextColor} />
-        <HeaderItem
-          onClick={back}
-          disabled={isBackDisabled}
-          button="alt button--flat"
-          icon="arrow-left"
-          title={__('Back')}
-        />
+        <HeaderItem onClick={back} disabled={isBackDisabled} icon="arrow-left" title={__('Back')} />
         <HeaderItem
           onClick={forward}
           disabled={isForwardDisabled}
-          button="alt button--flat"
           icon="arrow-right"
           title={__('Forward')}
         />
-        <HeaderItem
-          onClick={() => navigate('/discover')}
-          button="alt button--flat"
-          icon="home"
-          title={__('Discover Content')}
-        />
-        <HeaderItem
-          onClick={() => navigate('/subscriptions')}
-          button="alt button--flat"
-          icon="at"
-          title={__('My Subscriptions')}
-        />
+        <HeaderItem to="/discover" icon="home" title={__('Discover Content')} />
+        <HeaderItem to="/subscriptions" icon="at" title={__('My Subscriptions')} />
         <WunderBarHeader>{/*<WunderBar />*/}</WunderBarHeader>
         <HeaderItem
-          onClick={() => navigate('/wallet')}
+          to="/wallet"
           button="text"
           className="no-underline"
           icon="bank"
@@ -111,18 +97,8 @@ class Header extends React.PureComponent {
           icon="upload"
           label={__('Publish')}
         />*/}
-        <HeaderItem
-          onClick={() => navigate('/downloaded')}
-          button="alt button--flat"
-          icon="folder"
-          title={__('Downloads and Publishes')}
-        />
-        <HeaderItem
-          onClick={() => navigate('/settings')}
-          button="alt button--flat"
-          icon="gear"
-          title={__('Settings')}
-        />
+        <HeaderItem onClick="/downloaded" icon="folder" title={__('Downloads and Publishes')} />
+        <HeaderItem onClick="/settings" icon="gear" title={__('Settings')} />
         {(autoUpdateDownloaded || (process.platform === 'linux' && isUpgradeAvailable)) && (
           <HeaderItem
             onClick={() => downloadUpgradeRequested()}

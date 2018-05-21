@@ -3,16 +3,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableHighlight as NativeImpl, Platform } from 'components/core';
-
-const platformStyles =
-  Platform.OS !== 'web'
-    ? {}
-    : {
-        transitionProperty: 'background',
-        transitionDuration: '160ms',
-        transitionTimingFunction: 'ease',
-      };
+import { View, TouchableHighlight as NativeImpl } from 'components/core';
 
 class TouchableHighlight extends React.PureComponent {
   static propTypes = {
@@ -27,8 +18,7 @@ class TouchableHighlight extends React.PureComponent {
     impl: {
       underlayColor: 'rgba(0,0,0,0.12)',
       style: {
-        borderRadius: 3,
-        ...platformStyles,
+        borderRadius: 1,
       },
     },
     onPress: undefined,
@@ -49,7 +39,7 @@ class TouchableHighlight extends React.PureComponent {
     const { children, onPress, onClick, underlayColor, impl, ...nextProps } = this.props;
     return (
       <NativeImpl {...impl} underlayColor={underlayColor} onPress={onPress || onClick}>
-        <View {...nextProps}>{children}</View>
+        <View {...nextProps} />
       </NativeImpl>
     );
   }

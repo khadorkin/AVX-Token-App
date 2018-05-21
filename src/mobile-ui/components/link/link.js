@@ -2,13 +2,15 @@
 
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Text, Platform } from 'components/core';
+import { Text, Platform, View } from 'components/core';
 import Icon from 'components/icon';
-import { ButtonContent } from 'components/button';
-import TouchableHighlight from 'components/touchableHighlight';
+// import TouchableHighlight from 'components/touchableHighlight';
+import { TouchableOpacity } from 'react-native';
+import theme from 'theme';
+import RouterLink from './router-link';
 
 const LabelText = styled(Text)`
-  margin-right: 12px;
+  margin-right: ${theme.fontSize}px;
 `;
 
 class Link extends React.PureComponent {
@@ -17,13 +19,23 @@ class Link extends React.PureComponent {
     if (!onClick && navigate) {
       event.stopPropagation();
       doNavigate(navigate, navigateParams || {});
-    } else {
+    } else if (onClick) {
       onClick(event);
     }
   };
 
   render() {
-    const { label, icon, iconRight, button, doNavigate, navigateParams, ...props } = this.props;
+    const {
+      label,
+      icon,
+      iconRight,
+      component = TouchableOpacity,
+      to,
+      replace,
+      doNavigate,
+      onClick,
+      ...props
+    } = this.props;
     let { children } = this.props;
 
     // const combinedClassName =
@@ -40,11 +52,21 @@ class Link extends React.PureComponent {
       ];
     }
 
-    const Box = button ? ButtonContent : TouchableHighlight;
+    if (to) {
+      const extraProps = Platform.OS === 'web' ? {} : { component };
+      return (
+        <RouterLink to={to} replace={replace} {...extraProps} {...props}>
+          {children}
+        </RouterLink>
+      );
+    }
+
+    // eslint-disable-next-line no-console
+    console.debug('falling back do old link api');
     return (
-      <Box onClick={this.onClick} {...props}>
-        {children}
-      </Box>
+      <TouchableOpacity onPress={this.onClick} {...props}>
+        <View {...props}>{children}</View>
+      </TouchableOpacity>
     );
 
     // const linkProps = {
@@ -64,6 +86,7 @@ const osStyles = {
 };
 
 export default styled(Link)`
+  display: flex;
   flex-direction: row;
   align-items: center;
   border-radius: 3px;

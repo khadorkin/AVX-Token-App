@@ -52,6 +52,7 @@ module.exports = {
             plugins: [
               ['@babel/plugin-syntax-class-properties'],
               ['@babel/plugin-proposal-class-properties'],
+              ['@babel/plugin-syntax-dynamic-import'],
               ['transform-export-extensions'],
               [
                 'module-resolver',

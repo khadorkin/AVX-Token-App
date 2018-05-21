@@ -9,20 +9,25 @@ import { store } from '../store';
 import App from './app';
 import history from '../store/history';
 
-let AppProvider = props => (
-  <Provider store={store} {...props}>
-    <ThemeProvider theme={theme}>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
-    </ThemeProvider>
-  </Provider>
-);
-
-if (Platform.OS === 'web') {
-  // eslint-disable-next-line import/no-extraneous-dependencies
-  AppProvider = require('react-hot-loader').hot(module)(AppProvider); // eslint-disable-line global-require
+class AppProvider extends React.PureComponent {
+  render() {
+    return (
+      <Provider store={store} {...this.props}>
+        <ThemeProvider theme={theme}>
+          <ConnectedRouter history={history}>
+            <App />
+          </ConnectedRouter>
+        </ThemeProvider>
+      </Provider>
+    );
+  }
 }
 
-const ConstProvider = AppProvider;
+let HotProvider = AppProvider;
+if (Platform.OS === 'web') {
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  HotProvider = require('react-hot-loader').hot(module)(AppProvider); // eslint-disable-line global-require
+}
+
+const ConstProvider = HotProvider;
 export default ConstProvider;

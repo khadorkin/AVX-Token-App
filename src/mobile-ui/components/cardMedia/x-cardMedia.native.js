@@ -7,15 +7,15 @@ import theme from 'theme';
 
 const ImageCard = styled(Image)`
   background-color: #cccccc;
-  flex: 0 0 ${theme.cardWidth};
-  min-height: ${theme.cardWidth};
-  min-width: ${theme.cardWidth};
+  flex: 0 0 ${theme.cardWidth}px;
+  min-height: ${theme.cardWidth}px;
+  min-width: ${theme.cardWidth}px;
 `;
 
 const OuterCard = View.extend`
   position: relative;
   background-color: #cccccc;
-  flex: 0 0 ${theme.cardWidth};
+  flex: 0 0 ${theme.cardWidth}px;
 `;
 
 const InnerCard = styled(Text)`

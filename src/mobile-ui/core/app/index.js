@@ -7,7 +7,6 @@ import {
 } from 'redux/selectors/navigation';
 // import { selectUser } from 'redux/selectors/user';
 import { doAlertError } from 'redux/actions/app';
-import { doRecordScroll } from 'redux/actions/navigation';
 import { withRouter } from 'react-router';
 import App from './view';
 
@@ -21,7 +20,6 @@ const select = state => ({
 
 const perform = dispatch => ({
   alertError: errorList => dispatch(doAlertError(errorList)),
-  recordScroll: scrollPosition => dispatch(doRecordScroll(scrollPosition)),
 });
 
 export default withRouter(connect(select, perform)(App));

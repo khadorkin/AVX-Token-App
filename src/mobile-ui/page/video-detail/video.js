@@ -9,7 +9,7 @@ import SubHeader from 'components/subHeader';
 import CardMedia from 'components/cardMedia';
 import Icon from 'components/icon';
 import UriIndicator from 'components/uriIndicator';
-import { ScrollView, Text, View } from 'components/core';
+import { ScrollView, Text, View, Platform } from 'components/core';
 
 const CardContent = View.extend`
   padding: 0 ${theme.cardPadding / 2}px;
@@ -39,9 +39,14 @@ const CardDescription = View.extend`
   margin: 2px 0px 2px;
 `;
 
+const osDescriptionStyles = {
+  web: `
+    overflow: hidden;
+    text-overflow: ellipsis;
+  `,
+};
 const DescriptionLine = styled(Text)`
-  overflow: hidden;
-  text-overflow: ellipsis;
+  ${osDescriptionStyles[Platform.OS] || ''};
 `;
 
 class VideoDetailPage extends React.PureComponent {

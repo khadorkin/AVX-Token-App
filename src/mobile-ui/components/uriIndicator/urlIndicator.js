@@ -5,6 +5,13 @@ import Icon from 'components/icon';
 import Link from 'components/link';
 import { buildURI } from 'utils/lbryURI';
 import { View, Text } from 'components/core';
+import theme from 'theme';
+
+const Inner = View.extend`
+  flex-direction: row;
+  align-items: center;
+  height: ${theme.iconSize}px;
+`;
 
 class UriIndicator extends React.PureComponent {
   static propTypes = {
@@ -12,12 +19,14 @@ class UriIndicator extends React.PureComponent {
     link: PropTypes.bool,
     uri: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
     isResolvingUri: PropTypes.bool,
+    children: PropTypes.element,
   };
 
   static defaultProps = {
     claim: undefined,
     link: false,
     isResolvingUri: false,
+    children: null,
   };
 
   componentWillMount() {
@@ -38,7 +47,7 @@ class UriIndicator extends React.PureComponent {
 
   render() {
     // const { claim, link, uri, isResolvingUri, smallCard, span } = this.props;
-    const { claim, link, isResolvingUri } = this.props;
+    const { claim, link, isResolvingUri, children } = this.props;
 
     if (isResolvingUri && !claim) {
       return <Text className="empty">Validating...</Text>;
@@ -67,14 +76,16 @@ class UriIndicator extends React.PureComponent {
 
     if (signatureIsValid) {
       modifier = 'valid';
-      channelLink = link ? buildURI({ channelName, claimId: channelClaimId }, false) : false;
+      channelLink = link
+        ? `/show?uri=${buildURI({ channelName, claimId: channelClaimId }, false)}`
+        : false;
     } else {
       icon = 'times-circle';
       modifier = 'invalid';
     }
 
     const inner = (
-      <View>
+      <Inner>
         <Text>
           {/*className=classnames('channel-name', {
             'channel-name--small': smallCard,
@@ -85,7 +96,8 @@ class UriIndicator extends React.PureComponent {
         {!signatureIsValid ? (
           <Icon icon={icon} className={`channel-indicator__icon channel-indicator__-${modifier}`} />
         ) : null}
-      </View>
+        {children}
+      </Inner>
     );
 
     if (!channelLink) {
@@ -93,12 +105,7 @@ class UriIndicator extends React.PureComponent {
     }
 
     return (
-      <Link
-        navigate="/show"
-        navigateParams={{ uri: channelLink }}
-        className="no-underline"
-        span={View}
-      >
+      <Link to={channelLink} className="no-underline">
         {inner}
       </Link>
     );

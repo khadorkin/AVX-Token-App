@@ -1,7 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { normalizeURI } from 'utils/lbryURI';
 import CardMedia from 'components/cardMedia';
 import Link from 'components/link';
@@ -17,9 +16,10 @@ import theme from 'theme';
   transition-property: transform;
   transition-duration: 0.2s;
   transition-timing-function: ${theme.animationStyle};*/
-const Card = styled(Link)`
-  max-width: ${theme.cardMaxWidth};
-  min-height: ${theme.cardWidth};
+const Card = Link.extend`
+  max-width: ${theme.cardMaxWidth}px;
+  min-height: ${theme.cardMaxWidth}px;
+  max-height: ${theme.cardMaxWidth}px;
   background: ${theme.cardBg};
   box-shadow: ${theme.boxShadowLayer};
   border-radius: ${theme.cardRadius};
@@ -29,7 +29,7 @@ const Card = styled(Link)`
   flex-direction: column;
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: ${theme.cardWidth};
+  flex-basis: ${theme.cardWidth}px;
   flex-wrap: nowrap;
   align-items: stretch;
   position: relative;
@@ -63,7 +63,8 @@ const CardContent = View.extend`
 `;
 
 const CardTitle = TruncatedText.extend`
-  margin: 4px 0px 2px;
+  margin: 8px 0px 2px;
+  flex: 0 0 auto;
 `;
 
 // color: ${theme.colorHelp};
@@ -83,8 +84,6 @@ class FileCard extends React.PureComponent {
     fileInfo: PropTypes.object,
     metadata: PropTypes.object.isRequired,
     uri: PropTypes.string.isRequired,
-    // isResolvingUri: PropTypes.bool,
-    navigate: PropTypes.func.isRequired,
     rewardedContentClaimIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
@@ -111,14 +110,7 @@ class FileCard extends React.PureComponent {
   }
 
   render() {
-    const {
-      claim,
-      fileInfo,
-      metadata,
-      // isResolvingUri,
-      navigate,
-      rewardedContentClaimIds,
-    } = this.props;
+    const { claim, fileInfo, metadata, rewardedContentClaimIds } = this.props;
 
     const uri = normalizeURI(this.props.uri);
     const title = metadata && metadata.title ? metadata.title : uri;
@@ -135,15 +127,16 @@ class FileCard extends React.PureComponent {
     // }
 
     return (
-      <Card onClick={() => navigate('/show', { uri })} className="card__link">
+      <Card to={`/show?uri=${uri}`} className="card__link">
         <CardMedia title={title} thumbnail={thumbnail} />
         <CardContent>
           <CardTitle lines={1}>{title}</CardTitle>
-          <UriIndicator uri={uri} link span smallCard />
-          <CardIcons>
-            {isRewardContent && <Icon icon={icons.FEATURED} leftPad />}
-            {fileInfo && <Icon icon={icons.LOCAL} leftPad />}
-          </CardIcons>
+          <UriIndicator uri={uri} span smallCard>
+            <CardIcons>
+              {isRewardContent && <Icon icon={icons.FEATURED} leftPad />}
+              {fileInfo && <Icon icon={icons.LOCAL} leftPad />}
+            </CardIcons>
+          </UriIndicator>
         </CardContent>
       </Card>
     );

@@ -2,6 +2,7 @@ const colorPrimary = '#155b4a';
 
 const colorCanvas = '#f5f5f4';
 const textColor = '#000';
+const defaultTextColor = '#888888';
 const colorBg = '#ffffff';
 const colorBgAlt = '#d9d9d9';
 
@@ -50,7 +51,7 @@ export default {
 
   /* Text */
   textColor,
-  defaultTextColor: '#888888',
+  defaultTextColor,
   textHelpColor: '#eee',
   textMaxWidth: '660px',
   textLinkPadding: '4px',
@@ -59,10 +60,12 @@ export default {
   heading1: `
     font-size: ${fontSize * 1.5}px;
     font-weight: 500;
+    color: ${defaultTextColor};
   `,
   heading2: `
     font-size: ${fontSize * 1.25}px;
     font-weight: 500;
+    color: ${defaultTextColor};
   `,
 
   /* Window */
@@ -137,12 +140,15 @@ export default {
   cardBg: colorBg,
   cardHoverTranslate: '10px',
   cardMargin: `${spacingVertical * 2 / 3}`,
-  cardWidth: '120px',
-  cardMaxWidth: '120px', // widthPageConstrained,
+  cardWidth: 220,
+  cardMaxWidth: 220, // widthPageConstrained,
   cardPadding: `${spacingVertical * 2 / 3}`,
   cardRadius: '2px',
   cardLinkScaling: '1.1',
   cardSmallWidth: `${spacingVertical * 10}px`,
+
+  /* Icon */
+  iconSize: 36,
 
   /* Modal */
   modalWidth: '440px',

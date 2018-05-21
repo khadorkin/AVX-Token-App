@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from 'react-router-platform';
+import Link from 'components/link';
 import { View, Text } from 'components/core';
 
 import * as appActions from '../../store/action/app';
 
 const ButtonContent = styled(Text)`
-  background-color: #00bcd4;
-  margin-top: 20px;
+  margin: 10px;
 `;
 
 const Welcome = View.extend`
@@ -45,7 +44,8 @@ export default class TestView extends Component {
       <Container>
         <Block>
           <Welcome>Test 2</Welcome>
-          <Link to="/">
+          <Link to="/discover" type="button" title="Back to Home" />
+          <Link to="/discover">
             <ButtonContent>Back to Home</ButtonContent>
           </Link>
         </Block>

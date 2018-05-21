@@ -43,21 +43,21 @@ class RawButton extends React.PureComponent {
   }
 }
 
-export const Button = styled(RawButton)`
-  background-color: #2196F3;
-  border-radius: 2;
-  color: #fff;
-  font-weight: 500',
-  padding: 8;
-  text-align: center;
-  text-transform: uppercase;
-  flex-grow: 0;
-  &.disabled {
-    background-color: '#dfdfdf'
-    color: '#a1a1a1'
-  }
+export const ButtonStyle = `
+background-color: #2196F3;
+border-radius: 2;
+color: #fff;
+font-weight: 500',
+padding: 8;
+text-align: center;
+text-transform: uppercase;
+flex-grow: 0;
+&.disabled {
+  background-color: '#dfdfdf'
+  color: '#a1a1a1'
 }
 `;
+export const Button = styled(RawButton)(ButtonStyle);
 
 export class TextInput extends React.PureComponent {
   render() {

@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import * as icons from 'constants/icon';
 import theme from 'theme';
 
-const size = '40px';
+const size = `${theme.iconSize}px`;
 
 const platformStyles = {
   web: `

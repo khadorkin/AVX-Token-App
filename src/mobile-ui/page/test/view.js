@@ -73,7 +73,7 @@ export default class TestView extends Component {
         </Block>
         <Block>
           <Welcome>Views</Welcome>
-          <Link to="/test2">
+          <Link to="/test2" type="button">
             <ButtonContent>Go To Next View</ButtonContent>
           </Link>
         </Block>
