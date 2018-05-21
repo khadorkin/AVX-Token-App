@@ -69,7 +69,7 @@
     "react-modal": "^3.1.7",
     "react-native-svg": "^6.2.1",
     "react-native-vector-icons": "^4.5.0",
-    "react-native-web": "^0.6",
+    "react-native-web": "^0.7",
     "react-paginate": "^5.0.0",
     "react-redux": "^5.0.3",
     "react-router": "^4.2.0",
@@ -115,7 +115,7 @@
     "eslint": "^4",
     "eslint-config-airbnb": "^16",
     "eslint-config-prettier": "^2",
-    "eslint-import-resolver-webpack": "^0.9",
+    "eslint-import-resolver-webpack": "^0.10",
     "eslint-plugin-flowtype": "^2",
     "eslint-plugin-import": "^2",
     "eslint-plugin-jsx-a11y": "^6",
@@ -129,7 +129,7 @@
     "i18n-extract": "^0.5",
     "json-loader": "^0.5",
     "lint-staged": "^7",
-    "metro": "^0.36",
+    "metro": "^0.37",
     "node-loader": "^0.6",
     "pre-commit": "^1.2.2",
     "prettier": "^1",
@@ -172,7 +172,7 @@
     "**/@babel/plugin-transform-template-literals": "^7.0.0-beta",
     "**/@babel/plugin-transform-unicode-regex": "^7.0.0-beta",
     "**/@babel/template": "^7.0.0-beta",
-    "**/metro-babel7-plugin-react-transform": "^0.36"
+    "**/metro-babel7-plugin-react-transform": "^0.37"
   },
   "engines": {
     "node": ">=6",
