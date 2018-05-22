@@ -2414,6 +2414,10 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+
 base64-js@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-0.0.8.tgz#1101e9544f4a76b1bc3b26d452ca96d7a35e7978"
@@ -2831,6 +2835,14 @@ buffer-xor@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
 
+buffer@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-3.6.0.tgz#a72c936f77b96bf52f5f7e7b467180628551defb"
+  dependencies:
+    base64-js "0.0.8"
+    ieee754 "^1.1.4"
+    isarray "^1.0.0"
+
 buffer@^4.3.0:
   version "4.9.1"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-4.9.1.tgz#6d1bb601b07a4efced97094132093027c95bc298"
@@ -2993,7 +3005,7 @@ camelcase-keys@^2.0.0:
     camelcase "^2.0.0"
     map-obj "^1.0.0"
 
-camelcase@^2.0.0:
+camelcase@^2.0.0, camelcase@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
 
@@ -3198,7 +3210,7 @@ clipboardy@^1.2.2:
     arch "^2.1.0"
     execa "^0.8.0"
 
-cliui@^3.2.0:
+cliui@^3.0.3, cliui@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-3.2.0.tgz#120601537a916d29940f934da3b48d585a39213d"
   dependencies:
@@ -5212,6 +5224,12 @@ file-loader@^1.1.11:
     loader-utils "^1.0.2"
     schema-utils "^0.4.5"
 
+file-save@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/file-save/-/file-save-0.2.0.tgz#39b20d0214e656b1417faa3c32d317b678545db7"
+  dependencies:
+    mkdirp "~0.5.0"
+
 filename-regex@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
@@ -7159,6 +7177,10 @@ k-rpc@^5.0.0:
     randombytes "^2.0.5"
     safe-buffer "^5.1.1"
 
+keymirror@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/keymirror/-/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
+
 keytar@:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/keytar/-/keytar-4.2.1.tgz#8a06a6577fdf6373e0aa6b112277e63dec77fd12"
@@ -7670,7 +7692,7 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
-mediasource@^2.0.0, mediasource@^2.1.0:
+mediasource@^2.0.0, mediasource@^2.1, mediasource@^2.1.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/mediasource/-/mediasource-2.2.1.tgz#763e706d756f6de0a93d8e824aeab6e90854346c"
   dependencies:
@@ -7708,7 +7730,7 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memory-chunk-store@^1.2.0:
+memory-chunk-store@^1.2.0, memory-chunk-store@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/memory-chunk-store/-/memory-chunk-store-1.3.0.tgz#ae99e7e3b58b52db43d49d94722930d39459d0c4"
 
@@ -9852,6 +9874,21 @@ react-native-debugger-open@^0.3:
     minimist "^1.2.0"
     semver "^5.4.1"
 
+react-native-fs@^2.9.12:
+  version "2.9.12"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.9.12.tgz#88d6c1e8eb26acbebca955e1cbd9c47d2c9452ba"
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^2.1.1"
+
+react-native-http@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-http/-/react-native-http-0.0.3.tgz#fec596ae599372301ce5430263890a788fc086eb"
+  dependencies:
+    buffer "^3.6.0"
+    file-save "^0.2.0"
+    yargs "^3.8.0"
+
 react-native-svg@^6.2.1:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-6.3.1.tgz#06a573f17c59ce953a56fd62e776fd79d632d765"
@@ -9867,6 +9904,13 @@ react-native-vector-icons@^4.5.0:
     lodash "^4.0.0"
     prop-types "^15.5.10"
     yargs "^8.0.2"
+
+react-native-video@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-2.0.0.tgz#f33fa6fb7e7e3c93ab5787944cefd58bf7355867"
+  dependencies:
+    keymirror "0.1.1"
+    prop-types "^15.5.10"
 
 react-native-web@^0.7:
   version "0.7.2"
@@ -11245,7 +11289,7 @@ stream-shift@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
 
-stream-to-blob-url@^2.0.0, stream-to-blob-url@^2.1.0:
+stream-to-blob-url@^2.0, stream-to-blob-url@^2.0.0, stream-to-blob-url@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/stream-to-blob-url/-/stream-to-blob-url-2.1.0.tgz#c341d10502ec51250607327258ec2f586b07d626"
   dependencies:
@@ -12049,6 +12093,10 @@ utf8-byte-length@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/utf8-byte-length/-/utf8-byte-length-1.0.4.tgz#f45f150c4c66eee968186505ab93fcbb8ad6bf61"
 
+utf8@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-2.1.2.tgz#1fa0d9270e9be850d9b05027f63519bf46457d96"
+
 util-deprecate@1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
@@ -12117,7 +12165,7 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-videostream@^2.3.0:
+videostream@^2.3, videostream@^2.3.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/videostream/-/videostream-2.4.2.tgz#9560254d00fabdc40955c1a3c282057d8db1d115"
   dependencies:
@@ -12516,6 +12564,10 @@ win-release@^1.0.0:
   dependencies:
     semver "^5.0.1"
 
+window-size@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
+
 window-size@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.2.0.tgz#b4315bb4214a3d7058ebeee892e13fa24d98b075"
@@ -12668,7 +12720,7 @@ xtend@~2.1.1:
   dependencies:
     object-keys "~0.4.0"
 
-y18n@^3.2.1:
+y18n@^3.2.0, y18n@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
 
@@ -12736,6 +12788,18 @@ yargs@^11.1.0:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^9.0.2"
+
+yargs@^3.8.0:
+  version "3.32.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-3.32.0.tgz#03088e9ebf9e756b69751611d2a5ef591482c995"
+  dependencies:
+    camelcase "^2.0.1"
+    cliui "^3.0.3"
+    decamelize "^1.1.1"
+    os-locale "^1.4.0"
+    string-width "^1.0.1"
+    window-size "^0.1.4"
+    y18n "^3.2.0"
 
 yargs@^4.2.0:
   version "4.8.1"

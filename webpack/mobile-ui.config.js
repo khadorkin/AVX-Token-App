@@ -44,6 +44,19 @@ if (!useVendorChunks)
 module.exports = webpackMerge(baseConfig, {
   cache: true,
   devtool: isProduction ? 'source-map' : 'eval-source-map',
+  node: {
+    console: false,
+    global: false,
+    process: true,
+    __filename: 'mock',
+    __dirname: 'mock',
+    Buffer: true,
+    setImmediate: true,
+    fs: 'empty',
+    net: 'empty',
+    os: 'empty',
+    // See "Other node core libraries" for additional options.
+  },
   entry: {
     renderer: [path.resolve(__dirname, '../src/mobile-ui/index.js')],
   },
@@ -53,6 +66,10 @@ module.exports = webpackMerge(baseConfig, {
   },
   resolve: {
     modules: [appRoot, '../node_modules', 'node_modules', path.resolve(__dirname, '..')],
+    alias: {
+      'fs-chunk-store': path.resolve(__dirname, '../node_modules/memory-chunk-store'),
+      ut_pex: path.resolve(__dirname, 'lib/stub'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({

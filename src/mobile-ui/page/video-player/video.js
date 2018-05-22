@@ -45,15 +45,13 @@ class VideoDetailPage extends StateComponent {
   };
 
   render() {
-    const { metadata = {}, uri } = this.props;
+    const { metadata = {} } = this.props;
     const featureUriKeys = []; //Object.keys(featuredUris);
     const hasContent = true || (typeof featuredUris === 'object' && featureUriKeys.length);
     const failedToLoad = false && !hasContent;
     const infoHash = '08ada5a7a6183aae1e09d831df6748d566095a10';
-
+    const thumbnail = metadata.thumbnail ? metadata.thumbnail : null;
     const { Player } = this.state;
-    const title = metadata.title || uri;
-    const thumbnail = metadata && metadata.thumbnail ? metadata.thumbnail : null;
 
     const video = Player ? (
       <Player infoHash={infoHash} onPlay={this.onPlay} thumbnail={thumbnail} autoplay={false} />

@@ -8,7 +8,7 @@
  */
 
 import { TouchableOpacity, StyleSheet, ColorPropType } from 'react-native';
-import { bool, func, string, element } from 'prop-types';
+import PropTypes, { bool, func, string, element } from 'prop-types';
 import React, { Component } from 'react';
 import Link from './link';
 
@@ -40,6 +40,7 @@ class Button extends Component {
     onPress: func,
     testID: string,
     children: element.isRequired,
+    style: PropTypes.any, // eslint-disable-line react/forbid-prop-types
   };
 
   static defaultProps = {
@@ -48,6 +49,7 @@ class Button extends Component {
     disabled: false,
     testID: undefined,
     onPress: () => {},
+    style: undefined,
   };
 
   static Link = Link.extend`
@@ -55,7 +57,15 @@ class Button extends Component {
   `;
 
   render() {
-    const { accessibilityLabel, color, disabled, onPress, testID, style = {}, children } = this.props;
+    const {
+      accessibilityLabel,
+      color,
+      disabled,
+      onPress,
+      testID,
+      style = {},
+      children,
+    } = this.props;
 
     return (
       <TouchableOpacity

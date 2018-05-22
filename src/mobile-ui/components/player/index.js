@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Video from './video';
+import Player from './player';
 
 const select = (state, props) => ({
   torrent: state.webtorrent && state.webtorrent.torrents[props.infoHash],
@@ -7,4 +7,4 @@ const select = (state, props) => ({
 });
 const map = () => ({});
 
-export default connect(select, map)(Video);
+export default connect(select, map)(Player);

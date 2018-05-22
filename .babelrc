@@ -22,7 +22,8 @@
         "types": "./src/mobile-ui/types",
         "utils": "./src/mobile-ui/utils",
         "package.json": "./package.json",
-        "path": "./node_modules/path-browserify"
+        "path": "./node_modules/path-browserify",
+        "fs": "./node_modules/react-native-fs"
       },
       "extensions": [".js", ".jsx", ".css"]
     }]

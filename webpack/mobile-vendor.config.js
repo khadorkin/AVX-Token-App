@@ -19,11 +19,31 @@ module.exports = webpackMerge(baseConfig, {
 
   target: 'web',
 
+  node: {
+    console: false,
+    global: false,
+    process: true,
+    __filename: 'mock',
+    __dirname: 'mock',
+    Buffer: true,
+    setImmediate: true,
+    fs: 'empty',
+    net: 'empty',
+    os: 'empty',
+    // See "Other node core libraries" for additional options.
+  },
+
+  resolve: {
+    alias: {
+      'fs-chunk-store': path.resolve(__dirname, '../node_modules/memory-chunk-store'),
+      ut_pex: path.resolve(__dirname, 'lib/stub'),
+    },
+  },
+
   entry: {
     vendor: [
       '@babel/polyfill',
       ...devVendors,
-      'classnames',
       'formik',
       'jshashes',
       'jsonrpc-lite',
@@ -43,6 +63,7 @@ module.exports = webpackMerge(baseConfig, {
       'redux-persist-transform-filter',
       'redux-thunk',
       'reselect',
+      'webtorrent',
     ],
   },
 
