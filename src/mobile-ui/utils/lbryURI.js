@@ -198,6 +198,11 @@ export const normalizeURI = memoize(URI => {
   return buildURI({ name, path, claimSequence, bidPosition, claimId });
 });
 
+export const uriInfoHash = memoize(URI => {
+  const uri = normalizeURI(URI);
+  return uri.replace(/^.*#/, '');
+});
+
 export function isURIValid(URI) {
   let parts;
   try {

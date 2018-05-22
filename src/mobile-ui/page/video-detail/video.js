@@ -9,6 +9,7 @@ import SubHeader from 'components/subHeader';
 import CardMedia from 'components/cardMedia';
 import Icon from 'components/icon';
 import UriIndicator from 'components/uriIndicator';
+import CustomButton from 'components/customButton';
 import { ScrollView, Text, View, Platform } from 'components/core';
 
 const CardContent = View.extend`
@@ -48,6 +49,7 @@ const osDescriptionStyles = {
 const DescriptionLine = styled(Text)`
   ${osDescriptionStyles[Platform.OS] || ''};
 `;
+const style = { marginTop: 12, marginBottom: 12 };
 
 class VideoDetailPage extends React.PureComponent {
   static propTypes = {
@@ -56,6 +58,7 @@ class VideoDetailPage extends React.PureComponent {
     fileInfo: PropTypes.object,
     uri: PropTypes.string,
     rewardedContentClaimIds: PropTypes.array,
+    infoHash: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -67,7 +70,7 @@ class VideoDetailPage extends React.PureComponent {
   };
 
   render() {
-    const { metadata = {}, claim, fileInfo, uri, rewardedContentClaimIds } = this.props;
+    const { metadata = {}, claim, fileInfo, uri, infoHash, rewardedContentClaimIds } = this.props;
     const featureUriKeys = []; //Object.keys(featuredUris);
     const hasContent = true || (typeof featuredUris === 'object' && featureUriKeys.length);
     const failedToLoad = false && !hasContent;
@@ -84,6 +87,9 @@ class VideoDetailPage extends React.PureComponent {
           {!hasContent && <BusyMessage message={__('Fetching content')} />}
           {failedToLoad && <Text className="empty">{__('Failed to load landing content.')}</Text>}
           <CardMedia title={title} thumbnail={thumbnail} />
+          <CustomButton color="#424242" style={style}>
+            <CustomButton.Link to={`/player/${infoHash}`}>Play</CustomButton.Link>
+          </CustomButton>
           <CardContent>
             <CardTitle>{title}</CardTitle>
             <CardDescription>

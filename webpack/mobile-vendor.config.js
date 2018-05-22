@@ -31,7 +31,6 @@ module.exports = webpackMerge(baseConfig, {
       'qrcode.react',
       'react',
       'react-dom',
-      'react-markdown',
       'react-paginate',
       'react-simplemde-editor',
       'react-native-web',

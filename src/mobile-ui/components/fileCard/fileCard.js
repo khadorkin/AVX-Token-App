@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { normalizeURI } from 'utils/lbryURI';
+import { normalizeURI, uriInfoHash } from 'utils/lbryURI';
 import CardMedia from 'components/cardMedia';
 import Link from 'components/link';
 import { TruncatedText } from 'components/common';
@@ -113,6 +113,7 @@ class FileCard extends React.PureComponent {
     const { claim, fileInfo, metadata, rewardedContentClaimIds } = this.props;
 
     const uri = normalizeURI(this.props.uri);
+    const infoHash = uriInfoHash(this.props.uri);
     const title = metadata && metadata.title ? metadata.title : uri;
     const thumbnail = metadata && metadata.thumbnail ? metadata.thumbnail : null;
     const isRewardContent = claim && rewardedContentClaimIds.includes(claim.claim_id);
@@ -127,7 +128,7 @@ class FileCard extends React.PureComponent {
     // }
 
     return (
-      <Card to={`/show?uri=${uri}`} className="card__link">
+      <Card to={`/video/${infoHash}?uri=${uri}`} className="card__link">
         <CardMedia title={title} thumbnail={thumbnail} />
         <CardContent>
           <CardTitle lines={1}>{title}</CardTitle>

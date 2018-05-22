@@ -34,6 +34,7 @@ module.exports = {
       'react-native': 'react-native-web',
       'react-router-platform': 'react-router-dom',
       theme: path.join(srcRoot, 'styles', 'theme'),
+      types: path.join(srcRoot, 'types'),
       styles: path.join(srcRoot, 'styles'),
       fontawesome: path.resolve(__dirname, '../static/font'),
     },

@@ -259,12 +259,9 @@ export default class FeaturedCategory extends StateComponent {
 
     const limitedNames = names.slice(0, Platform.OS === 'web' ? 5 : 3);
 
+    // TODO: header links for full categories
     return [
-      <CardRowHeader
-        key="header"
-        className="button-text no-underline"
-        to={`/show?uri={categoryLink}`}
-      >
+      <CardRowHeader key="header" className="button-text no-underline" to="/">
         <HeaderSpan>{category}</HeaderSpan>
       </CardRowHeader>,
       <CardRowScrollhouse key="items">

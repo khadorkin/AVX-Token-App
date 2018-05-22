@@ -21,7 +21,8 @@
         "redux/selectors": "./src/mobile-ui/redux/selectors",
         "types": "./src/mobile-ui/types",
         "utils": "./src/mobile-ui/utils",
-        "package.json": "./package.json"
+        "package.json": "./package.json",
+        "path": "./node_modules/path-browserify"
       },
       "extensions": [".js", ".jsx", ".css"]
     }]

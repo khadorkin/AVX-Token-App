@@ -16,6 +16,7 @@ const select = (state, props) => ({
   obscureNsfw: false, // !selectShowNsfw(state),
   metadata: selectMetadata(state),
   rewardedContentClaimIds: selectRewardContentClaimIds(state, props),
+  ...props.match.params,
   // isResolvingUri: makeSelectIsUriResolving(props.uri)(state),
 });
 

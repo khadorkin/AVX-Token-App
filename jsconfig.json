@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+      "target": "es2017",
+      "checkJs": true,
+      "allowSyntheticDefaultImports": false,
+      "baseUrl": "src",
+      "paths": {
+        "components/*": ["./components"],
+        "constants/*": ["./constants"],
+        "redux/actions/*": ["./redux/actions"],
+        "redux/reducers/*": ["./redux/reducers"],
+        "redux/selectors/*": ["./redux/selectors"],
+        "types/*": ["./types"],
+        "utils/*": ["./utils"],
+        "styles/*": ["./styles"],
+        "static/*": ["../static"],
+        "theme": ["./styles/theme"]
+      }
+  },
+  "exclude": [
+      "node_modules",
+      "dist",
+      "build",
+      "android",
+      "ios",
+      "static"
+  ]
+}

@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import history from './history';
 import reducers from './reducers';
 import mockData from './mock';
+import webtorrentMiddleware from './webtorrent/middleware';
 
 const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__';
 const composeEnhancers = global[DEVTOOLS] || compose;
@@ -17,7 +18,9 @@ const logger = createLogger({
 });
 
 export default function configureStore(initialState) {
-  const enhancers = composeEnhancers(applyMiddleware(thunk, routerMiddleware(history), logger));
+  const enhancers = composeEnhancers(
+    applyMiddleware(thunk, routerMiddleware(history), webtorrentMiddleware, logger)
+  );
   const rootReducer = connectRouter(history)(reducers);
 
   const store = initialState

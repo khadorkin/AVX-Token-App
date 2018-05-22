@@ -15,6 +15,7 @@ import shapeShift from './shapeShift';
 import subscriptions from './subscriptions';
 import user from './user';
 import wallet from './wallet';
+import webtorrent from './webtorrent';
 
 export default combineReducers({
   app,
@@ -31,5 +32,6 @@ export default combineReducers({
   subscriptions,
   user,
   wallet,
+  webtorrent,
   // routing: routerReducer,
 });

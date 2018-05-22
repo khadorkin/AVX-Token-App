@@ -100,6 +100,15 @@ export const selectMetadata = createSelector(selectClaim, claim => {
   return metadata || (claim === undefined ? undefined : null);
 });
 
+export const selectClaimForId = createSelector(
+  (claims, infoHash) => (infoHash && claims && claims.byId[infoHash]) || {},
+  claim => claim
+);
+export const selectMetadataForId = createSelector(selectClaimForId, claim => {
+  const metadata = claim && claim.value && claim.value.stream && claim.value.stream.metadata;
+  return metadata || (claim === undefined ? undefined : null);
+});
+
 export const makeSelectMetadataForUri = uri =>
   createSelector(makeSelectClaimForUri(uri), claim => {
     const metadata = claim && claim.value && claim.value.stream && claim.value.stream.metadata;

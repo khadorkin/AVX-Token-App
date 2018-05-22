@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'components/icon';
 import Link from 'components/link';
-import { buildURI } from 'utils/lbryURI';
 import { View, Text } from 'components/core';
 import theme from 'theme';
 
@@ -76,9 +75,7 @@ class UriIndicator extends React.PureComponent {
 
     if (signatureIsValid) {
       modifier = 'valid';
-      channelLink = link
-        ? `/show?uri=${buildURI({ channelName, claimId: channelClaimId }, false)}`
-        : false;
+      channelLink = link ? `/video/${channelClaimId}` : false;
     } else {
       icon = 'times-circle';
       modifier = 'invalid';
