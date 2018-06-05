@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import history from './history';
 import reducers from './reducers';
 import mockData from './mock';
+import mockVideos from './mockVideos';
 import webtorrentMiddleware from './webtorrent/middleware';
 
 const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__';
@@ -37,4 +38,13 @@ export default function configureStore(initialState) {
   return store;
 }
 
-export const store = configureStore(Object.assign({}, mockData));
+export const store = configureStore(
+  Object.assign(
+    {
+      videosList: {
+        videos: mockVideos,
+      },
+    },
+    mockData
+  )
+);

@@ -16,6 +16,7 @@ import subscriptions from './subscriptions';
 import user from './user';
 import wallet from './wallet';
 import webtorrent from './webtorrent';
+import videosList from './videosList';
 
 export default combineReducers({
   app,
@@ -33,5 +34,6 @@ export default combineReducers({
   user,
   wallet,
   webtorrent,
+  videosList,
   // routing: routerReducer,
 });

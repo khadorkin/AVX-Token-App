@@ -11,12 +11,12 @@ import webWorker from './api/webworker';
 
 window.__ = t => t; // eslint-disable-line
 
-AppRegistry.registerComponent('AvxTokenApp', () => Root);
+AppRegistry.registerComponent('avxtokenapp', () => Root);
 
 if (Platform.OS === 'web') {
-  AppRegistry.runApplication('AvxTokenApp', {
+  AppRegistry.runApplication('avxtokenapp', {
     initialProps: {},
-    rootTag: document.getElementById('AvxTokenApp'),
+    rootTag: document.getElementById('avxtokenapp'),
   });
   if (process.env.API_SERVER.indexOf('webworker') === 0) {
     webWorker(process.env.API_SERVER.slice(10));

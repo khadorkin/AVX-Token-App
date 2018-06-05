@@ -8251,8 +8251,4 @@ export default {
     ],
     hasFetchedSubscriptions: false,
   },
-  media: {
-    paused: true,
-    positions: {},
-  },
 };
