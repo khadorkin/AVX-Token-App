@@ -11,7 +11,7 @@ const iconStar = <Icon name="md-star" size={16} color="#F5B642" />;
 
 class CardThree extends PureComponent {
   onPress = () => {
-    this.props.viewMovie.call(this, this.props.info.infohash);
+    this.props.viewMovie.call(this, this.props.info);
   };
 
   render() {

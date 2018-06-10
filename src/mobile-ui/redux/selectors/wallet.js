@@ -1,8 +1,13 @@
 import { createSelector } from 'reselect';
+import numeral from 'numeral';
 
 export const selectState = state => state.wallet || {};
 
 export const selectBalance = createSelector(selectState, state => state.balance);
+
+export const selectFormattedBalance = createSelector(selectState, wallet =>
+  numeral(wallet.balance).format('0,0.00')
+);
 
 export const selectTransactionsById = createSelector(selectState, state => state.transactions);
 

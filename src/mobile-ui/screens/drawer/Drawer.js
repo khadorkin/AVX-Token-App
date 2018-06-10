@@ -5,9 +5,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
+
+import { navigator } from '../navigation';
+// import nav from '../_global/nav';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,19 +57,54 @@ const iconSize = 26;
 const iconColor = '#9f9f9f';
 
 class Drawer extends PureComponent {
-  _openSearch = () => {
+  constructor(props) {
+    super(props);
+    this.clearNavigatorEvent = this.props.navigator.addOnNavigatorEvent(this._onNavigatorEvent);
+  }
+
+  componentWillUnmount() {
+    this.clearNavigatorEvent();
+  }
+
+  _onNavigatorEvent = event => {
+    console.warn('Drawer', event.id, event.type, event.link);
+    if (event.type === 'DeepLink') {
+      const [, tabName, ...pages] = event.link.split('/');
+      const tabIndex = navigator.findTab(tabName);
+      if (tabIndex !== -1) {
+        console.log('Drawer.handleDeepLink', tabName, pages);
+        this.props.navigator.switchToTab({ tabIndex });
+      }
+    }
+  };
+
+  _goTo = (screen, options = {}) => {
     this._toggleDrawer();
-    this.props.navigator.showModal({
-      screen: 'avxtokenapp.Search',
-      title: 'Search',
+    const tabIndex = navigator.findTab(screen);
+    if (tabIndex === -1) {
+      console.error(`Unable to find tab for ${screen}`);
+      return;
+    }
+    this.props.navigator.switchToTab({
+      tabIndex,
+      ...options,
     });
   };
 
+  _goToTrending = () => {
+    this._goTo('avxtokenapp.VideosTrending');
+  };
+
   _goToVideos = () => {
-    this._toggleDrawer();
-    this.props.navigator.popToRoot({
-      screen: 'avxtokenapp.Videos',
-    });
+    this._goTo('avxtokenapp.VideosList');
+  };
+
+  _goToWallet = () => {
+    this._goTo('avxtokenapp.Wallet');
+  };
+
+  _goToPreferences = () => {
+    this._goTo('avxtokenapp.Preferences');
   };
 
   _toggleDrawer() {
@@ -87,15 +124,15 @@ class Drawer extends PureComponent {
         <View style={styles.container}>
           <View style={styles.drawerList}>
             <View style={styles.drawerSpacer} />
-            <TouchableOpacity onPress={this._openSearch}>
+            <TouchableOpacity onPress={this._goToTrending}>
               <View style={styles.drawerListItem}>
-                <Ionicon
-                  name="md-search"
+                <MaterialIcon
+                  name="trending-up"
                   size={iconSize}
                   color={iconColor}
                   style={[styles.drawerListIcon, { paddingLeft: 2 }]}
                 />
-                <Text style={styles.drawerListItemText}>Search</Text>
+                <Text style={styles.drawerListItemText}>Trending</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={this._goToVideos}>
@@ -109,29 +146,29 @@ class Drawer extends PureComponent {
                 <Text style={styles.drawerListItemText}>Videos</Text>
               </View>
             </TouchableOpacity>
-            <View style={styles.drawerListItem}>
-              <MaterialIcon
-                name="account-balance-wallet"
-                size={iconSize}
-                color={iconColor}
-                style={styles.drawerListIcon}
-              />
-              <Text style={styles.drawerListItemText} onPress={this._goToWallet}>
-                Wallet
-              </Text>
-            </View>
+            <TouchableOpacity onPress={this._goToWallet}>
+              <View style={styles.drawerListItem}>
+                <MaterialIcon
+                  name="account-balance-wallet"
+                  size={iconSize}
+                  color={iconColor}
+                  style={styles.drawerListIcon}
+                />
+                <Text style={styles.drawerListItemText}>Wallet</Text>
+              </View>
+            </TouchableOpacity>
             <View style={styles.drawerSpacer} />
-            <View style={styles.drawerListItem}>
-              <MaterialIcon
-                name="settings"
-                size={iconSize}
-                color={iconColor}
-                style={styles.drawerListIcon}
-              />
-              <Text style={styles.drawerListItemText} onPress={this._goToWallet}>
-                Settings
-              </Text>
-            </View>
+            <TouchableOpacity onPress={this._goToPreferences}>
+              <View style={styles.drawerListItem}>
+                <MaterialIcon
+                  name="settings"
+                  size={iconSize}
+                  color={iconColor}
+                  style={styles.drawerListIcon}
+                />
+                <Text style={styles.drawerListItemText}>Preferences</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <Text style={styles._version}>{/* 'v1.0.0' */}</Text>
         </View>

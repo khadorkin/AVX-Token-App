@@ -7,11 +7,11 @@ export function registerScreens(store, Provider) {
     'DrawerButton',
     () => require('./_global/TitlebarButton').DrawerButton
   );
-  Navigation.registerComponent('BackButton', () => require('./_global/TitlebarButton').BackButton);
+  // Navigation.registerComponent('BackButton', () => require('./_global/TitlebarButton').BackButton);
 
   // Navigation.registerComponent('avxtokenapp.Videos', () => Videos, store, Provider);
   Navigation.registerComponent(
-    'avxtokenapp.Video',
+    'avxtokenapp.VideosList/Detail',
     () => require('./videos/Detail').default,
     store,
     Provider
@@ -19,6 +19,24 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent(
     'avxtokenapp.VideosList',
     () => require('./videos/List').default,
+    store,
+    Provider
+  );
+  Navigation.registerComponent(
+    'avxtokenapp.VideosTrending',
+    () => require('./videos/Trending').default,
+    store,
+    Provider
+  );
+  Navigation.registerComponent(
+    'avxtokenapp.Wallet',
+    () => require('./wallet/Wallet').default,
+    store,
+    Provider
+  );
+  Navigation.registerComponent(
+    'avxtokenapp.Preferences',
+    () => require('./prefs/Preferences').default,
     store,
     Provider
   );

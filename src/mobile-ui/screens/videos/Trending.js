@@ -12,7 +12,7 @@ import ProgressBar from '../_global/ProgressBar';
 import styles from './styles/List';
 import nav from '../_global/nav';
 
-class VideosList extends Component {
+class VideosTrending extends Component {
   static navigatorButtons = {
     leftButtons: [
       {
@@ -37,7 +37,7 @@ class VideosList extends Component {
   }
 
   componentWillMount() {
-    this._retrieveVideosList();
+    this._retrieveVideosTrending();
   }
 
   shouldComponentUpdate(nextState, nextProps) {
@@ -48,8 +48,8 @@ class VideosList extends Component {
     this.clearNavigatorEvent();
   }
 
-  _retrieveVideosList(isRefreshed) {
-    // this.props.actions.retrieveVideosList(this.props.type, this.state.currentPage).then(() => {
+  _retrieveVideosTrending(isRefreshed) {
+    // this.props.actions.retrieveVideosTrending(this.props.type, this.state.currentPage).then(() => {
     if (isRefreshed && this.setState({ isRefreshing: false }));
   }
 
@@ -71,7 +71,7 @@ class VideosList extends Component {
   _viewMovie = details => {
     const movieId = details.infohash;
     this.props.navigator.push({
-      screen: 'avxtokenapp.VideosList/Detail',
+      screen: 'avxtokenapp.VideosTrending/Detail',
       passProps: {
         movieId,
         details,
@@ -83,7 +83,7 @@ class VideosList extends Component {
 
   _onRefresh = () => {
     this.setState({ isRefreshing: true });
-    this._retrieveVideosList('isRefreshed');
+    this._retrieveVideosTrending('isRefreshed');
   };
 
   _onNavigatorEvent = event => {
@@ -141,7 +141,7 @@ class VideosList extends Component {
   }
 }
 
-VideosList.propTypes = {
+VideosTrending.propTypes = {
   list: PropTypes.array.isRequired,
   total_pages: PropTypes.number,
   navigator: PropTypes.object,
@@ -160,7 +160,7 @@ if (Platform.OS === 'ios') {
   };
 }
 
-VideosList.navigatorStyle = {
+VideosTrending.navigatorStyle = {
   ...navigatorStyle,
   statusBarColor: 'black',
   statusBarTextColorScheme: 'light',
@@ -176,4 +176,4 @@ function mapStateToProps({ videosList: { videos } }) {
   };
 }
 
-export default connect(mapStateToProps)(VideosList);
+export default connect(mapStateToProps)(VideosTrending);

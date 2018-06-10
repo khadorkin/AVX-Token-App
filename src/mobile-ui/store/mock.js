@@ -8196,9 +8196,25 @@ export default {
     },
   },
   wallet: {
-    balance: 0,
+    balance: Math.round(Math.random() * 100 + 200),
     blocks: {},
-    transactions: {},
+    transactions: [
+      {
+        name: 'Sintel 2048',
+        value: 3.25,
+        date: '2018-05-23T18:25:43.511Z',
+      },
+      {
+        name: 'Pioneer One: Episode 1',
+        value: 4,
+        date: '2018-05-21T13:33:43.511Z',
+      },
+      {
+        name: 'Metropolis',
+        value: 2.5,
+        date: '2018-05-18T20:14:43.511Z',
+      },
+    ],
     fetchingTransactions: false,
     receiveAddress: null,
     gettingNewAddress: false,

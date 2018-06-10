@@ -6,7 +6,7 @@ import styles from './styles/CardTwo';
 
 class CardTwo extends PureComponent {
   onPress = () => {
-    this.props.viewMovie.call(this, this.props.info.infohash);
+    this.props.viewMovie.call(this, this.props.info);
   };
   render() {
     const { info } = this.props;
