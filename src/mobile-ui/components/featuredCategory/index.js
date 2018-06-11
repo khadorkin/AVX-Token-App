@@ -4,13 +4,14 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 import { StateComponent } from 'components/react';
+import styled from 'styled-components';
 import FileCard from 'components/fileCard';
 // import { ToolTip } from 'components/tooltip';
 import Link from 'components/link';
 import { normalizeURI } from 'utils/lbryURI';
 import theme from 'theme';
 
-import { View, Platform } from 'components/core';
+import { View, Text, Platform } from 'components/core';
 
 // const paddingTopCardHoverHack = 20;
 // const paddingRightCardHoverHack = 30;
@@ -21,7 +22,7 @@ const CardRowHeader = Link.extend`
   margin-left: ${theme.fontSize}px;
 `;
 
-const HeaderSpan = View.extend`
+const HeaderSpan = styled(Text)`
   margin-top: 4px;
   ${theme.heading1};
 `;
@@ -34,19 +35,19 @@ const osCardRowScrollhouseNative = `
   flex-direction: column;
   align-items: center;
 `;
-const CardRowScrollhouse = View.extend`
+const CardRowScrollhouse = styled(View)`
   position: relative;
   justify-content: flex-start;
-  padding: 0px ${theme.cardMargin / 2}px;
+  padding: 0px ${theme.card.margin / 2}px;
   ${Platform.OS === 'web' ? osCardRowScrollhouseWeb : osCardRowScrollhouseNative};
 `;
 
-// const CardRowNav = View.extend`
+// const CardRowNav = styled(View)`
 //   position: absolute;
 //   display: flex;
 //   flex-direction: column;
 //   justify-content: center;
-//   padding: 0 ${theme.cardMargin}px;
+//   padding: 0 ${theme.card.margin}px;
 //   height: 100%;
 //   ${props => props.align}: 0;
 //   width: 0px;
@@ -58,8 +59,8 @@ const CardRowScrollhouse = View.extend`
   transition-duration: 0.2s;
   transition-timing-function: ${theme.animationStyle};*/
 // const CardRowScrollButton = styled(TouchableHighlight)`
-//   background: ${theme.cardBg};
-//   box-shadow: ${theme.boxShadowLayer};
+//   background: ${theme.card.bg};
+//   box-shadow: ${theme.shadow.layer};
 //   padding: ${theme.spacingVertical / 4}px ${theme.spacingVertical / 10}px;
 //   position: absolute;
 //   ${props => props.align}: -${theme.spacingVertical}px;
@@ -72,7 +73,7 @@ const CardRowScrollhouse = View.extend`
 //   }
 // `;
 
-// const CardRowItems = View.extend`
+// const CardRowItems = styled(View)`
 //   width: 100%;
 //   overflow: hidden;
 //   flex-direction: row;

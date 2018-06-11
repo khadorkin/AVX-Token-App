@@ -1,112 +1,153 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react';
-import { View, Platform } from 'components/core';
+import { storeShape } from 'react-redux/es/utils/PropTypes';
+import { push } from 'connected-react-router';
+import { View, Platform, StyleSheet } from 'components/core';
+import Button from 'components/button';
 import styled from 'styled-components';
-import Link from 'components/link';
-import theme from 'theme';
-// import WunderBar from 'components/wunderbar';
 
+import RouterLink from 'components/router-link';
 import AvxLogoSvg from 'components/logo';
+
+import theme from 'theme';
 
 const paddingTop =
   {
     ios: 20,
   }[Platform.OS] || 0;
 
-const StyledHeader = (View.extend || View.extend)`
-  background: ${theme.headerBg};
+const StyledHeader = styled(View)`
+  background: ${theme.header.backgroundColor};
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   position: relative;
-  box-shadow: ${theme.boxShadowLayer};
+  box-shadow: ${theme.shadow.layer};
   padding-top: ${paddingTop}px;
   height: ${paddingTop + 40}px;
   min-height: ${paddingTop + 40}px;
   max-height: ${paddingTop + 40}px;
+  z-index: 1000;
 `;
 
-const HeaderItem = Link.extend`
-  justify-content: center;
-  padding-left: 0px;
-  padding-right: 0px;
-  margin: 0px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  min-width: ${theme.iconSize}px;
-  min-height: ${theme.iconSize}px;
-  max-width: ${theme.iconSize}px;
-  max-height: ${theme.iconSize}px;
-`;
-
-const WunderBarHeader = styled(HeaderItem)`
-  flex-grow: 1;
-  max-width: 20%;
-`;
+const styleSheet = StyleSheet.create({
+  button: {
+    alignSelf: 'stretch',
+    borderRadius: 0,
+    flexGrow: 0,
+    flexShrink: 0,
+    flexBasis: 'auto',
+    paddingLeft: 4,
+    paddingRight: 4,
+    marginLeft: 4,
+    marginRight: 4,
+    backgroundColor: 'transparent',
+  },
+  buttonActive: {
+    backgroundColor: theme.activeBackgroundColor,
+  },
+  buttonText: {
+    color: theme.textColor,
+    textTransform: 'none',
+    fontSize: '16px',
+    fontWeight: '400',
+    lineHeight: '17px',
+  },
+  buttonTextActive: {
+    color: theme.activeTextColor,
+  },
+});
 
 const logoSize = Platform.OS === 'web' ? 24 : 20;
-const logoMarginLeft = Platform.OS === 'web' ? 3 : 12;
-const logoMarginBottom = Platform.OS === 'web' ? 0 : -1;
 const AvxLogo = styled(AvxLogoSvg)`
   align-self: center;
   min-width: ${logoSize}px;
   height: ${logoSize}px;
   flex-grow: 0;
-  margin-left: ${logoMarginLeft}px;
-  margin-bottom: ${logoMarginBottom}px;
+  margin-left: 8px;
+  margin-right: 24px;
 `;
 
 class Header extends React.PureComponent {
-  render() {
+  static contextTypes = {
+    store: storeShape,
+  };
+
+  goTo(path, state = {}) {
+    // TODO: implement
     const {
-      balance,
-      back,
-      forward,
-      isBackDisabled,
-      isForwardDisabled,
-      isUpgradeAvailable,
-      autoUpdateDownloaded,
-      downloadUpgradeRequested,
-    } = this.props;
+      store: { dispatch },
+    } = this.context;
+    dispatch(push(path, state));
+  }
+
+  goToTrending = () => {
+    this.goTo('/trending');
+  };
+
+  goToVideos = () => {
+    this.goTo('/video');
+  };
+
+  goToWallet = () => {
+    this.goTo('/wallet');
+  };
+
+  goToPreferences = () => {
+    this.goTo('/preferences');
+  };
+
+  render() {
     return (
       <StyledHeader>
-        <AvxLogo label={Platform.OS === 'web'} secondaryColor={theme.defaultTextColor} />
-        <HeaderItem onClick={back} disabled={isBackDisabled} icon="arrow-left" title={__('Back')} />
-        <HeaderItem
-          onClick={forward}
-          disabled={isForwardDisabled}
-          icon="arrow-right"
-          title={__('Forward')}
+        <AvxLogo
+          label={Platform.OS === 'web'}
+          secondaryColor={theme.textColor}
+          color="transparent"
         />
-        <HeaderItem to="/discover" icon="home" title={__('Discover Content')} />
-        <HeaderItem to="/subscriptions" icon="at" title={__('My Subscriptions')} />
-        <WunderBarHeader>{/*<WunderBar />*/}</WunderBarHeader>
-        <HeaderItem
+        <RouterLink
+          to="/video"
+          title={__('Videos')}
+          style={styleSheet.button}
+          activeStyle={styleSheet.buttonActive}
+          textStyle={styleSheet.buttonText}
+          activeTextStyle={styleSheet.buttonTextActive}
+          component={Button}
+          onPress={this.goToVideos}
+        />
+        <RouterLink
+          to="/trending"
+          title={__('Trending')}
+          style={styleSheet.button}
+          activeStyle={styleSheet.buttonActive}
+          textStyle={styleSheet.buttonText}
+          activeTextStyle={styleSheet.buttonTextActive}
+          component={Button}
+          onPress={this.goToTrending}
+        />
+        <View style={{ flex: 1 }} />
+        <RouterLink
           to="/wallet"
-          button="text"
-          className="no-underline"
-          icon="bank"
-          label={balance}
           title={__('Wallet')}
+          style={styleSheet.button}
+          activeStyle={styleSheet.buttonActive}
+          textStyle={styleSheet.buttonText}
+          activeTextStyle={styleSheet.buttonTextActive}
+          component={Button}
+          onPress={this.goToWallet}
         />
-        {/*<HeaderItem
-          onClick={() => navigate('/publish')}
-          button="primary button--flat"
-          icon="upload"
-          label={__('Publish')}
-        />*/}
-        <HeaderItem onClick="/downloaded" icon="folder" title={__('Downloads and Publishes')} />
-        <HeaderItem onClick="/settings" icon="gear" title={__('Settings')} />
-        {(autoUpdateDownloaded || (process.platform === 'linux' && isUpgradeAvailable)) && (
-          <HeaderItem
-            onClick={() => downloadUpgradeRequested()}
-            button="primary button--flat"
-            icon="arrow-up"
-            label={__('Upgrade App')}
-          />
-        )}
+        <RouterLink
+          to="/preferences"
+          title={__('Preferences')}
+          style={styleSheet.button}
+          activeStyle={styleSheet.buttonActive}
+          textStyle={styleSheet.buttonText}
+          activeTextStyle={styleSheet.buttonTextActive}
+          component={Button}
+          onPress={this.goToPreferences}
+        />
       </StyledHeader>
     );
   }

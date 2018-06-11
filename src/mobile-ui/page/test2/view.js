@@ -10,19 +10,19 @@ const ButtonContent = styled(Text)`
   margin: 10px;
 `;
 
-const Welcome = View.extend`
+const Welcome = styled(View)`
   font-size: 20px;
   text-align: center;
   margin: 10px;
 `;
 
-const Container = View.extend`
+const Container = styled(View)`
   flex-grow: 1;
   flex-direction: column;
   align-items: center;
 `;
 
-const Block = View.extend`
+const Block = styled(View)`
   padding: 24px 0px;
   flex-basis: auto;
   flex-shrink: 0;

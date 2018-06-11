@@ -58,7 +58,7 @@ module.exports = webpackMerge(baseConfig, {
     // See "Other node core libraries" for additional options.
   },
   entry: {
-    renderer: [path.resolve(__dirname, '../src/mobile-ui/index.js')],
+    renderer: [path.resolve(__dirname, '../src/mobile-ui/index.web.js')],
   },
   output: {
     path: path.join(__dirname, '../dist/mobile-ui'),

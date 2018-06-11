@@ -5,9 +5,9 @@ import { Image } from 'react-native';
 import theme from 'theme';
 
 const ImageCard = styled(Image)`
-  flex: 0 0 ${theme.cardWidth};
-  min-height: ${theme.cardWidth};
-  min-width: ${theme.cardWidth};
+  flex: 0 0 ${theme.card.width};
+  min-height: ${theme.card.width};
+  min-width: ${theme.card.width};
 `;
 
 class CardMedia extends React.PureComponent {

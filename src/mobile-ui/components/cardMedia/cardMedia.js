@@ -6,16 +6,16 @@ import theme from 'theme';
 import imageCard from './imageCard';
 
 const ImageCard = imageCard.extend`
-  min-height: ${theme.cardWidth - 4 * theme.fontSize}px
-  min-width: ${theme.cardWidth}px;
+  min-height: ${theme.card.width - 4 * theme.fontSize}px
+  min-width: ${theme.card.width}px;
   background-color: #cccccc;
-  flex: 0 0 ${theme.cardWidth - 4 * theme.fontSize}px;
+  flex: 0 0 ${theme.card.width - 4 * theme.fontSize}px;
 `;
 
-const OuterCard = View.extend`
+const OuterCard = styled(View)`
   position: relative;
   background-color: #cccccc;
-  flex: 0 0 ${theme.cardWidth - 4 * theme.fontSize}px;
+  flex: 0 0 ${theme.card.width - 4 * theme.fontSize}px;
 `;
 
 const InnerCard = styled(Text)`

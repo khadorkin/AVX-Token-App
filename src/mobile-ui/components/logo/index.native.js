@@ -13,7 +13,7 @@ export default class IconLogo extends React.PureComponent {
   static defaultProps = {
     label: false,
     primaryColor: '#3BBCE9',
-    secondaryColor: theme.defaultTextColor,
+    secondaryColor: theme.textColor,
   };
 
   renderLabel(primaryColor, secondaryColor) {

@@ -4,13 +4,14 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Platform, View, FlatList, RefreshControl } from 'react-native';
+import { Platform, View, FlatList, RefreshControl } from 'components/core';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
-import CardThree from './components/ListCard';
+import { registerNavigator } from 'redux/router';
+import ListCard from './components/ListCard';
 import ProgressBar from '../_global/ProgressBar';
 import styles from './styles/List';
-import nav from '../_global/nav';
 
 class VideosList extends Component {
   static navigatorButtons = {
@@ -18,7 +19,7 @@ class VideosList extends Component {
       {
         id: 'side-menu', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
         systemItem: 'action',
-        component: 'DrawerButton',
+        component: 'structure.DrawerButton',
       },
     ],
   };
@@ -32,8 +33,13 @@ class VideosList extends Component {
       currentPage: 1,
     };
 
-    nav.set(this.props.navigator);
-    this.clearNavigatorEvent = this.props.navigator.addOnNavigatorEvent(this._onNavigatorEvent);
+    const {
+      props: { navigator },
+    } = this;
+    if (navigator) {
+      registerNavigator('video', navigator);
+      this.clearNavigatorEvent = navigator.addOnNavigatorEvent(this._onNavigatorEvent);
+    }
   }
 
   componentWillMount() {
@@ -45,7 +51,7 @@ class VideosList extends Component {
   }
 
   componentWillUnmount() {
-    this.clearNavigatorEvent();
+    if (this.clearNavigatorEvent) this.clearNavigatorEvent();
   }
 
   _retrieveVideosList(isRefreshed) {
@@ -70,15 +76,15 @@ class VideosList extends Component {
 
   _viewMovie = details => {
     const movieId = details.infohash;
-    this.props.navigator.push({
-      screen: 'avxtokenapp.VideosList/Detail',
-      passProps: {
+    this.props.dispatch(
+      push(`/video/${movieId}`, {
         movieId,
-        details,
-      },
-      animationType: 'slide-horizontal',
-      backButtonHidden: false, // hide the back button altogether (optional)
-    });
+        _options: {
+          animationType: 'slide-horizontal',
+          backButtonHidden: false,
+        },
+      })
+    );
   };
 
   _onRefresh = () => {
@@ -105,10 +111,14 @@ class VideosList extends Component {
     );
   };
 
-  _renderItem = ({ item }) => <CardThree info={item} viewMovie={this._viewMovie} />;
+  _renderItem = ({ item }) => <ListCard info={item} viewMovie={this._viewMovie} />;
 
   _renderSeparator() {
     return <View style={styles.seperator} />;
+  }
+
+  _keyExtractor(item) {
+    return item.infohash;
   }
 
   render() {
@@ -125,6 +135,7 @@ class VideosList extends Component {
         renderItem={this._renderItem}
         ItemSeparatorComponent={this._renderSeparator}
         ListFooterComponent={this._renderFooter}
+        keyExtractor={this._keyExtractor}
         refreshControl={
           <RefreshControl
             refreshing={this.state.isRefreshing}
@@ -145,6 +156,7 @@ VideosList.propTypes = {
   list: PropTypes.array.isRequired,
   total_pages: PropTypes.number,
   navigator: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
 let navigatorStyle = {};

@@ -8,7 +8,7 @@
 // const styled = require('styled-components').default;
 
 // const Text = styled(ReactNative.Text)`
-//   color: ${theme.defaultTextColor};
+//   color: ${theme.textColor};
 // `;
 
 // Object.defineProperties(ReactNative, {

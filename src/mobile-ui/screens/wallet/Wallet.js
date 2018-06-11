@@ -4,14 +4,14 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Platform, View, Text, RefreshControl, FlatList } from 'react-native';
+import { Platform, View, Text, RefreshControl, FlatList } from 'components/core';
 import { connect } from 'react-redux';
 
 import { selectFormattedBalance } from 'redux/selectors/wallet';
+import { registerNavigator } from 'redux/router';
 // import ProgressBar from '../_global/ProgressBar';
 import CardTransaction from './components/CardTransaction';
 import styles from './styles/Wallet';
-import nav from '../_global/nav';
 
 class Wallet extends Component {
   static navigatorButtons = {
@@ -20,7 +20,7 @@ class Wallet extends Component {
         // title: 'sideMenu', // for a textual button, provide the button title (label)
         id: 'side-menu', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
         // systemItem: 'action',
-        component: 'DrawerButton',
+        component: 'structure.DrawerButton',
       },
     ],
   };
@@ -32,7 +32,7 @@ class Wallet extends Component {
       // isLoading: false, // true,
       isRefreshing: false,
     };
-    nav.set(this.props.navigator);
+    registerNavigator('wallet', this.props.navigator);
   }
 
   componentWillMount() {
@@ -51,6 +51,10 @@ class Wallet extends Component {
     this.setState({ isRefreshing: true });
     this._retrieveWallet('isRefreshed');
   };
+
+  _keyExtractor(item) {
+    return item.name;
+  }
 
   renderItem({ item }) {
     return <CardTransaction title={item.name} value={item.value} />;
@@ -71,6 +75,7 @@ class Wallet extends Component {
         <FlatList
           style={styles.transactions}
           data={transactions}
+          keyExtractor={this._keyExtractor}
           renderItem={this.renderItem}
           ListFooterComponent={this._renderFooter}
           refreshControl={

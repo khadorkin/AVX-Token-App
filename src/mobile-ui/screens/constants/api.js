@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 // import Config from 'react-native-config';
 const Config = {};
 

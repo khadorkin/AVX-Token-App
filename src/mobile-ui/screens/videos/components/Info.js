@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View } from 'react-native';
+import { Text, View } from 'components/core';
 import moment from 'moment';
 import numeral from 'numeral';
 

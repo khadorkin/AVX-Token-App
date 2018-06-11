@@ -1,31 +1,30 @@
-import '@babel/polyfill';
+/* eslint-disable global-require */
+import React from 'react'; // eslint-disable-line
+import { AppRegistry, NativeModules } from 'react-native'; // eslint-disable-line
+import { Navigation } from 'react-native-navigation';
+import { applyInitialLocation, connectedRouter } from 'redux/router';
 
-// import React from 'react';
-// import { View } from 'react-native';
-import { AppRegistry, NativeModules, Platform } from 'react-native';
+import Theme from 'theme';
+import { registerScreens } from './screens';
+import { createStore } from './store';
+import { AppConfig } from './screens/navigation';
+import { createHistory } from './store/history';
 
-import 'styles';
-// const Root = () => <View />;
-import Root from './core/root';
-import webWorker from './api/webworker';
-
-window.__ = t => t; // eslint-disable-line
-
-AppRegistry.registerComponent('avxtokenapp', () => Root);
-
-if (Platform.OS === 'web') {
-  AppRegistry.runApplication('avxtokenapp', {
-    initialProps: {},
-    rootTag: document.getElementById('avxtokenapp'),
-  });
-  if (process.env.API_SERVER.indexOf('webworker') === 0) {
-    webWorker(process.env.API_SERVER.slice(10));
-  }
-} else {
-  // eslint-disable-next-line no-lonely-if
-  if (__DEV__) {
-    if (NativeModules.DevSettings) {
-      NativeModules.DevSettings.setIsDebuggingRemotely(true);
-    }
+if (__DEV__) {
+  if (NativeModules.DevSettings) {
+    NativeModules.DevSettings.setIsDebuggingRemotely(true);
   }
 }
+
+const start = async () => {
+  const [history] = await Promise.all([createHistory(), Theme.load()]);
+  const store = createStore(history);
+
+  connectedRouter(store, history, AppConfig);
+  await applyInitialLocation();
+
+  const provider = require('./core/provider.mobile');
+  registerScreens(store, provider);
+  Navigation.startTabBasedApp(AppConfig);
+};
+start();

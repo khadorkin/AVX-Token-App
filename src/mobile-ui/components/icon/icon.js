@@ -15,7 +15,7 @@ const platformStyles = {
 };
 
 const StyledIcon = (Icon.extend || styledNative(Icon))`
-  color: ${theme.defaultTextColor};
+  color: ${theme.textColor};
   text-align: center;
   flex-shrink: 0;
   flex-grow: 0;

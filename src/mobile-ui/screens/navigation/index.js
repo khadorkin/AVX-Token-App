@@ -1,6 +1,4 @@
-import Navigator from './navigator';
-
-const appConfig = {
+export const AppConfig = {
   animationType: 'fade',
   passProps: {},
   appStyle: {
@@ -15,25 +13,25 @@ const appConfig = {
   },
   tabs: [
     {
-      screen: 'avxtokenapp.VideosList',
+      screen: 'tab.video',
       title: 'Videos',
     },
     {
-      screen: 'avxtokenapp.VideosTrending',
+      screen: 'tab.trending',
       title: 'Trending',
     },
     {
-      screen: 'avxtokenapp.Wallet',
+      screen: 'tab.wallet',
       title: 'Wallet',
     },
     {
-      screen: 'avxtokenapp.Preferences',
+      screen: 'tab.preferences',
       title: 'Preferences',
     },
   ],
   drawer: {
     left: {
-      screen: 'avxtokenapp.Drawer',
+      screen: 'structure.Drawer',
     },
     // ( iOS only )
     style: {
@@ -48,15 +46,4 @@ const appConfig = {
     // for TheSideBar: 'airbnb', 'facebook', 'luvocracy','wunder-list'
     animationType: 'slide',
   },
-};
-
-export const navigator = new Navigator(appConfig);
-
-export const AppConfig = async () => {
-  const [initialTab] = await navigator.findCurrentTab();
-  if (initialTab !== -1) {
-    const [tab] = appConfig.tabs.splice(initialTab, 1);
-    appConfig.tabs.splice(0, 0, tab);
-  }
-  return appConfig;
 };

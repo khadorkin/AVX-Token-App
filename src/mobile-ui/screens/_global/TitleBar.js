@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
+
 import React, { PureComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'components/core';
 
 const styles = StyleSheet.create({
   titleBar: {

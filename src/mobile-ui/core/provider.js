@@ -1,33 +1,27 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider as Redux } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { Platform } from 'components/core';
-import { ConnectedRouter } from 'connected-react-router';
 
 import theme from 'theme';
-import { store } from '../store';
-import App from './app';
-import history from '../store/history';
+import { ConnectedRouter } from 'connected-react-router';
+import { getHistory } from '../store/history';
+import { getStore } from '../store';
+
+const history = getHistory();
+const store = getStore();
 
 class AppProvider extends React.PureComponent {
   render() {
     return (
-      <Provider store={store} {...this.props}>
+      <Redux store={store}>
         <ThemeProvider theme={theme}>
-          <ConnectedRouter history={history}>
-            <App />
-          </ConnectedRouter>
+          <ConnectedRouter history={history}>{this.props.children}</ConnectedRouter>
         </ThemeProvider>
-      </Provider>
+      </Redux>
     );
   }
 }
 
-let HotProvider = AppProvider;
-if (Platform.OS === 'web') {
-  // eslint-disable-next-line import/no-extraneous-dependencies
-  HotProvider = require('react-hot-loader').hot(module)(AppProvider); // eslint-disable-line global-require
-}
-
-const ConstProvider = HotProvider;
-export default ConstProvider;
+export default AppProvider;

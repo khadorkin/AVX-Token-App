@@ -1,19 +1,32 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/prop-types */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Platform, View, FlatList, RefreshControl } from 'react-native';
+import { Text, View, FlatList, StyleSheet } from 'components/core';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
+import theme from 'theme';
 
 import { registerNavigator } from 'redux/router';
-import CardThree from './components/ListCard';
-import ProgressBar from '../_global/ProgressBar';
-import styles from './styles/List';
+import ListCard from '../components/ListCard';
+import ProgressBar from '../../_global/ProgressBar';
+import styles from '../styles/List';
 
-class VideosTrending extends Component {
+const groupStyles = StyleSheet.create({
+  title: {
+    fontSize: 19,
+    fontWeight: '500',
+    color: theme.textColorDim,
+    paddingLeft: 12,
+    paddingTop: 24,
+    paddingBottom: 10,
+  },
+});
+
+class VideosList extends Component {
   static navigatorButtons = {
     leftButtons: [
       {
@@ -37,13 +50,13 @@ class VideosTrending extends Component {
       props: { navigator },
     } = this;
     if (navigator) {
-      registerNavigator('trending', navigator);
+      registerNavigator('video', navigator);
       this.clearNavigatorEvent = navigator.addOnNavigatorEvent(this._onNavigatorEvent);
     }
   }
 
   componentWillMount() {
-    this._retrieveVideosTrending();
+    this._retrieveVideosList();
   }
 
   shouldComponentUpdate(nextState, nextProps) {
@@ -54,8 +67,8 @@ class VideosTrending extends Component {
     if (this.clearNavigatorEvent) this.clearNavigatorEvent();
   }
 
-  _retrieveVideosTrending(isRefreshed) {
-    // this.props.actions.retrieveVideosTrending(this.props.type, this.state.currentPage).then(() => {
+  _retrieveVideosList(isRefreshed) {
+    // this.props.actions.retrieveVideosList(this.props.type, this.state.currentPage).then(() => {
     if (isRefreshed && this.setState({ isRefreshing: false }));
   }
 
@@ -74,23 +87,9 @@ class VideosTrending extends Component {
     }
   };
 
-  _viewMovie = details => {
-    const movieId = details.infohash;
-    // eslint-disable-next-line react/prop-types
-    this.props.dispatch(
-      push(`/trending/${movieId}`, {
-        movieId,
-        _options: {
-          animationType: 'slide-horizontal',
-          backButtonHidden: false,
-        },
-      })
-    );
-  };
-
   _onRefresh = () => {
     this.setState({ isRefreshing: true });
-    this._retrieveVideosTrending('isRefreshed');
+    this._retrieveVideosList('isRefreshed');
   };
 
   _onNavigatorEvent = event => {
@@ -112,7 +111,7 @@ class VideosTrending extends Component {
     );
   };
 
-  _renderItem = ({ item }) => <CardThree info={item} viewMovie={this._viewMovie} />;
+  _renderItem = ({ item }) => <ListCard info={item} viewMovie={this.props.viewMovie} />;
 
   _renderSeparator() {
     return <View style={styles.seperator} />;
@@ -123,69 +122,42 @@ class VideosTrending extends Component {
   }
 
   render() {
-    return this.state.isLoading ? (
-      <View style={styles.progressBar}>
-        <ProgressBar />
-      </View>
-    ) : (
+    const {
+      info: { name },
+    } = this.props;
+    return [
+      <Text style={groupStyles.title} key={name}>
+        {name}
+      </Text>,
       <FlatList
+        key="list"
         style={styles.container}
         enableEmptySections
+        horizontal
         onEndReached={this._retrieveNextPage}
         data={this.props.list}
-        keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}
         ItemSeparatorComponent={this._renderSeparator}
-        ListFooterComponent={this._renderFooter}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.isRefreshing}
-            onRefresh={this._onRefresh}
-            colors={['#EA0000']}
-            tintColor="white"
-            title="loading..."
-            titleColor="white"
-            progressBackgroundColor="white"
-          />
-        }
-      />
-    );
+        keyExtractor={this._keyExtractor}
+      />,
+    ];
   }
 }
 
-VideosTrending.propTypes = {
+VideosList.propTypes = {
   list: PropTypes.array.isRequired,
   total_pages: PropTypes.number,
   navigator: PropTypes.object,
+  info: PropTypes.object,
 };
 
-let navigatorStyle = {};
-
-if (Platform.OS === 'ios') {
-  navigatorStyle = {
-    navBarTranslucent: true,
-    drawUnderNavBar: true,
-  };
-} else {
-  navigatorStyle = {
-    navBarBackgroundColor: '#0a0a0a',
-  };
-}
-
-VideosTrending.navigatorStyle = {
-  ...navigatorStyle,
-  statusBarColor: 'black',
-  statusBarTextColorScheme: 'light',
-  navBarTextColor: 'white',
-  navBarButtonColor: 'white',
-};
-
-function mapStateToProps({ videosList: { videos } }) {
+function mapStateToProps({ videosList: { videos } }, { info }) {
   return {
+    info,
     type: 'video',
     total_pages: 1,
     list: videos,
   };
 }
 
-export default connect(mapStateToProps)(VideosTrending);
+export default connect(mapStateToProps)(VideosList);

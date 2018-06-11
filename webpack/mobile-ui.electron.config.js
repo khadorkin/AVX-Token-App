@@ -38,13 +38,13 @@ module.exports = {
       styles: path.join(srcRoot, 'styles'),
       fontawesome: path.resolve(__dirname, '../static/font'),
     },
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: ['.web.js', '.js', '.jsx', '.css'],
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules(?!\/react-native-vector-icons)|packages/, // <- comment this if you want hot-reload node_modules
+        exclude: /node_modules(?!\/(react-native-vector-icons|react-native-web-linear-gradient))|packages/, // <- comment this if you want hot-reload node_modules
         use: {
           loader: 'babel-loader',
           options: {
@@ -60,6 +60,9 @@ module.exports = {
                 {
                   root: ['./src/mobile-ui'],
                   alias: {
+                    'react-native': 'react-native-web',
+                    'react-router-platform': 'react-router-dom',
+                    'react-native-linear-gradient': 'react-native-web-linear-gradient',
                     components: path.join(srcRoot, 'components'),
                     constants: path.join(srcRoot, 'constants'),
                     'redux/actions': path.join(srcRoot, 'redux', 'actions'),
@@ -71,7 +74,7 @@ module.exports = {
                     static: path.join('./static'),
                     theme: path.join(srcRoot, 'styles', 'theme'),
                   },
-                  extensions: ['.js', '.css'],
+                  extensions: ['.web.js', '.js', '.css'],
                 },
               ],
               ['babel-plugin-styled-components'],

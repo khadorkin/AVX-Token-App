@@ -8,10 +8,11 @@ import { BusyMessage } from 'components/common';
 // import CardMedia from 'components/cardMedia';
 // import Video from 'components/player';
 // import UriIndicator from 'components/uriIndicator';
+import styled from 'styled-components';
 import { Text, View } from 'components/core';
 import { StateComponent } from 'components/react';
 
-const Content = View.extend`
+const Content = styled(View)`
   align-self: stretch;
   flex-grow: 1;
   display: flex;

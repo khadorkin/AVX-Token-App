@@ -20,7 +20,7 @@ const Instructions = styled(Text)`
   margin-bottom: 5px;
 `;
 
-const ButtonContent = View.extend`
+const ButtonContent = styled(View)`
   background-color: #00bcd4;
   margin-top: 20px;
 `;
@@ -29,18 +29,18 @@ const CustomButton = styled(Button)`
   margin-top: 20px;
 `;
 
-const Welcome = View.extend`
+const Welcome = styled(View)`
   font-size: 20px;
   text-align: center;
   margin: 10px;
 `;
 
-const Container = View.extend`
+const Container = styled(View)`
   flex-grow: 1;
   flex-direction: column;
 `;
 
-const Block = View.extend`
+const Block = styled(View)`
   padding: 24px 0px;
   flex-basis: auto;
   flex-shrink: 0;

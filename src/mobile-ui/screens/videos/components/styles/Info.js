@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'components/core';
+import theme from 'theme';
+
+const { textColorBright, textColorDim } = theme;
 
 const styles = StyleSheet.create({
   container: {
@@ -10,18 +13,18 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   overviewText: {
-    color: '#d2d2d2',
+    color: textColorDim,
     fontSize: 14,
     paddingTop: 10,
     lineHeight: 22,
   },
   label: {
-    color: 'white',
+    color: textColorBright,
     fontSize: 16,
     fontWeight: '500',
   },
   value: {
-    color: '#d2d2d2',
+    color: textColorDim,
     fontSize: 14,
   },
   labelRow: {

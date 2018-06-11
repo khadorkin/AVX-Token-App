@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, TruncatedText, TouchableOpacity, View } from 'components/core';
 
 import styles from './styles/CardTwo';
 
@@ -15,9 +15,9 @@ class CardTwo extends PureComponent {
         <View style={styles.cardContainer}>
           <Image source={info.poster} style={styles.cardImage} />
           <View style={styles.cardTitleContainer}>
-            <Text style={styles.cardTitle} numberOfLines={2}>
+            <TruncatedText style={styles.cardTitle} numberOfLines={2}>
               {info.original_title}
-            </Text>
+            </TruncatedText>
           </View>
         </View>
       </TouchableOpacity>
@@ -26,7 +26,7 @@ class CardTwo extends PureComponent {
 }
 
 CardTwo.propTypes = {
-  info: PropTypes.object.isRequired,
+  info: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   viewMovie: PropTypes.func.isRequired,
 };
 

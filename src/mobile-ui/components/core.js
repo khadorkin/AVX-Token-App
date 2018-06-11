@@ -2,65 +2,33 @@
 /* eslint-disable react/no-multi-comp */
 
 import React from 'react';
-import styled from 'styled-components';
-import { Button as RnButton, Image as RnImage } from 'react-native-web';
+import { StyleSheet, Text as NativeText } from 'react-native';
+import theme from 'theme';
 
-export {
-  AppRegistry,
-  // Button,
-  Platform,
-  NativeModules,
-  StyleSheet,
-  StatusBar,
-  ScrollView,
-  TouchableHighlight,
-} from 'react-native-web';
+export * from 'react-native';
 
-export const Image = RnImage;
+const styles = StyleSheet.create({
+  textDefault: {
+    color: theme.defaultColor,
+  },
+});
 
-class RawView extends React.PureComponent {
-  render() {
-    return <div {...this.props}>{this.props.children}</div>;
-  }
-}
-export const View = styled(RawView)`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-stretch;
-`;
+export const Text = ({ style = styles.textDefault, ...props }) => (
+  <NativeText style={style} {...props} />
+);
+export const TruncatedText = Text;
 
-export class Text extends React.PureComponent {
-  render() {
-    return <p {...this.props}>{this.props.children}</p>;
-  }
-}
+// class RawView extends React.PureComponent {
+//   render() {
+//     if (typeof this.props.children === 'string') {
+//       return <NativeText {...this.props} />;
+//     }
+//     return <NativeView {...this.props} />;
+//   }
+// }
+// export const View = styled(RawView)`
+//   margin: 0;
+//   padding: 0;
+// `;
 
-class RawButton extends React.PureComponent {
-  render() {
-    const { props } = this;
-    return <RnButton {...props}>{props.title || props.children}</RnButton>;
-  }
-}
-
-export const ButtonStyle = `
-background-color: #2196F3;
-border-radius: 2;
-color: #fff;
-font-weight: 500',
-padding: 8;
-text-align: center;
-text-transform: uppercase;
-flex-grow: 0;
-&.disabled {
-  background-color: '#dfdfdf'
-  color: '#a1a1a1'
-}
-`;
-export const Button = styled(RawButton)(ButtonStyle);
-
-export class TextInput extends React.PureComponent {
-  render() {
-    return <input {...this.props} />;
-  }
-}
+// export const Image = NativeImage;

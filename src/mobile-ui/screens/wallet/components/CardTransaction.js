@@ -1,8 +1,8 @@
 /* eslint-disable new-cap */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, StyleSheet } from 'react-native';
-import theme from '../../_global/theme';
+import { Text, View, StyleSheet } from 'components/core';
+import theme from 'theme';
 
 const styles = StyleSheet.create({
   card: {

@@ -1,9 +1,8 @@
 /* eslint-disable new-cap */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TruncatedText, TouchableOpacity, View } from 'components/core';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { connect } from 'react-redux';
 
 import styles from './styles/CardThree';
 
@@ -22,9 +21,9 @@ class CardThree extends PureComponent {
           <View style={styles.card}>
             <Image source={info.poster} style={styles.cardImage} />
             <View style={styles.cardDetails}>
-              <Text style={styles.cardTitle} numberOfLines={3}>
+              <TruncatedText style={styles.cardTitle} numberOfLines={3}>
                 {info.original_title}
-              </Text>
+              </TruncatedText>
               <View style={styles.cardGenre}>
                 <Text style={styles.cardGenreItem}>{info.release_date.substring(0, 4)}</Text>
               </View>
@@ -35,9 +34,9 @@ class CardThree extends PureComponent {
                 </View>
                 <Text style={styles.cardRunningHours} />
               </View>
-              <Text style={styles.cardDescription} numberOfLines={3}>
+              <TruncatedText style={styles.cardDescription} numberOfLines={3}>
                 {info.overview}
-              </Text>
+              </TruncatedText>
             </View>
           </View>
         </TouchableOpacity>
@@ -47,14 +46,8 @@ class CardThree extends PureComponent {
 }
 
 CardThree.propTypes = {
-  info: PropTypes.object.isRequired,
+  info: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   viewMovie: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
-  return {
-    // moviesGenres: state.movies.genres,
-  };
-}
-
-export default connect(mapStateToProps, null)(CardThree);
+export default CardThree;

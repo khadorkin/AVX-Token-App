@@ -7,12 +7,6 @@ import theme from 'theme';
 
 import AvxLogoSvg from 'components/logo';
 
-// import Animation from './animation';
-
-const icon = {
-  // style: Animation,
-};
-
 const defaultLogoSize = Platform.OS === 'web' ? '12vw' : '78%';
 const AvxLogo = styled(AvxLogoSvg)`
   align-self: center;
@@ -29,9 +23,8 @@ class Header extends React.PureComponent {
       <View {...props}>
         <AvxLogo
           label
-          secondaryColor={theme.defaultTextColor}
+          secondaryColor={theme.textColor}
           style={{ minWidth: logoSize, height: logoSize, overflow: 'visible' }}
-          icon={icon}
         />
       </View>
     );
@@ -44,4 +37,5 @@ export default styled(Header)`
   justify-content: center;
   width: 100%;
   height: 100%;
+  flex-grow: 1;
 `;

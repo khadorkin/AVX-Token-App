@@ -4,19 +4,36 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Image, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { Image, ScrollView, Text, View } from 'components/core';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 // import ScrollableTabView from 'react-native-scrollable-tab-view';
 // import Swiper from 'react-native-swiper';
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import theme from 'theme';
 
 import Info from './components/Info';
 // import ProgressBar from '../_global/ProgressBar';
 import styles from './styles/Movie';
 
+const gradient = [
+  `rgba(${theme.backgroundColorRgb}, 0.3)`,
+  `rgba(${theme.backgroundColorRgb}, 0.3)`,
+  `rgba(${theme.backgroundColorRgb}, 0.8)`,
+];
+
 class VideoDetail extends Component {
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        id: 'back', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+        systemItem: 'action',
+        component: 'structure.BackButton',
+      },
+    ],
+  };
+
   constructor(props) {
     super(props);
 
@@ -25,7 +42,7 @@ class VideoDetail extends Component {
       // heightAnim: null,
       infoTabHeight: null,
       isLoading: false, //true,
-      isRefreshing: false,
+      // isRefreshing: false,
       // showSimilarMovies: true,
       trailersTabHeight: null,
       tab: 0,
@@ -37,14 +54,11 @@ class VideoDetail extends Component {
     this._retrieveDetails();
   }
 
-  _retrieveDetails(isRefreshed) {
+  _retrieveDetails() {
     // this.props.actions.retrieveMovieDetails(this.props.movieId).then(() => {
     //   this._retrieveYoutubeDetails();
     // });
-    if (isRefreshed && this.setState({ isRefreshing: false }));
-    // window.requestAnimationFrame(() => {
-    //   this.setState({ isLoading: false });
-    // });
+    // if (isRefreshed && this.setState({ isRefreshing: false }));
   }
 
   _retrieveSimilarMovies() {
@@ -52,7 +66,7 @@ class VideoDetail extends Component {
   }
 
   _onRefresh = () => {
-    this.setState({ isRefreshing: true });
+    // this.setState({ isRefreshing: true });
     this._retrieveDetails('isRefreshed');
   };
 
@@ -118,10 +132,7 @@ class VideoDetail extends Component {
         <View style={{ height }}>
           <View style={styles.swiper}>
             <Image source={info.poster} style={styles.imageBackdrop} />
-            <LinearGradient
-              colors={['rgba(0, 0, 0, 0.2)', 'rgba(0,0,0, 0.2)', 'rgba(0,0,0, 0.7)']}
-              style={styles.linearGradient}
-            />
+            <LinearGradient colors={gradient} style={styles.linearGradient} />
           </View>
           <View style={styles.cardContainer}>
             <Image source={info.poster} style={styles.cardImage} />
@@ -163,25 +174,17 @@ VideoDetail.navigatorStyle = {
 };
 
 VideoDetail.propTypes = {
-  actions: PropTypes.object.isRequired,
-  details: PropTypes.object.isRequired,
+  details: PropTypes.object,
   navigator: PropTypes.object,
-  movieId: PropTypes.string.isRequired,
 };
 
 function mapStateToProps({ videosList: { videos } }, ownProps) {
-  const { movieId, details } = ownProps;
+  const movieId = ownProps.movieId || ((ownProps.match || {}).params || {}).movieId;
   return {
     movieId,
-    details: details || videos.find(vid => vid.infohash === movieId),
+    details: videos.find(vid => vid.infohash === movieId),
     // similarMovies: state.movies.similarMovies,
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {}, //bindActionCreators(moviesActions, dispatch),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoDetail);
+export default connect(mapStateToProps)(VideoDetail);

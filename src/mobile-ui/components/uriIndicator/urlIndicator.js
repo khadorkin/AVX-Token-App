@@ -1,12 +1,13 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Icon from 'components/icon';
 import Link from 'components/link';
 import { View, Text } from 'components/core';
 import theme from 'theme';
 
-const Inner = View.extend`
+const Inner = styled(View)`
   flex-direction: row;
   align-items: center;
   height: ${theme.iconSize}px;

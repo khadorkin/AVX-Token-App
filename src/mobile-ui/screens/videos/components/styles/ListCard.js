@@ -1,21 +1,23 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'components/core';
+import theme from 'theme';
+
+const { backgroundColor, textColorBright, textColorDim } = theme;
+
+const height = Platform.OS === 'web' ? 208 : 248;
 
 const styles = StyleSheet.create({
-  card: {
-    marginTop: 12,
-    marginBottom: 24,
-  },
+  card: {},
   linearGradient: {
     top: 0,
     left: 0,
     right: 0,
-    height: 248,
+    height,
     position: 'absolute',
   },
   imageBackdrop: {
     // flex: 1,
-    height: 248,
-    backgroundColor: 'black',
+    height,
+    backgroundColor,
   },
   cardContainer: {
     position: 'absolute',
@@ -23,6 +25,11 @@ const styles = StyleSheet.create({
     right: 16,
     left: 16,
     flexDirection: 'row',
+    ...Platform.select({
+      web: {
+        top: 12,
+      },
+    }),
   },
   cardImage: {
     height: 184,
@@ -34,7 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTitle: {
-    color: 'white',
+    color: textColorBright,
     fontSize: 19,
     fontWeight: '500',
     paddingTop: 10,
@@ -45,12 +52,13 @@ const styles = StyleSheet.create({
   cardGenreItem: {
     fontSize: 11,
     marginRight: 5,
-    color: 'white',
+    color: textColorBright,
   },
   cardDescription: {
-    color: '#f7f7f7',
+    color: textColorDim,
     fontSize: 13,
     marginTop: 5,
+    overflow: 'hidden',
   },
   cardNumbers: {
     flexDirection: 'row',
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
   cardStarRatings: {
     marginLeft: 5,
     fontSize: 12,
-    color: 'white',
+    color: textColorBright,
   },
   cardRunningHours: {
     marginLeft: 5,
@@ -78,7 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   viewButtonText: {
-    color: 'white',
+    color: '#fafafa',
     height: '100%',
   },
 });

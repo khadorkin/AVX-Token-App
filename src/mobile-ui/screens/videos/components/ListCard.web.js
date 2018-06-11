@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Image, Text, TruncatedText, TouchableOpacity, View } from 'components/core';
+import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+import { Image, Text, TruncatedText, TouchableOpacity, View } from 'components/core';
 import theme from 'theme';
 
 import styles from './styles/ListCard';
@@ -21,9 +22,9 @@ class ListCard extends PureComponent {
   };
 
   render() {
-    const { info, style, ...props } = this.props;
+    const { info, ...props } = this.props;
     return (
-      <View style={[style, styles.card]} {...props}>
+      <View {...props}>
         <Image source={info.poster} style={styles.imageBackdrop} />
         <LinearGradient colors={gradient} style={styles.linearGradient} />
         <View style={styles.cardContainer}>
@@ -59,7 +60,17 @@ class ListCard extends PureComponent {
 ListCard.propTypes = {
   info: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   viewMovie: PropTypes.func.isRequired,
-  style: PropTypes.oneOfType([PropTypes.number, PropTypes.array]), // eslint-disable-line react/require-default-props
 };
 
-export default ListCard;
+export default styled(ListCard)`
+  width: 360px;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  box-shadow: ${theme.shadow.layer};
+  user-select: none;
+  &:hover {
+    box-shadow: ${theme.shadow.focus};
+  }
+`;

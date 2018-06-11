@@ -4,12 +4,11 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+import { Text, View, TouchableOpacity, StyleSheet } from 'components/core';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
-
-import { navigator } from '../navigation';
-// import nav from '../_global/nav';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,54 +56,26 @@ const iconSize = 26;
 const iconColor = '#9f9f9f';
 
 class Drawer extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.clearNavigatorEvent = this.props.navigator.addOnNavigatorEvent(this._onNavigatorEvent);
-  }
-
-  componentWillUnmount() {
-    this.clearNavigatorEvent();
-  }
-
-  _onNavigatorEvent = event => {
-    console.warn('Drawer', event.id, event.type, event.link);
-    if (event.type === 'DeepLink') {
-      const [, tabName, ...pages] = event.link.split('/');
-      const tabIndex = navigator.findTab(tabName);
-      if (tabIndex !== -1) {
-        console.log('Drawer.handleDeepLink', tabName, pages);
-        this.props.navigator.switchToTab({ tabIndex });
-      }
-    }
-  };
-
-  _goTo = (screen, options = {}) => {
+  _goTo = (path, state = {}) => {
+    const { dispatch } = this.props;
     this._toggleDrawer();
-    const tabIndex = navigator.findTab(screen);
-    if (tabIndex === -1) {
-      console.error(`Unable to find tab for ${screen}`);
-      return;
-    }
-    this.props.navigator.switchToTab({
-      tabIndex,
-      ...options,
-    });
+    return dispatch(push(path, state));
   };
 
   _goToTrending = () => {
-    this._goTo('avxtokenapp.VideosTrending');
+    this._goTo('/trending');
   };
 
   _goToVideos = () => {
-    this._goTo('avxtokenapp.VideosList');
+    this._goTo('/video');
   };
 
   _goToWallet = () => {
-    this._goTo('avxtokenapp.Wallet');
+    this._goTo('/wallet');
   };
 
   _goToPreferences = () => {
-    this._goTo('avxtokenapp.Preferences');
+    this._goTo('/preferences');
   };
 
   _toggleDrawer() {
@@ -179,6 +150,7 @@ class Drawer extends PureComponent {
 
 Drawer.propTypes = {
   navigator: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
-export default Drawer;
+export default connect()(Drawer);

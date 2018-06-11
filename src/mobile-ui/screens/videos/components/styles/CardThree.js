@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'components/core';
 
 const styles = StyleSheet.create({
   cardContainer: {

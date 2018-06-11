@@ -12,8 +12,8 @@ import UriIndicator from 'components/uriIndicator';
 import CustomButton from 'components/customButton';
 import { ScrollView, Text, View, Platform } from 'components/core';
 
-const CardContent = View.extend`
-  padding: 0 ${theme.cardPadding / 2}px;
+const CardContent = styled(View)`
+  padding: 0 ${theme.card.padding / 2}px;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ const CardTitle = styled(Text)`
   ${theme.heading2};
   margin: 4px 0px 2px;
 `;
-const CardIcons = View.extend`
+const CardIcons = styled(View)`
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
@@ -31,12 +31,12 @@ const CardIcons = View.extend`
   flex-grow: 1;
 `;
 
-const Content = View.extend`
+const Content = styled(View)`
   align-self: center;
   max-width: 520px;
 `;
 
-const CardDescription = View.extend`
+const CardDescription = styled(View)`
   margin: 2px 0px 2px;
 `;
 

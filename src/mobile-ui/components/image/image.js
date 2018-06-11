@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { View } from 'components/core';
 import theme from 'theme';
 
-const ImageCard = View.extend`
+const ImageCard = styled(View)`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  flex: 0 0 ${theme.cardWidth};
+  flex: 0 0 ${theme.card.width};
 `;
 
 class ImageComponent extends React.PureComponent {

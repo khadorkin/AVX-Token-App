@@ -7,7 +7,7 @@ if (Platform.OS !== 'web') {
   window.fetch = undefined;
 }
 // eslint-disable-next-line
-const WebTorrent = require('webtorrent/webtorrent.min.formatted');
+const WebTorrent = require('webtorrent/webtorrent.min');
 if (fetch && !window.fetch) {
   window.fetch = fetch;
 }

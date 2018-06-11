@@ -4,9 +4,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'components/core';
+import styled from 'styled-components';
 
 // border-radius: 3px;
-const Impl = View.extend`
+const Impl = styled(View)`
   border-radius: 1px;
   transition-property: background;
   transition-duration: 160ms;

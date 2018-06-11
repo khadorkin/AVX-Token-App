@@ -1,6 +1,6 @@
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'components/core';
 
-import theme from '../../_global/theme';
+import theme from 'theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.backgroundColor,
     paddingLeft: 24,
     paddingRight: 24,
+    maxWidth: 560,
+    alignSelf: 'center',
+    width: '100%',
     ...Platform.select({
       ios: {
         paddingTop: 83,

@@ -1,5 +1,5 @@
 /* eslint-disable new-cap */
-import { PixelRatio } from 'react-native';
+import { PixelRatio } from 'components/core';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const navIconSize = (__DEV__ === false && Platform.OS === 'android') ? PixelRatio.getPixelSizeForLayoutSize(40) : 40; // eslint-disable-line
@@ -25,14 +25,16 @@ const iconsLoaded = new Promise((resolve, reject) => {
         icons[iconName][1]
       )
     )
-  ).then(sources => {
-    Object.keys(icons).forEach((iconName, idx) => {
-      iconsMap[iconName] = sources[idx];
-    });
+  )
+    .then(sources => {
+      Object.keys(icons).forEach((iconName, idx) => {
+        iconsMap[iconName] = sources[idx];
+      });
 
-    // Call resolve (and we are done)
-    resolve(true);
-  });
+      // Call resolve (and we are done)
+      resolve(true);
+    })
+    .catch(reject);
 });
 
 export { iconsMap, iconsLoaded };

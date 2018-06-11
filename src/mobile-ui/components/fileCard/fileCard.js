@@ -1,6 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { normalizeURI, uriInfoHash } from 'utils/lbryURI';
 import CardMedia from 'components/cardMedia';
 import Link from 'components/link';
@@ -17,19 +18,19 @@ import theme from 'theme';
   transition-duration: 0.2s;
   transition-timing-function: ${theme.animationStyle};*/
 const Card = Link.extend`
-  max-width: ${theme.cardMaxWidth}px;
-  min-height: ${theme.cardMaxWidth}px;
-  max-height: ${theme.cardMaxWidth}px;
-  background: ${theme.cardBg};
-  box-shadow: ${theme.boxShadowLayer};
-  border-radius: ${theme.cardRadius};
-  margin: ${theme.cardMargin / 2}px;
+  max-width: ${theme.card.maxWidth}px;
+  min-height: ${theme.card.maxWidth}px;
+  max-height: ${theme.card.maxWidth}px;
+  background: ${theme.card.bg};
+  box-shadow: ${theme.shadow.layer};
+  border-radius: ${theme.card.radius};
+  margin: ${theme.card.margin / 2}px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: ${theme.cardWidth}px;
+  flex-basis: ${theme.card.width}px;
   flex-wrap: nowrap;
   align-items: stretch;
   position: relative;
@@ -39,7 +40,7 @@ const Card = Link.extend`
 //   position: relative;
 //   z-index: 1;
 //   box-shadow: ${theme.boxShadowFocus};
-//   transform: scale(${theme.cardLinkScaling} props.theme.cardHoverTranslate});
+//   transform: scale(${theme.card.linkScaling} props.theme.card.hoverTranslate});
 //   transform-origin: 50% 50%;
 //   /* overflow-x: visible;
 //   overflow-y: visible; */
@@ -54,8 +55,8 @@ const Card = Link.extend`
 //   }
 // }
 
-const CardContent = View.extend`
-  padding: 0 ${theme.cardPadding / 2}px;
+const CardContent = styled(View)`
+  padding: 0 ${theme.card.padding / 2}px;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -70,7 +71,7 @@ const CardTitle = TruncatedText.extend`
 // color: ${theme.colorHelp};
 // font-size: 0.85em;
 // line-height: ${theme.fontLineHeight / 0.85};
-const CardIcons = View.extend`
+const CardIcons = styled(View)`
   display: flex;
   flex-direction: row-reverse;
   flex-shrink: 0;
