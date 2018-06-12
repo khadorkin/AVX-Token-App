@@ -16,6 +16,7 @@
         "styles": "./src/mobile-ui/styles",
         "static": "./static",
         "theme": "./src/mobile-ui/styles/theme",
+        "redux/router": "./src/mobile-ui/redux/router.js",
         "redux/actions": "./src/mobile-ui/redux/actions",
         "redux/reducers": "./src/mobile-ui/redux/reducers",
         "redux/selectors": "./src/mobile-ui/redux/selectors",

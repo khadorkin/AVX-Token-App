@@ -4,6 +4,7 @@ import theme from 'theme';
 const { backgroundColor, textColorBright, textColorDim } = theme;
 
 const height = Platform.OS === 'web' ? 208 : 248;
+const heightLarge = 348;
 
 const styles = StyleSheet.create({
   card: {},
@@ -17,6 +18,18 @@ const styles = StyleSheet.create({
   imageBackdrop: {
     // flex: 1,
     height,
+    backgroundColor,
+  },
+  linearGradientLarge: {
+    top: 0,
+    left: 0,
+    right: 0,
+    height: heightLarge,
+    position: 'absolute',
+  },
+  imageBackdropLarge: {
+    // flex: 1,
+    height: heightLarge,
     backgroundColor,
   },
   cardContainer: {

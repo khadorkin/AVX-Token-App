@@ -22,11 +22,12 @@ const platforms = {
     try {
       initialEntry = JSON.parse(await AsyncStorage.getItem('Navigator.lastScreen'));
     } catch (e) {
-      initialEntry = {
-        pathname: '/videos',
-        key: 'randomkey123',
-      };
+      console.warn(e);
     }
+    initialEntry = initialEntry || {
+      pathname: '/videos',
+      key: 'randomkey123',
+    };
     // TODO: fix initial hack for non-root view support
     initialEntry.pathname = `/${initialEntry.pathname.split('/')[1]}`;
     // eslint-disable-next-line no-console

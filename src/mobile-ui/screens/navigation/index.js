@@ -1,3 +1,4 @@
+const icon = require('./icon.png');
 export const AppConfig = {
   animationType: 'fade',
   passProps: {},
@@ -15,18 +16,22 @@ export const AppConfig = {
     {
       screen: 'tab.video',
       title: 'Videos',
+      icon,
     },
     {
       screen: 'tab.trending',
       title: 'Trending',
+      icon,
     },
     {
       screen: 'tab.wallet',
       title: 'Wallet',
+      icon,
     },
     {
       screen: 'tab.preferences',
       title: 'Preferences',
+      icon,
     },
   ],
   drawer: {

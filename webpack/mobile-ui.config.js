@@ -66,10 +66,6 @@ module.exports = webpackMerge(baseConfig, {
   },
   resolve: {
     modules: [appRoot, '../node_modules', 'node_modules', path.resolve(__dirname, '..')],
-    alias: {
-      'fs-chunk-store': path.resolve(__dirname, '../node_modules/memory-chunk-store'),
-      ut_pex: path.resolve(__dirname, 'lib/stub'),
-    },
   },
   plugins: [
     new HtmlWebpackPlugin({

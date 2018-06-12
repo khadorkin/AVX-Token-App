@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 import React from 'react'; // eslint-disable-line
-import { AppRegistry, NativeModules } from 'react-native'; // eslint-disable-line
+import { AppRegistry, NativeModules, NativeEventsReceiver, Platform } from 'react-native'; // eslint-disable-line
 import { Navigation } from 'react-native-navigation';
 import { applyInitialLocation, connectedRouter } from 'redux/router';
 
@@ -27,4 +27,14 @@ const start = async () => {
   registerScreens(store, provider);
   Navigation.startTabBasedApp(AppConfig);
 };
-start();
+
+if (Platform.OS === 'android') {
+  Navigation.isAppLaunched().then(appLaunched => {
+    if (appLaunched) {
+      start();
+    }
+    new NativeEventsReceiver().appLaunched(start);
+  });
+} else {
+  start();
+}

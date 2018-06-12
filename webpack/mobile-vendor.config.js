@@ -33,13 +33,6 @@ module.exports = webpackMerge(baseConfig, {
     // See "Other node core libraries" for additional options.
   },
 
-  resolve: {
-    alias: {
-      'fs-chunk-store': path.resolve(__dirname, '../node_modules/memory-chunk-store'),
-      ut_pex: path.resolve(__dirname, 'lib/stub'),
-    },
-  },
-
   entry: {
     vendor: [
       '@babel/polyfill',
